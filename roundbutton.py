@@ -9,13 +9,13 @@ class RoundedButton(tk.Canvas):
             relief="flat", highlightthickness=0, bg=bg)
         self.command = command
 
-        if cornerradius > 0.5*width:
-            print("Error: cornerradius is greater than width.")
-            return None
+        # if cornerradius > 0.5*width:
+        #     print("Error: cornerradius is greater than width.")
+        #     return None
 
-        if cornerradius > 0.5*height:
-            print("Error: cornerradius is greater than height.")
-            return None
+        # if cornerradius > 0.5*height:
+        #     print("Error: cornerradius is greater than height.")
+        #     return None
 
         rad = 2*cornerradius
         def shape():
@@ -41,40 +41,70 @@ class RoundedButton(tk.Canvas):
         self.configure(relief="raised")
         if self.command is not None:
             self.command()
-   
+aline = []
 
 def test1():
     print("x=200,y=0")
+    aline.append([200, 0])
+    print(aline)
+
 def test2():
     print("x=150,y=100")
+    aline.append([150, 100])
+    print(aline)
 def test3():
     print("x=250,y=100")
+    aline.append([250, 100])
+    print(aline)
 def test4():
     print("x=100,y=200")
+    aline.append([100, 100])
+    print(aline)
 def test5():
     print("x=200,y=200")
+    aline.append([200, 200])
+    print(aline)
 def test6():
     print("x=300,y=200")
+    aline.append([300, 200])
+    print(aline)
 def test7():
     print("x=50,y=300")
+    aline.append([50, 300])
+    print(aline)
 def test8():
     print("x=150,y=300")
+    aline.append([150, 300])
+    print(aline)
 def test9():
     print("x=250,y=300")
+    aline.append([250, 300])
+    print(aline)
 def test10():
     print("x=350,y=300")
+    aline.append([350, 300])
+    print(aline)
 def test11():
     print("x=0,y=400")
+    aline.append([0, 400])
+    print(aline)
 def test12():
     print("x=100,y=400")
+    aline.append([100, 400])
+    print(aline)
 def test13():
     print("x=200,y=400")
+    aline.append([200, 400])
+    print(aline)
 def test14():
     print("x=300,y=400")
+    aline.append([300, 400])
 def test15():
     print("x=400,y=400")
+    aline.append([400, 400])
+    print(aline)
 
-canvas = tk.Canvas(root, height=5000, width=7000, bg = 'white')
+canvas = tk.Canvas(root, height=2000, width=750, bg = 'white')
 canvas.pack()
 
 button1 = RoundedButton(root, 100, 100, 50, 0.02, 'pink', 'white', command=test1)
