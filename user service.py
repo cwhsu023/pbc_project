@@ -60,8 +60,17 @@ class Login(object):
         # 進入註冊介面
 
     def siginUp_interface(self):
-        # self.root.destroy()
+        #self.root.destroy()
         tkinter.messagebox.showinfo(title='小遊戲要開始啦，還不註冊嗎？', message='進入註冊介面')
+        self.root = tkinter.Tk()
+        self.root.title('註冊')
+        self.root.geometry('450x300')
+        self.canvas = tkinter.Canvas(self.root, height=200, width=500)  # 建立畫布
+        self.canvas.pack(side='top')
+        # 建立一個`label`名為`input username: `
+        self.label_username = tkinter.Label(self.root, text='username: ')
+        # 建立一個賬號輸入框,並設定尺寸
+        self.input_username = tkinter.Entry(self.root, width=30)
         # 進行登入資訊驗證
 
 
