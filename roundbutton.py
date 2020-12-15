@@ -50,7 +50,7 @@ def test3():
     print("你")
     
 
-canvas = tk.Canvas(root, height=500, width=700)
+canvas = tk.Canvas(root, height=500, width=700, bg = 'white')
 canvas.pack()
 
 button1 = RoundedButton(root, 100, 100, 50, 0.02, 'pink', 'white', command=test2)
