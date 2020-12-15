@@ -48,7 +48,8 @@ def test():
 canvas = tk.Canvas(root, height=300, width=500)
 canvas.pack()
 
-button = RoundedButton(root, 200, 100, 50, 2, 'red', 'white', command=test)
+button = RoundedButton(root, 100, 100, 50, 2, 'red', 'white', command=test)
 button.place(relx=.1, rely=.1)
+button.master.title('round button')
 
 root.mainloop()
