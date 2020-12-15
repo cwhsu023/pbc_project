@@ -43,6 +43,7 @@ class roundbutton(tk.Frame):
         self.button13.grid(row = 4, column = 4, columnspan = 1, sticky = tk.NE + tk.SW)
         self.button14.grid(row = 4, column = 6, columnspan = 1, sticky = tk.NE + tk.SW)
         self.button15.grid(row = 4, column = 8, columnspan = 1, sticky = tk.NE + tk.SW)
+
         
 button = roundbutton()
 button.master.title("Round Button")  # 視窗名稱
