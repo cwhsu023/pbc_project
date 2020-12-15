@@ -13,7 +13,6 @@ class roundbutton(tk.Frame):
         self.createbutton()
     def createbutton(self):
         # relief = "flat" 去除button的陰影
-        # 建立15個button
         self.button1 = tk.Button(self, text = '1', command = None, relief = 'flat')
         self.button2 = tk.Button(self, text = '2', command = None, relief = 'flat')
         self.button3 = tk.Button(self, text = '3', command = None, relief = 'flat')
@@ -29,7 +28,6 @@ class roundbutton(tk.Frame):
         self.button13 = tk.Button(self, text = '13', command = None, relief = 'flat')
         self.button14 = tk.Button(self, text = '14', command = None, relief = 'flat')
         self.button15 = tk.Button(self, text = '15', command = None, relief = 'flat')
-        # 排位置
         self.button1.grid(row = 0, column = 4, columnspan = 1, sticky = tk.NE + tk.SW)  # 指定位置
         self.button2.grid(row = 1, column = 3, columnspan = 1, sticky = tk.NE + tk.SW)
         self.button3.grid(row = 1, column = 5, columnspan = 1, sticky = tk.NE + tk.SW)
