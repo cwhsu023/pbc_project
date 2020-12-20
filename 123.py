@@ -1,13 +1,12 @@
-from tkinter import Tk
+from tkinter import *
 import tkinter as tk
+from tkinter import messagebox
+
 
 root = Tk()  # 視窗
-root.geometry('700x700')
-my_canvas = tk.Canvas(root, width=1480, height=1260, bg='white')
+root.geometry('1000x1000')
+my_canvas = tk.Canvas(root, width=800, height=800, bg='white')
 my_canvas.master.title('try this canvas')
-def back() :
-    print("hello")
-b = tk.Button(my_canvas,text= "hit me",width=15,height=2,command=back)
 my_canvas.pack()  # 這個好像是版面配置 不傳入東西就是由上至下
 
 # make a rectangle and fit in the oval
@@ -28,10 +27,14 @@ circle13 = my_canvas.create_oval(280, 558, 350, 628, fill = 'cyan')
 circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
 circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
 
+
 aline = list()
 def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
     # 現在設定從兩個圓的中心到中心
+
+def pop_up() :
+    messagebox.askyesno("Warning!!!","Are you sure about that?")
 
 def place(event):
     aline.append(315)  # 圓心座標
@@ -167,6 +170,14 @@ def place15(event):
         for i in range(4):
             aline.pop(0)
     #print(aline)
+
+
+
+
+    
+b = tk.Button(root, text="I'm sure.",width = 50,height = 5, command=pop_up)
+b.pack(side= "top")
+
 
 # bind 結合鍵盤或滑鼠的指令和函數
 my_canvas.tag_bind(circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
