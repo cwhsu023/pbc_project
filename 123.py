@@ -41,6 +41,7 @@ def place(event):
     aline.append(37)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
 #    print(aline)
@@ -50,6 +51,7 @@ def place2(event):
     aline.append(175)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
 #    print(aline)
@@ -59,6 +61,7 @@ def place3(event):
     aline.append(175)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
 #    print(aline)
@@ -68,6 +71,7 @@ def place4(event):
     aline.append(315)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
 #    print(aline)
@@ -77,6 +81,7 @@ def place5(event):
     aline.append(315)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -86,6 +91,7 @@ def place6(event):
     aline.append(315)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -95,6 +101,7 @@ def place7(event):
     aline.append(455)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -104,6 +111,7 @@ def place8(event):
     aline.append(455)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -113,6 +121,7 @@ def place9(event):
     aline.append(455)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -122,6 +131,7 @@ def place10(event):
     aline.append(455)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -131,6 +141,7 @@ def place11(event):
     aline.append(593)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -140,6 +151,7 @@ def place12(event):
     aline.append(593)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -149,6 +161,7 @@ def place13(event):
     aline.append(593)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -158,6 +171,7 @@ def place14(event):
     aline.append(593)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -167,6 +181,7 @@ def place15(event):
     aline.append(593)
     if len(aline) == 4:
         line(aline)
+        pop_up()
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -175,8 +190,8 @@ def place15(event):
 
 
     
-b = tk.Button(root, text="I'm sure.",width = 50,height = 5, command=pop_up)
-b.pack(side= "top")
+"""b = tk.Button(root, text="I'm sure.",width = 50,height = 5, command=pop_up)
+b.pack(side= "top")"""
 
 
 # bind 結合鍵盤或滑鼠的指令和函數
