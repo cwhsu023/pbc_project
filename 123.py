@@ -33,7 +33,7 @@ def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
     # 現在設定從兩個圓的中心到中心
 
-def pop_up() :
+def pop_up() : #彈出視窗 問你yes/no
     messagebox.askyesno("Warning!!!","Are you sure about that?")
 
 def place(event):
