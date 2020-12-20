@@ -29,12 +29,20 @@ aline = list()
 def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
     # 現在設定從兩個圓的中心到中心
+    
+def self_line(aline):
+    x = aline[0] + 45
+    y = aline[1] + 45
+    my_canvas.create_line(x, y, x-90, y-90, fill='red', width=5)
 
 def place(event):
     aline.append(315)  # 圓心座標
     aline.append(37)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
 #    print(aline)
@@ -43,7 +51,10 @@ def place2(event):
     aline.append(245)
     aline.append(175)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
 #    print(aline)
@@ -61,7 +72,10 @@ def place4(event):
     aline.append(175)
     aline.append(315)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
 #    print(aline)
@@ -70,7 +84,10 @@ def place5(event):
     aline.append(315)
     aline.append(315)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -79,7 +96,10 @@ def place6(event):
     aline.append(455)
     aline.append(315)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -88,7 +108,10 @@ def place7(event):
     aline.append(105)
     aline.append(455)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -97,7 +120,10 @@ def place8(event):
     aline.append(245)
     aline.append(455)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -106,7 +132,10 @@ def place9(event):
     aline.append(385)
     aline.append(455)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -115,7 +144,10 @@ def place10(event):
     aline.append(525)
     aline.append(455)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -124,7 +156,10 @@ def place11(event):
     aline.append(37)
     aline.append(593)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -133,7 +168,10 @@ def place12(event):
     aline.append(175)
     aline.append(593)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -142,7 +180,10 @@ def place13(event):
     aline.append(315)
     aline.append(593)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -151,7 +192,10 @@ def place14(event):
     aline.append(455)
     aline.append(593)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
@@ -160,7 +204,10 @@ def place15(event):
     aline.append(593)
     aline.append(593)
     if len(aline) == 4:
-        line(aline)
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
         for i in range(4):
             aline.pop(0)
     #print(aline)
