@@ -41,8 +41,16 @@ def pop_up(aline) : #彈出視窗 問你yes/no
         else:
             line(aline)
 
-def check_start_t_end(num, temp_flag, aline):
-    start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10], 4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14], 6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12], 8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14], 10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13], 12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15], 14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
+# 可以畫的
+start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
+               4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
+               6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
+               8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
+               10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
+               12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
+               14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
+
+def check_start_t_end(num, temp_flag, aline, start_t_end):
     if len(temp_flag) == 2:
         num = temp_flag[0]
         if temp_flag[1] in start_t_end[num]:
@@ -53,6 +61,13 @@ def check_start_t_end(num, temp_flag, aline):
             for i in range(2):
                 temp_flag.pop(0)
             messagebox.showinfo('注意','不能畫啦')
+    elif len(temp_flag) == 1:
+        if temp_flag[0] not in flaglist:
+            for i in range(2):
+                aline.pop(0)
+            for i in range(1):
+                temp_flag.pop(0)
+            messagebox.showinfo('注意','不能畫啦')
 
 
 
@@ -61,6 +76,11 @@ def line(aline):  # 畫線
     # 現在設定從兩個圓的中心到中心
     flaglist.remove(temp_flag[0])  # 移除畫過的圓
     flaglist.remove(temp_flag[1])
+    for i in start_t_end.values():
+        if temp_flag[0] in i:
+            i.remove(temp_flag[0])
+        if temp_flag[1] in i:
+            i.remove(temp_flag[1])
     for i in range(4):
         aline.pop(0)
     for i in range(2):
@@ -71,143 +91,131 @@ def self_line(aline):
     y = aline[1] + 45
     my_canvas.create_line(x, y, x-90, y-90, fill='red', width=5)
     flaglist.remove(temp_flag[0])  # 只移除一個圓
+    for i in start_t_end.values():
+        if temp_flag[0] in i:
+            i.remove(temp_flag[0])
     for i in range(4):
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
 
 def place(event):
-    if 1 in flaglist:
-        aline.append(315)  # 圓心座標
-        aline.append(37)
-        temp_flag.append(1)
-        check_start_t_end(1, temp_flag, aline)
+    aline.append(315)  # 圓心座標
+    aline.append(37)
+    temp_flag.append(1)
+    check_start_t_end(1, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place2(event):
-    if 2 in flaglist:
-        aline.append(245)
-        aline.append(175)
-        temp_flag.append(2)
-        check_start_t_end(2, temp_flag, aline)
+    aline.append(245)
+    aline.append(175)
+    temp_flag.append(2)
+    check_start_t_end(2, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place3(event):
-    if 3 in flaglist:
-        aline.append(385)
-        aline.append(175)
-        temp_flag.append(3)
-        check_start_t_end(3, temp_flag, aline)
+    aline.append(385)
+    aline.append(175)
+    temp_flag.append(3)
+    check_start_t_end(3, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place4(event):
-    if 4 in flaglist:
-        aline.append(175)
-        aline.append(315)
-        temp_flag.append(4)
-        check_start_t_end(4, temp_flag, aline)
+    aline.append(175)
+    aline.append(315)
+    temp_flag.append(4)
+    check_start_t_end(4, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
 
 def place5(event):
-    if 5 in flaglist:
-        aline.append(315)
-        aline.append(315)
-        temp_flag.append(5)
-        check_start_t_end(5, temp_flag, aline)
+    aline.append(315)
+    aline.append(315)
+    temp_flag.append(5)
+    check_start_t_end(5, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place6(event):
-    if 6 in flaglist:
-        aline.append(455)
-        aline.append(315)
-        temp_flag.append(6)
-        check_start_t_end(6, temp_flag, aline)
+    aline.append(455)
+    aline.append(315)
+    temp_flag.append(6)
+    check_start_t_end(6, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place7(event):
-    if 7 in flaglist:
-        aline.append(105)
-        aline.append(455)
-        temp_flag.append(7)
-        check_start_t_end(7, temp_flag, aline)
+    aline.append(105)
+    aline.append(455)
+    temp_flag.append(7)
+    check_start_t_end(7, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place8(event):
-    if 8 in flaglist:
-        aline.append(245)
-        aline.append(455)
-        temp_flag.append(8)
-        check_start_t_end(8, temp_flag, aline)
+    aline.append(245)
+    aline.append(455)
+    temp_flag.append(8)
+    check_start_t_end(8, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
    
 def place9(event):
-    if 9 in flaglist:
-        aline.append(385)
-        aline.append(455)
-        temp_flag.append(9)
-        check_start_t_end(9, temp_flag, aline)
+    aline.append(385)
+    aline.append(455)
+    temp_flag.append(9)
+    check_start_t_end(9, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
 
 def place10(event):
-    if 10 in  flaglist:
-        aline.append(525)
-        aline.append(455)
-        temp_flag.append(10)
-        check_start_t_end(10, temp_flag, aline)
+    aline.append(525)
+    aline.append(455)
+    temp_flag.append(10)
+    check_start_t_end(10, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place11(event):
-    if 11 in flaglist:
-        aline.append(37)
-        aline.append(593)
-        temp_flag.append(11)
-        check_start_t_end(11, temp_flag, aline)
+    aline.append(37)
+    aline.append(593)
+    temp_flag.append(11)
+    check_start_t_end(11, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place12(event):
-    if 12 in  flaglist:
-        aline.append(175)
-        aline.append(593)
-        temp_flag.append(12)
-        check_start_t_end(12, temp_flag, aline)
+    aline.append(175)
+    aline.append(593)
+    temp_flag.append(12)
+    check_start_t_end(12, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place13(event):
-    if 13 in flaglist:
-        aline.append(315)
-        aline.append(593)
-        temp_flag.append(13)
-        check_start_t_end(13, temp_flag, aline)
+    aline.append(315)
+    aline.append(593)
+    temp_flag.append(13)
+    check_start_t_end(13, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place14(event):
-    if 14 in flaglist:
-        aline.append(455)
-        aline.append(593)
-        temp_flag.append(14)
-        check_start_t_end(14, temp_flag, aline)
+    aline.append(455)
+    aline.append(593)
+    temp_flag.append(14)
+    check_start_t_end(14, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
     
 def place15(event):
-    if 15 in flaglist:
-        aline.append(593)
-        aline.append(593)
-        temp_flag.append(15)
-        check_start_t_end(15, temp_flag, aline)
+    aline.append(593)
+    aline.append(593)
+    temp_flag.append(15)
+    check_start_t_end(15, temp_flag, aline, start_t_end)
     print(aline)
     print(flaglist)
 
