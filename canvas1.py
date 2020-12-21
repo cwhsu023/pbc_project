@@ -65,7 +65,7 @@ def line(aline):  # 畫線
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
-    
+
 def self_line(aline):
     x = aline[0] + 45
     y = aline[1] + 45
@@ -164,6 +164,7 @@ def place10(event):
         temp_flag.append(10)
         check_start_t_end(10, temp_flag, aline)
     print(aline)
+    print(flaglist)
     
 def place11(event):
     if 11 in flaglist:
