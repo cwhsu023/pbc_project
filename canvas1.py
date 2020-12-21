@@ -106,8 +106,6 @@ def place5(event):
                 self_line(aline)
             else:
                 line(aline)
-            for i in range(4):
-                aline.pop(0)
     print(aline)
     print(flaglist)
     
