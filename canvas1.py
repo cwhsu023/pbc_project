@@ -29,7 +29,7 @@ aline = list()
 flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 temp_flag = []
 def pop_up(aline) : #彈出視窗 問你yes/no
-    MsgBox = tk.messagebox.askquestion ("你要很確定餒？",icon = 'error')
+    MsgBox = tk.messagebox.askquestion ('注意',"Are you sure?",icon = 'error')
     if MsgBox == 'no':
         for i in range(4):
             aline.pop(0)
@@ -52,7 +52,7 @@ def check_start_t_end(num, temp_flag, aline):
                 aline.pop(0)
             for i in range(2):
                 temp_flag.pop(0)
-            messagebox.showinfo('提示','不能畫啦')
+            messagebox.showinfo('注意','不能畫啦')
 
 
 
