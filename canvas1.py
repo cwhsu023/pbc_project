@@ -26,191 +26,220 @@ circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
 circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
 
 aline = list()
+flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+temp_flag = []
 def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
     # 現在設定從兩個圓的中心到中心
+    flaglist.remove(temp_flag[-1])  # 移除畫過的圓
+    flaglist.remove(temp_flag[-2])
+    for i in range(4):
+        aline.pop(0)
     
 def self_line(aline):
     x = aline[0] + 45
     y = aline[1] + 45
     my_canvas.create_line(x, y, x-90, y-90, fill='red', width=5)
+    flaglist.remove(temp_flag[-1])  # 只移除一個圓
+    for i in range(4):
+        aline.pop(0)
 
 def place(event):
-    aline.append(315)  # 圓心座標
-    aline.append(37)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-#    print(aline)
+    if 1 in flaglist:
+        aline.append(315)  # 圓心座標
+        aline.append(37)
+        temp_flag.append(1)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place2(event):
-    aline.append(245)
-    aline.append(175)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-#    print(aline)
+    if 2 in flaglist:
+        aline.append(245)
+        aline.append(175)
+        temp_flag.append(2)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place3(event):
-    aline.append(385)
-    aline.append(175)
-    if len(aline) == 4:
-        line(aline)
-        for i in range(4):
-            aline.pop(0)
-#    print(aline)
+    if 3 in flaglist:
+        aline.append(385)
+        aline.append(175)
+        temp_flag.append(3)
+        if len(aline) == 4:
+            line(aline)
+        else:
+            line(aline)
+    print(aline)
+    print(flaglist)
     
 def place4(event):
-    aline.append(175)
-    aline.append(315)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-#    print(aline)
+    if 4 in flaglist:
+        aline.append(175)
+        aline.append(315)
+        temp_flag.append(4)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
 
 def place5(event):
-    aline.append(315)
-    aline.append(315)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 5 in flaglist:
+        aline.append(315)
+        aline.append(315)
+        temp_flag.append(5)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+            for i in range(4):
+                aline.pop(0)
+    print(aline)
+    print(flaglist)
     
 def place6(event):
-    aline.append(455)
-    aline.append(315)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 6 in flaglist:
+        aline.append(455)
+        aline.append(315)
+        temp_flag.append(6)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place7(event):
-    aline.append(105)
-    aline.append(455)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 7 in flaglist:
+        aline.append(105)
+        aline.append(455)
+        temp_flag.append(7)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place8(event):
-    aline.append(245)
-    aline.append(455)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 8 in flaglist:
+        aline.append(245)
+        aline.append(455)
+        temp_flag.append(8)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
    
 def place9(event):
-    aline.append(385)
-    aline.append(455)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 9 in flaglist:
+        aline.append(385)
+        aline.append(455)
+        temp_flag.append(9)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+            for i in range(4):
+                aline.pop(0)
+    print(aline)
+    print(flaglist)
 
 def place10(event):
-    aline.append(525)
-    aline.append(455)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 10 in  flaglist:
+        aline.append(525)
+        aline.append(455)
+        temp_flag.append(10)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
     
 def place11(event):
-    aline.append(37)
-    aline.append(593)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 11 in flaglist:
+        aline.append(37)
+        aline.append(593)
+        temp_flag.append(11)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place12(event):
-    aline.append(175)
-    aline.append(593)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 12 in  flaglist:
+        aline.append(175)
+        aline.append(593)
+        temp_flag.append(12)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place13(event):
-    aline.append(315)
-    aline.append(593)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 13 in flaglist:
+        aline.append(315)
+        aline.append(593)
+        temp_flag.append(13)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place14(event):
-    aline.append(455)
-    aline.append(593)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 14 in flaglist:
+        aline.append(455)
+        aline.append(593)
+        temp_flag.append(14)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
     
 def place15(event):
-    aline.append(593)
-    aline.append(593)
-    if len(aline) == 4:
-        if aline[0] == aline[2] and aline[1] == aline[3]:
-            self_line(aline)
-        else:
-            line(aline)
-        for i in range(4):
-            aline.pop(0)
-    #print(aline)
+    if 15 in flaglist:
+        aline.append(593)
+        aline.append(593)
+        temp_flag.append(15)
+        if len(aline) == 4:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+    print(aline)
+    print(flaglist)
 
 # bind 結合鍵盤或滑鼠的指令和函數
 my_canvas.tag_bind(circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
@@ -228,5 +257,4 @@ my_canvas.tag_bind(circle12, '<Button-1>', place12)
 my_canvas.tag_bind(circle13, '<Button-1>', place13)
 my_canvas.tag_bind(circle14, '<Button-1>', place14)
 my_canvas.tag_bind(circle15, '<Button-1>', place15)
-
 root.mainloop()
