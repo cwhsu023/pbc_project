@@ -37,7 +37,7 @@ def line(aline):  # 畫線
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
-    
+
 def self_line(aline):
     x = aline[0] + 45
     y = aline[1] + 45
@@ -162,8 +162,6 @@ def place9(event):
                 self_line(aline)
             else:
                 line(aline)
-            for i in range(4):
-                aline.pop(0)
     print(aline)
     print(flaglist)
 
