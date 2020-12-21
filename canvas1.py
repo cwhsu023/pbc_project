@@ -28,21 +28,32 @@ circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
 aline = list()
 flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
 temp_flag = []
+def pop_up(aline) : #彈出視窗 問你yes/no
+    MsgBox = tk.messagebox.askquestion ("你要很確定餒？",icon = 'error')
+    if MsgBox == 'no':
+        for i in range(4):
+            aline.pop(0)
+        for i in range(2):
+            temp_flag.pop(0)
+    else:
+        if aline[0] == aline[2] and aline[1] == aline[3]:
+            self_line(aline)
+        else:
+            line(aline)
+
 def check_start_t_end(num, temp_flag, aline):
     start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10], 4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14], 6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12], 8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14], 10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13], 12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15], 14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
     if len(temp_flag) == 2:
         num = temp_flag[0]
         if temp_flag[1] in start_t_end[num]:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+            pop_up(aline)
         else:
             for i in range(4):
                 aline.pop(0)
             for i in range(2):
                 temp_flag.pop(0)
             messagebox.showinfo('提示','不能畫啦')
+
 
 
 def line(aline):  # 畫線
