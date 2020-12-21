@@ -31,18 +31,22 @@ temp_flag = []
 def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
     # 現在設定從兩個圓的中心到中心
-    flaglist.remove(temp_flag[-1])  # 移除畫過的圓
-    flaglist.remove(temp_flag[-2])
+    flaglist.remove(temp_flag[0])  # 移除畫過的圓
+    flaglist.remove(temp_flag[1])
     for i in range(4):
         aline.pop(0)
+    for i in range(2):
+        temp_flag.pop(0)
     
 def self_line(aline):
     x = aline[0] + 45
     y = aline[1] + 45
     my_canvas.create_line(x, y, x-90, y-90, fill='red', width=5)
-    flaglist.remove(temp_flag[-1])  # 只移除一個圓
+    flaglist.remove(temp_flag[0])  # 只移除一個圓
     for i in range(4):
         aline.pop(0)
+    for i in range(2):
+        temp_flag.pop(0)
 
 def place(event):
     if 1 in flaglist:
