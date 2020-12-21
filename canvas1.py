@@ -76,9 +76,10 @@ def place3(event):
         aline.append(175)
         temp_flag.append(3)
         if len(aline) == 4:
-            line(aline)
-        else:
-            line(aline)
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
     print(aline)
     print(flaglist)
     
