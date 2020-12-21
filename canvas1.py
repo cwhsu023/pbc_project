@@ -1,6 +1,6 @@
 from tkinter import Tk
 import tkinter as tk
-
+from tkinter import messagebox
 root = Tk()  # 視窗
 root.geometry('700x700')
 my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
@@ -27,8 +27,24 @@ circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
 
 aline = list()
 flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10], 4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14], 6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12], 8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14], 10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13], 12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15], 14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
 temp_flag = []
+def check_start_t_end(num, temp_flag, aline):
+    start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10], 4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14], 6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12], 8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14], 10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13], 12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15], 14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
+    if len(temp_flag) == 2:
+        num = temp_flag[0]
+        if temp_flag[1] in start_t_end[num]:
+            if aline[0] == aline[2] and aline[1] == aline[3]:
+                self_line(aline)
+            else:
+                line(aline)
+        else:
+            for i in range(4):
+                aline.pop(0)
+            for i in range(2):
+                temp_flag.pop(0)
+            messagebox.showinfo('提示','不能畫啦')
+
+
 def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
     # 現在設定從兩個圓的中心到中心
@@ -54,11 +70,7 @@ def place(event):
         aline.append(315)  # 圓心座標
         aline.append(37)
         temp_flag.append(1)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(1, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -67,11 +79,7 @@ def place2(event):
         aline.append(245)
         aline.append(175)
         temp_flag.append(2)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(2, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -80,11 +88,7 @@ def place3(event):
         aline.append(385)
         aline.append(175)
         temp_flag.append(3)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(3, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -93,11 +97,7 @@ def place4(event):
         aline.append(175)
         aline.append(315)
         temp_flag.append(4)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(4, temp_flag, aline)
     print(aline)
     print(flaglist)
 
@@ -106,11 +106,7 @@ def place5(event):
         aline.append(315)
         aline.append(315)
         temp_flag.append(5)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(5, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -119,11 +115,7 @@ def place6(event):
         aline.append(455)
         aline.append(315)
         temp_flag.append(6)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(6, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -132,11 +124,7 @@ def place7(event):
         aline.append(105)
         aline.append(455)
         temp_flag.append(7)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(7, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -145,11 +133,7 @@ def place8(event):
         aline.append(245)
         aline.append(455)
         temp_flag.append(8)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(8, temp_flag, aline)
     print(aline)
     print(flaglist)
    
@@ -158,13 +142,7 @@ def place9(event):
         aline.append(385)
         aline.append(455)
         temp_flag.append(9)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
-            for i in range(4):
-                aline.pop(0)
+        check_start_t_end(9, temp_flag, aline)
     print(aline)
     print(flaglist)
 
@@ -173,11 +151,7 @@ def place10(event):
         aline.append(525)
         aline.append(455)
         temp_flag.append(10)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(10, temp_flag, aline)
     print(aline)
     
 def place11(event):
@@ -185,11 +159,7 @@ def place11(event):
         aline.append(37)
         aline.append(593)
         temp_flag.append(11)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(11, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -198,11 +168,7 @@ def place12(event):
         aline.append(175)
         aline.append(593)
         temp_flag.append(12)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(12, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -211,11 +177,7 @@ def place13(event):
         aline.append(315)
         aline.append(593)
         temp_flag.append(13)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(13, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -224,11 +186,7 @@ def place14(event):
         aline.append(455)
         aline.append(593)
         temp_flag.append(14)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(14, temp_flag, aline)
     print(aline)
     print(flaglist)
     
@@ -237,11 +195,7 @@ def place15(event):
         aline.append(593)
         aline.append(593)
         temp_flag.append(15)
-        if len(aline) == 4:
-            if aline[0] == aline[2] and aline[1] == aline[3]:
-                self_line(aline)
-            else:
-                line(aline)
+        check_start_t_end(15, temp_flag, aline)
     print(aline)
     print(flaglist)
 
