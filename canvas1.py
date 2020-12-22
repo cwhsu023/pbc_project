@@ -7,23 +7,8 @@ my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
 my_canvas.master.title('try this canvas')
 my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
 
-# make a rectangle and fit in the oval
-# 設定每一個圓'70x70'之後再改
-circle1 = my_canvas.create_oval(280, 2, 350, 72, fill = 'cyan')
-circle2 = my_canvas.create_oval(210, 140, 280, 210, fill = 'cyan')
-circle3 = my_canvas.create_oval(350, 140, 420, 210, fill = 'cyan')
-circle4 = my_canvas.create_oval(140, 280, 210, 350, fill = 'cyan')
-circle5 = my_canvas.create_oval(280, 280, 350, 350, fill = 'cyan')
-circle6 = my_canvas.create_oval(420, 280, 490, 350, fill = 'cyan')
-circle7 = my_canvas.create_oval(70, 420, 140, 490, fill = 'cyan')
-circle8 = my_canvas.create_oval(210, 420, 280, 490, fill = 'cyan')
-circle9 = my_canvas.create_oval(350, 420, 420, 490, fill = 'cyan')
-circle10 = my_canvas.create_oval(490, 420, 560, 490, fill = 'cyan')
-circle11 = my_canvas.create_oval(2, 558, 72, 628, fill = 'cyan')
-circle12 = my_canvas.create_oval(140, 558, 210, 628, fill = 'cyan')
-circle13 = my_canvas.create_oval(280, 558, 350, 628, fill = 'cyan')
-circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
-circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
+
+
 
 aline = list()
 flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
@@ -40,7 +25,7 @@ def pop_up(aline) : #彈出視窗 問你yes/no
             self_line(aline)
         else:
             line(aline)
-        print(start_t_end)
+        win(flaglist)  # let's see who wins
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -121,6 +106,25 @@ def self_line(aline):
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
+'''
+想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
+def show(x, y):
+    if len(temp_flag) == 1:
+        print(1)
+        a = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+    if len(temp_flag) == 2:
+        print(2)
+        b = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+    if len(temp_flag) == 0:
+        print(0)
+        my_canvas.delete(a)
+        my_canvas.delete(b)
+'''
+def win(flaglist):  # 判斷勝利條件
+    if len(flaglist) == 1:  # 剩一個自己贏
+        messagebox.showinfo('Congratulation','player 1 wins!!!')
+    if len(flaglist) == 0:  # 不剩對方贏
+        messagebox.showinfo('Congratulation','player 2 wins!!!')
 
 def place(event):
     aline.append(315)  # 圓心座標
@@ -242,6 +246,24 @@ def place15(event):
     print(aline)
     print(flaglist)
 
+
+# make a rectangle and fit in the oval
+# 設定每一個圓'70x70'之後再改
+circle1 = my_canvas.create_oval(280, 2, 350, 72, fill = 'cyan')
+circle2 = my_canvas.create_oval(210, 140, 280, 210, fill = 'cyan')
+circle3 = my_canvas.create_oval(350, 140, 420, 210, fill = 'cyan')
+circle4 = my_canvas.create_oval(140, 280, 210, 350, fill = 'cyan')
+circle5 = my_canvas.create_oval(280, 280, 350, 350, fill = 'cyan')
+circle6 = my_canvas.create_oval(420, 280, 490, 350, fill = 'cyan')
+circle7 = my_canvas.create_oval(70, 420, 140, 490, fill = 'cyan')
+circle8 = my_canvas.create_oval(210, 420, 280, 490, fill = 'cyan')
+circle9 = my_canvas.create_oval(350, 420, 420, 490, fill = 'cyan')
+circle10 = my_canvas.create_oval(490, 420, 560, 490, fill = 'cyan')
+circle11 = my_canvas.create_oval(2, 558, 72, 628, fill = 'cyan')
+circle12 = my_canvas.create_oval(140, 558, 210, 628, fill = 'cyan')
+circle13 = my_canvas.create_oval(280, 558, 350, 628, fill = 'cyan')
+circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
+circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
 # bind 結合鍵盤或滑鼠的指令和函數
 my_canvas.tag_bind(circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
 my_canvas.tag_bind(circle2, '<Button-1>', place2)
@@ -258,5 +280,6 @@ my_canvas.tag_bind(circle12, '<Button-1>', place12)
 my_canvas.tag_bind(circle13, '<Button-1>', place13)
 my_canvas.tag_bind(circle14, '<Button-1>', place14)
 my_canvas.tag_bind(circle15, '<Button-1>', place15)
+
 
 root.mainloop()
