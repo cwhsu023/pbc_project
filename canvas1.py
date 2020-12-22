@@ -1,3 +1,5 @@
+player1 = input('player1:')
+player2 = input('player2:')
 from tkinter import Tk
 import tkinter as tk
 from tkinter import messagebox
@@ -25,7 +27,7 @@ def pop_up(aline) : #彈出視窗 問你yes/no
             self_line(aline)
         else:
             line(aline)
-        win(flaglist)  # let's see who wins
+        win(flaglist, player1, player2)  # let's see who wins
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -120,11 +122,13 @@ def show(x, y):
         my_canvas.delete(a)
         my_canvas.delete(b)
 '''
-def win(flaglist):  # 判斷勝利條件
+def win(flaglist, player1, player2):  # 判斷勝利條件
     if len(flaglist) == 1:  # 剩一個自己贏
-        messagebox.showinfo('Congratulation','player 1 wins!!!')
+        messagebox.showinfo('Congratulation', player1+' wins!!!')
     if len(flaglist) == 0:  # 不剩對方贏
-        messagebox.showinfo('Congratulation','player 2 wins!!!')
+        messagebox.showinfo('Congratulation', player2+' wins!!!')
+    print(player1)
+    player1, player2 = player2, player1
 
 def place(event):
     aline.append(315)  # 圓心座標
