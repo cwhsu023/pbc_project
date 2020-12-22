@@ -70,12 +70,15 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
             messagebox.showinfo('注意','不能畫啦')
 
 # 會畫到三個的組合
+'''
 triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
 [4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
 [11,12,13],[12,13,14],[13,14,15]]
+'''
 
 def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
+    '''
     temp_flag = sorted(temp_flag, reverse = True)
     for i in triple:
         if temp_flag[0] == i[0] and temp_flag[1] == i[2]:
@@ -83,6 +86,7 @@ def line(aline):  # 畫線
             for j in start_t_end.values():
                 if i[1] in j:
                     j.remove(i[1])。# 從start_t_end移除中間項
+    '''
     # 現在設定從兩個圓的中心到中心
     flaglist.remove(temp_flag[0])  # 移除畫過的圓
     flaglist.remove(temp_flag[1])
