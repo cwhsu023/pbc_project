@@ -128,7 +128,7 @@ def win(flaglist, player1, player2):  # 判斷勝利條件
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', player2+' wins!!!')
     print(player1)
-    player1, player2 = player2, player1
+    #player1, player2 = player2, player1  # 互換，目前失敗
 
 def place(event):
     aline.append(315)  # 圓心座標
