@@ -1,3 +1,5 @@
+player1 = input('player1:')
+player2 = input('player2:')
 from tkinter import Tk
 import tkinter as tk
 from tkinter import messagebox
@@ -7,26 +9,11 @@ my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
 my_canvas.master.title('try this canvas')
 my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
 
-# make a rectangle and fit in the oval
-# 設定每一個圓'70x70'之後再改
-circle1 = my_canvas.create_oval(280, 2, 350, 72, fill = 'cyan')
-circle2 = my_canvas.create_oval(210, 140, 280, 210, fill = 'cyan')
-circle3 = my_canvas.create_oval(350, 140, 420, 210, fill = 'cyan')
-circle4 = my_canvas.create_oval(140, 280, 210, 350, fill = 'cyan')
-circle5 = my_canvas.create_oval(280, 280, 350, 350, fill = 'cyan')
-circle6 = my_canvas.create_oval(420, 280, 490, 350, fill = 'cyan')
-circle7 = my_canvas.create_oval(70, 420, 140, 490, fill = 'cyan')
-circle8 = my_canvas.create_oval(210, 420, 280, 490, fill = 'cyan')
-circle9 = my_canvas.create_oval(350, 420, 420, 490, fill = 'cyan')
-circle10 = my_canvas.create_oval(490, 420, 560, 490, fill = 'cyan')
-circle11 = my_canvas.create_oval(2, 558, 72, 628, fill = 'cyan')
-circle12 = my_canvas.create_oval(140, 558, 210, 628, fill = 'cyan')
-circle13 = my_canvas.create_oval(280, 558, 350, 628, fill = 'cyan')
-circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
-circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
+
+
 
 aline = list()
-flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
 temp_flag = []
 def pop_up(aline) : #彈出視窗 問你yes/no
     MsgBox = tk.messagebox.askquestion ('注意',"Are you sure?",icon = 'error')
@@ -40,6 +27,15 @@ def pop_up(aline) : #彈出視窗 問你yes/no
             self_line(aline)
         else:
             line(aline)
+        win(flaglist, player1, player2)  # let's see who wins
+
+def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
+    for i in triple:
+        if remove == i[1]:
+            if i[2] in start_t_end[i[0]]:
+                start_t_end[i[0]].remove(i[2])
+            if i[0] in start_t_end[i[2]]:
+                start_t_end[i[2]].remove(i[0])
 
 # 可以畫的
 start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
@@ -69,13 +65,26 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
                 temp_flag.pop(0)
             messagebox.showinfo('注意','不能畫啦')
 
-
+# 會畫到三個的組合
+triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
+[4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
+[11,12,13],[12,13,14],[13,14,15]]
 
 def line(aline):  # 畫線
     my_canvas.create_line(aline, fill='red', width=5)
+    sort_flag = sorted(temp_flag)
+    for i in triple:
+        if sort_flag[0] == i[0] and sort_flag[1] == i[2]:
+            flaglist.remove(i[1])  # 從flaglist移除中間項
+            cross(triple, start_t_end, i[1])
+            for j in start_t_end.values():
+                if i[1] in j:
+                    j.remove(i[1])  # 從start_t_end移除中間項
     # 現在設定從兩個圓的中心到中心
     flaglist.remove(temp_flag[0])  # 移除畫過的圓
     flaglist.remove(temp_flag[1])
+    cross(triple, start_t_end, temp_flag[0])
+    cross(triple, start_t_end, temp_flag[1])
     for i in start_t_end.values():
         if temp_flag[0] in i:
             i.remove(temp_flag[0])
@@ -94,10 +103,32 @@ def self_line(aline):
     for i in start_t_end.values():
         if temp_flag[0] in i:
             i.remove(temp_flag[0])
+    cross(triple, start_t_end, temp_flag[0])
     for i in range(4):
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
+'''
+想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
+def show(x, y):
+    if len(temp_flag) == 1:
+        print(1)
+        a = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+    if len(temp_flag) == 2:
+        print(2)
+        b = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+    if len(temp_flag) == 0:
+        print(0)
+        my_canvas.delete(a)
+        my_canvas.delete(b)
+'''
+def win(flaglist, player1, player2):  # 判斷勝利條件
+    if len(flaglist) == 1:  # 剩一個自己贏
+        messagebox.showinfo('Congratulation', player1+' wins!!!')
+    if len(flaglist) == 0:  # 不剩對方贏
+        messagebox.showinfo('Congratulation', player2+' wins!!!')
+    print(player1)
+    #player1, player2 = player2, player1  # 互換，目前失敗
 
 def place(event):
     aline.append(315)  # 圓心座標
@@ -219,6 +250,24 @@ def place15(event):
     print(aline)
     print(flaglist)
 
+
+# make a rectangle and fit in the oval
+# 設定每一個圓'70x70'之後再改
+circle1 = my_canvas.create_oval(280, 2, 350, 72, fill = 'cyan')
+circle2 = my_canvas.create_oval(210, 140, 280, 210, fill = 'cyan')
+circle3 = my_canvas.create_oval(350, 140, 420, 210, fill = 'cyan')
+circle4 = my_canvas.create_oval(140, 280, 210, 350, fill = 'cyan')
+circle5 = my_canvas.create_oval(280, 280, 350, 350, fill = 'cyan')
+circle6 = my_canvas.create_oval(420, 280, 490, 350, fill = 'cyan')
+circle7 = my_canvas.create_oval(70, 420, 140, 490, fill = 'cyan')
+circle8 = my_canvas.create_oval(210, 420, 280, 490, fill = 'cyan')
+circle9 = my_canvas.create_oval(350, 420, 420, 490, fill = 'cyan')
+circle10 = my_canvas.create_oval(490, 420, 560, 490, fill = 'cyan')
+circle11 = my_canvas.create_oval(2, 558, 72, 628, fill = 'cyan')
+circle12 = my_canvas.create_oval(140, 558, 210, 628, fill = 'cyan')
+circle13 = my_canvas.create_oval(280, 558, 350, 628, fill = 'cyan')
+circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
+circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
 # bind 結合鍵盤或滑鼠的指令和函數
 my_canvas.tag_bind(circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
 my_canvas.tag_bind(circle2, '<Button-1>', place2)
@@ -237,4 +286,8 @@ my_canvas.tag_bind(circle14, '<Button-1>', place14)
 my_canvas.tag_bind(circle15, '<Button-1>', place15)
 
 
+<<<<<<< HEAD
 root.mainloop()
+=======
+root.mainloop()
+>>>>>>> parent of 179cd85... Revert "Merge branch 'master' of https://github.com/cwhsu023/pbc_project"
