@@ -236,5 +236,4 @@ my_canvas.tag_bind(circle13, '<Button-1>', place13)
 my_canvas.tag_bind(circle14, '<Button-1>', place14)
 my_canvas.tag_bind(circle15, '<Button-1>', place15)
 
-
 root.mainloop()
