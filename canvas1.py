@@ -286,8 +286,4 @@ my_canvas.tag_bind(circle14, '<Button-1>', place14)
 my_canvas.tag_bind(circle15, '<Button-1>', place15)
 
 
-<<<<<<< HEAD
 root.mainloop()
-=======
-root.mainloop()
->>>>>>> parent of 179cd85... Revert "Merge branch 'master' of https://github.com/cwhsu023/pbc_project"
