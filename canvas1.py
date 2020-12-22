@@ -26,7 +26,7 @@ circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
 circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
 
 aline = list()
-flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
 temp_flag = []
 def pop_up(aline) : #彈出視窗 問你yes/no
     MsgBox = tk.messagebox.askquestion ('注意',"Are you sure?",icon = 'error')
@@ -40,6 +40,15 @@ def pop_up(aline) : #彈出視窗 問你yes/no
             self_line(aline)
         else:
             line(aline)
+        print(start_t_end)
+
+def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
+    for i in triple:
+        if remove == i[1]:
+            if i[2] in start_t_end[i[0]]:
+                start_t_end[i[0]].remove(i[2])
+            if i[0] in start_t_end[i[2]]:
+                start_t_end[i[2]].remove(i[0])
 
 # 可以畫的
 start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
@@ -80,12 +89,15 @@ def line(aline):  # 畫線
     for i in triple:
         if sort_flag[0] == i[0] and sort_flag[1] == i[2]:
             flaglist.remove(i[1])  # 從flaglist移除中間項
+            cross(triple, start_t_end, i[1])
             for j in start_t_end.values():
                 if i[1] in j:
                     j.remove(i[1])  # 從start_t_end移除中間項
     # 現在設定從兩個圓的中心到中心
     flaglist.remove(temp_flag[0])  # 移除畫過的圓
     flaglist.remove(temp_flag[1])
+    cross(triple, start_t_end, temp_flag[0])
+    cross(triple, start_t_end, temp_flag[1])
     for i in start_t_end.values():
         if temp_flag[0] in i:
             i.remove(temp_flag[0])
@@ -104,6 +116,7 @@ def self_line(aline):
     for i in start_t_end.values():
         if temp_flag[0] in i:
             i.remove(temp_flag[0])
+    cross(triple, start_t_end, temp_flag[0])
     for i in range(4):
         aline.pop(0)
     for i in range(2):
