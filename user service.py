@@ -4,9 +4,8 @@ import tkinter
 from tkinter import messagebox
 
 def verify(account):
-    account = account.lower().strip()
     user_list = []
-    with open(file='/Users/mba/Desktop/lock_name_file.txt', mode='r', encoding='utf-8') as users:
+    with open(file='/Users/mba/Desktop/project/lock_name_file.txt', mode='r', encoding='utf-8') as users:
         user = users.readlines()
         for line in user:
             line = line.strip('\n')
@@ -26,6 +25,27 @@ def verify(account):
                 return 'noAccount'  # 要請使用著確認是否是他的名稱
             else:
                 continue
+def verify_if_repeated(username):
+    '''驗證帳號是否重複'''
+    username = username.strip()
+    user_list = []
+    with open(file='/Users/mba/Desktop/project/lock_name_file.txt', mode='r', encoding='utf-8') as users:
+        user = users.readlines()
+        for line in user:
+            line = line.strip('\n')
+            user_list.append(line)
+    users.close()
+    tempt = 0
+    for i in range(len(user_list)):
+        if username == user_list[i]:
+            tempt = 1
+            return 'Username repeated'
+    '''未重複則紀錄'''
+    if tempt == 0:
+        new_user = open('/Users/mba/Desktop/project/lock_name_file.txt', 'a+')
+        new_user.write(username)
+        return 'sign accepted'
+
 
 class Login(object):
     def __init__(self):
@@ -62,6 +82,8 @@ class Login(object):
         self.siginUp_button.place(x=240, y=240)
 
         # 進入註冊介面
+
+
     def confirm(self):
         # Create widget
         top2 = tkinter.Toplevel()
@@ -70,14 +92,13 @@ class Login(object):
         # specify size
         top2.geometry("450x300")
         username = self.entry.get()
-        print(username)
         # Create label
-        label = tkinter.Label(top2, text = username)
+        label = tkinter.Label(top2, text = 'Is' + '"' + username + '"' + 'your username')
         # Create exit button.
         #回到signin頁面
         nobutton = tkinter.Button(top2, text=" Resign ", command=top2.destroy)
         #回login頁面
-        yesbutton = tkinter.Button(top2,text="yes this is my name" , command = lambda:[top2.destroy()])
+        yesbutton = tkinter.Button(top2,text="yes this is my name" , command = lambda:[top2.destroy(),self.verify_interface(username)])
         '''
             80行，siginUp_interface 仍然會打開
         '''
@@ -87,10 +108,21 @@ class Login(object):
         # Display untill closed manually.
         top2.mainloop()
 
+    #驗證帳號是否重複
+    def verify_interface(self,username):
+        result = verify_if_repeated(username)
+        print(result)
+        if result == 'Username repeated':
+            tkinter.messagebox.showinfo(title= None , message = '使用者名稱重複')
+            #self.siginUp_interface()
+            '''若上面問題有解決，這行加上去'''
+        '''
+        elif result == 'sign accepted':
+            #應該要回到root但是還是卡在signup interface
+        '''
 
-
-        # define a function for 1st toplevel
-        # which is associated with root window.
+    # define a function for 1st toplevel
+    # which is associated with root window.
     def siginUp_interface(self):
         # Create widget
         signinWindow = tkinter.Toplevel(self.root)
@@ -122,24 +154,25 @@ class Login(object):
 
 
     def backstage_interface(self):
-        account = self.input_account.get().ljust(10, " ")
-        account2 = self.input_account2.get().ljust(10, " ")
+        account = self.input_account.get()
+        account2 = self.input_account2.get()
+        print(account)
+        print(account2)
         # 對賬戶資訊進行驗證，普通使用者返回user，賬戶錯誤返回noAccount
         verifyResult = verify(account)
         verifyResult2 = verify(account2)
         if verifyResult == 'yes' and verifyResult2 == 'yes':
             self.root.destroy()
             tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
+            '''開啟小遊戲連結'''
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + '玩家1不存在請重新輸入!')
 
         elif verifyResult == 'yes' and verifyResult2 == 'noAccount':
-            self.root.destroy()
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account2 + "'" + '玩家2不存在請重新輸入!')
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
-            self.root.destroy()
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
 
 
