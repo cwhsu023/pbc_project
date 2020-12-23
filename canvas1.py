@@ -1,17 +1,13 @@
-player1 = input('player1:')
-player2 = input('player2:')
+player1 = 'Max'
+player2 = 'Kelly'
+playerlist = [player1, player2]
 from tkinter import Tk
 import tkinter as tk
 from tkinter import messagebox
 root = Tk()  # 視窗
 root.geometry('700x700')
-my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
-my_canvas.master.title('try this canvas')
-my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
 
-
-
-
+linemark = []  # 紀錄畫上去的線
 aline = list()
 flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
 temp_flag = []
@@ -27,7 +23,7 @@ def pop_up(aline) : #彈出視窗 問你yes/no
             self_line(aline)
         else:
             line(aline)
-        win(flaglist, player1, player2)  # let's see who wins
+        win(flaglist, playerlist)  # let's see who wins
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -71,7 +67,8 @@ triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
 [11,12,13],[12,13,14],[13,14,15]]
 
 def line(aline):  # 畫線
-    my_canvas.create_line(aline, fill='red', width=5)
+    a = my_canvas.create_line(aline, fill='red', width=5)
+    linemark.append(a)  # 紀錄線
     sort_flag = sorted(temp_flag)
     for i in triple:
         if sort_flag[0] == i[0] and sort_flag[1] == i[2]:
@@ -98,7 +95,8 @@ def line(aline):  # 畫線
 def self_line(aline):
     x = aline[0] + 45
     y = aline[1] + 45
-    my_canvas.create_line(x, y, x-90, y-90, fill='red', width=5)
+    a = my_canvas.create_line(x, y, x-90, y-90, fill='red', width=5)
+    linemark.append(a)
     flaglist.remove(temp_flag[0])  # 只移除一個圓
     for i in start_t_end.values():
         if temp_flag[0] in i:
@@ -122,13 +120,30 @@ def show(x, y):
         my_canvas.delete(a)
         my_canvas.delete(b)
 '''
-def win(flaglist, player1, player2):  # 判斷勝利條件
+def win(flaglist, playerlist):  # 判斷勝利條件
+    # playerlist[0] 是這一輪畫線的玩家
     if len(flaglist) == 1:  # 剩一個自己贏
-        messagebox.showinfo('Congratulation', player1+' wins!!!')
+        messagebox.showinfo('Congratulation', playerlist[0]+' wins!!!')
+        reset(linemark)
     if len(flaglist) == 0:  # 不剩對方贏
-        messagebox.showinfo('Congratulation', player2+' wins!!!')
-    print(player1)
-    #player1, player2 = player2, player1  # 互換，目前失敗
+        messagebox.showinfo('Congratulation', playerlist[1]+' wins!!!')
+        reset(linemark)
+    playerlist.reverse()
+
+def reset(linemark):  # 不會回到最原本的狀態，感覺需要建立初始狀態
+    for i in linemark:
+            my_canvas.delete(i)  # 移除線
+    flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+    start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
+               4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
+               6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
+               8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
+               10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
+               12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
+               14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
+    linemark = []
+    return flaglist, start_t_end, linemark
+
 
 def place(event):
     aline.append(315)  # 圓心座標
@@ -250,7 +265,9 @@ def place15(event):
     print(aline)
     print(flaglist)
 
-
+my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
+my_canvas.master.title('try this canvas')
+my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
 # make a rectangle and fit in the oval
 # 設定每一個圓'70x70'之後再改
 circle1 = my_canvas.create_oval(280, 2, 350, 72, fill = 'cyan')
@@ -284,6 +301,6 @@ my_canvas.tag_bind(circle12, '<Button-1>', place12)
 my_canvas.tag_bind(circle13, '<Button-1>', place13)
 my_canvas.tag_bind(circle14, '<Button-1>', place14)
 my_canvas.tag_bind(circle15, '<Button-1>', place15)
-
+messagebox.showinfo('注意',player1+' goes first')
 
 root.mainloop()
