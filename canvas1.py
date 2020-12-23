@@ -1,16 +1,17 @@
-player1 = 'Max'
-player2 = 'Kelly'
-playerlist = [player1, player2]
 from tkinter import Tk
 import tkinter as tk
 from tkinter import messagebox
+import random
+
+player1 = 'Max'
+player2 = 'Kelly'
+playerlist = [player1, player2]
+random.shuffle(playerlist)
+
 root = Tk()  # 視窗
 root.geometry('700x700')
 
-linemark = []  # 紀錄畫上去的線
-aline = list()
-flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
-temp_flag = []
+
 def pop_up(aline) : #彈出視窗 問你yes/no
     MsgBox = tk.messagebox.askquestion ('注意',"Are you sure?",icon = 'error')
     if MsgBox == 'no':
@@ -24,6 +25,8 @@ def pop_up(aline) : #彈出視窗 問你yes/no
         else:
             line(aline)
         win(flaglist, playerlist)  # let's see who wins
+        #print('now drawing', playerlist[0])
+        playerlist.reverse()
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -32,15 +35,6 @@ def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
                 start_t_end[i[0]].remove(i[2])
             if i[0] in start_t_end[i[2]]:
                 start_t_end[i[2]].remove(i[0])
-
-# 可以畫的
-start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
-               4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
-               6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
-               8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
-               10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
-               12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
-               14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
 
 def check_start_t_end(num, temp_flag, aline, start_t_end):
     if len(temp_flag) == 2:
@@ -60,11 +54,6 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
             for i in range(1):
                 temp_flag.pop(0)
             messagebox.showinfo('注意','不能畫啦')
-
-# 會畫到三個的組合
-triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
-[4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
-[11,12,13],[12,13,14],[13,14,15]]
 
 def line(aline):  # 畫線
     a = my_canvas.create_line(aline, fill='red', width=5)
@@ -128,21 +117,30 @@ def win(flaglist, playerlist):  # 判斷勝利條件
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', playerlist[1]+' wins!!!')
         reset(linemark)
-    playerlist.reverse()
 
-def reset(linemark):  # 不會回到最原本的狀態，感覺需要建立初始狀態
+def reset(linemark):  # 回復原本的設定
     for i in linemark:
             my_canvas.delete(i)  # 移除線
-    flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-    start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
+    for i in range(len(linemark)):
+        linemark.pop(0)            
+    for i in range(1,16):
+        if i not in flaglist:
+            flaglist.append(i)
+    original_start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
                4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
                6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
                8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
                10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
                12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
                14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
-    linemark = []
-    return flaglist, start_t_end, linemark
+    for i in range(1,16):
+        for j in original_start_t_end[i]:
+            if j not in start_t_end[i]:
+                start_t_end[i].append(j)
+    random.shuffle(playerlist)
+    messagebox.showinfo('注意',playerlist[1]+' goes first')
+    # 因為後面會reverse()所以我這邊寫playerlist[1]
+    
 
 
 def place(event):
@@ -150,120 +148,120 @@ def place(event):
     aline.append(37)
     temp_flag.append(1)
     check_start_t_end(1, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place2(event):
     aline.append(245)
     aline.append(175)
     temp_flag.append(2)
     check_start_t_end(2, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place3(event):
     aline.append(385)
     aline.append(175)
     temp_flag.append(3)
     check_start_t_end(3, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place4(event):
     aline.append(175)
     aline.append(315)
     temp_flag.append(4)
     check_start_t_end(4, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
 
 def place5(event):
     aline.append(315)
     aline.append(315)
     temp_flag.append(5)
     check_start_t_end(5, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place6(event):
     aline.append(455)
     aline.append(315)
     temp_flag.append(6)
     check_start_t_end(6, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place7(event):
     aline.append(105)
     aline.append(455)
     temp_flag.append(7)
     check_start_t_end(7, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place8(event):
     aline.append(245)
     aline.append(455)
     temp_flag.append(8)
     check_start_t_end(8, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
    
 def place9(event):
     aline.append(385)
     aline.append(455)
     temp_flag.append(9)
     check_start_t_end(9, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
 
 def place10(event):
     aline.append(525)
     aline.append(455)
     temp_flag.append(10)
     check_start_t_end(10, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place11(event):
     aline.append(37)
     aline.append(593)
     temp_flag.append(11)
     check_start_t_end(11, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place12(event):
     aline.append(175)
     aline.append(593)
     temp_flag.append(12)
     check_start_t_end(12, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place13(event):
     aline.append(315)
     aline.append(593)
     temp_flag.append(13)
     check_start_t_end(13, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place14(event):
     aline.append(455)
     aline.append(593)
     temp_flag.append(14)
     check_start_t_end(14, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
     
 def place15(event):
     aline.append(593)
     aline.append(593)
     temp_flag.append(15)
     check_start_t_end(15, temp_flag, aline, start_t_end)
-    print(aline)
-    print(flaglist)
+#    print(aline)
+#    print(flaglist)
 
 my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
 my_canvas.master.title('try this canvas')
@@ -301,6 +299,23 @@ my_canvas.tag_bind(circle12, '<Button-1>', place12)
 my_canvas.tag_bind(circle13, '<Button-1>', place13)
 my_canvas.tag_bind(circle14, '<Button-1>', place14)
 my_canvas.tag_bind(circle15, '<Button-1>', place15)
-messagebox.showinfo('注意',player1+' goes first')
+messagebox.showinfo('注意',playerlist[0]+' goes first')
+linemark = []  # 紀錄畫上去的線
+aline = list()
+flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
+temp_flag = []
+# 可以畫的
+start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
+               4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
+               6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
+               8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
+               10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
+               12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
+               14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
+# 會畫到三個的組合
+triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
+[4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
+[11,12,13],[12,13,14],[13,14,15]]
+
 
 root.mainloop()
