@@ -28,7 +28,7 @@ def verify(account):
                 continue
 
 class Login(object):
-    def __init__(self,master=None):
+    def __init__(self):
         # 建立主視窗,用於容納其它元件
         self.root = tkinter.Tk()
         # 給主視窗設定標題內容
@@ -62,33 +62,64 @@ class Login(object):
         self.siginUp_button.place(x=240, y=240)
 
         # 進入註冊介面
+    def confirm(self):
+        # Create widget
+        top2 = tkinter.Toplevel()
+        # define title for window
+        top2.title("Confirm")
+        # specify size
+        top2.geometry("450x300")
+        username = self.entry.get()
+        print(username)
+        # Create label
+        label = tkinter.Label(top2, text = username)
+        # Create exit button.
+        #回到signin頁面
+        nobutton = tkinter.Button(top2, text=" Resign ", command=top2.destroy)
+        #回login頁面
+        yesbutton = tkinter.Button(top2,text="yes this is my name" , command = lambda:[top2.destroy()])
+        '''
+            80行，siginUp_interface 仍然會打開
+        '''
+        label.pack()
+        yesbutton.pack()
+        nobutton.pack()
+        # Display untill closed manually.
+        top2.mainloop()
 
 
+
+        # define a function for 1st toplevel
+        # which is associated with root window.
     def siginUp_interface(self):
-        self.signinWindow = tkinter.Toplevel(self.root)
-        self.signinWindow.geometry('450x300')
-        self.label_username = tkinter.Label(self.signinWindow,text = 'username')
-        self.input_username = tkinter.Entry(self.signinWindow,width = 30)
-        username = self.input_username.get().ljust(10, " ")
-        '''
-            button沒用，confirm鍵不會跳出confirm_username(username)
-            然後按signup會直接跳出confirm_username(username)  77行的錯
-        '''
-        self.confirmButton = tkinter.Button(self.signinWindow,text = 'Confirm',  command = self.confirm_username(username))
+        # Create widget
+        signinWindow = tkinter.Toplevel(self.root)
+         # Define title for window
+        signinWindow.title("signup")
+        # specify size
+        signinWindow.geometry("450x300")
+        # Create label
+        label = tkinter.Label(signinWindow,
+                          text="Player username : ")
+        self.entry = tkinter.Entry(signinWindow,
+                                  width = 30)
+        # Create Exit button
+        button1 = tkinter.Button(signinWindow, text="Exit",
+                                 command=signinWindow.destroy)
+        # create button to open toplevel2
+        confirmbutton = tkinter.Button(signinWindow, text="Confirm",command=lambda:[self.confirm() ])
+        label.pack()
+        self.entry.pack()
+        confirmbutton.pack()
+        button1.pack()
+        # Display untill closed manually
+        signinWindow.mainloop()
 
-        self.label_username.pack()
-        self.input_username.pack()
-        self.confirmButton.pack()
-        self.label_username.place(x=60, y=170)
-        self.input_username.place(x=150,y=170)
-        self.confirmButton.place(x=140, y=200)
-        #self.signinWindow.mainloop()
-        #signinWindow.destroy()
+
+
+
         # 進行登入資訊驗證
 
-
-    def confirm_username(self,username):
-        self.confirm = tkinter.messagebox.askyesno(title='確認使用者名稱', message=username)
 
     def backstage_interface(self):
         account = self.input_account.get().ljust(10, " ")
