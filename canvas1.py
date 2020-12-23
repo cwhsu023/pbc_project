@@ -11,6 +11,8 @@ random.shuffle(playerlist)
 root = Tk()  # 視窗
 root.geometry('700x700')
 
+player1_name = tk.Label(root,font=("Ariel",16),text = "Max").pack(side = 'left',fill = 'y')
+player2_name = tk.Label(root,font=("Ariel",16),text = "Kelly").pack(side = 'right',fill = 'y')
 
 def pop_up(aline) : #彈出視窗 問你yes/no
     MsgBox = tk.messagebox.askquestion ('注意',"Are you sure?",icon = 'error')
