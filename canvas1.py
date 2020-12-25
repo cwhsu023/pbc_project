@@ -3,17 +3,6 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
-player1 = 'Max'
-player2 = 'Kelly'
-playerlist = [player1, player2]
-random.shuffle(playerlist)
-
-root = Tk()  # 視窗
-root.geometry('700x700')
-
-player1_name = tk.Label(root,font=("Ariel",16),text = "Max").pack(side = 'left',fill = 'y')
-player2_name = tk.Label(root,font=("Ariel",16),text = "Kelly").pack(side = 'right',fill = 'y')
-
 def pop_up(aline) : #彈出視窗 問你yes/no
     MsgBox = tk.messagebox.askquestion ('注意',"Are you sure?",icon = 'error')
     if MsgBox == 'no':
@@ -265,59 +254,90 @@ def place15(event):
 #    print(aline)
 #    print(flaglist)
 
+class Game(tk.Canvas):
+    linemark = []  # 紀錄畫上去的線
+    aline = list()
+    flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
+    temp_flag = []
+    # 可以畫的
+    start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
+                   4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
+                   6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
+                   8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
+                   10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
+                   12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
+                   14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
+    # 會畫到三個的組合
+    triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
+    [4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
+    [11,12,13],[12,13,14],[13,14,15]]
+    def __init__(self, my_canvas):
+        tk.Canvas.__init__(self)
+        self.circle(my_canvas)
+        self.tag(my_canvas)
+        self.player(playerlist)
+        self.my_canvas = my_canvas
+#    my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
+#    my_canvas.master.title('try this canvas')
+#    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
+    def circle(self, my_canvas):
+    # make a rectangle and fit in the oval
+    # 設定每一個圓'70x70'之後再改
+        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill = 'cyan')
+        self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill = 'cyan')
+        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill = 'cyan')
+        self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill = 'cyan')
+        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill = 'cyan')
+        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill = 'cyan')
+        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill = 'cyan')
+        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill = 'cyan')
+        self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill = 'cyan')
+        self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill = 'cyan')
+        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill = 'cyan')
+        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill = 'cyan')
+        self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill = 'cyan')
+        self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
+        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
+    def tag(self, my_canvas):
+    # bind 結合鍵盤或滑鼠的指令和函數
+        my_canvas.tag_bind(self.circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
+        my_canvas.tag_bind(self.circle2, '<Button-1>', place2)
+        my_canvas.tag_bind(self.circle3, '<Button-1>', place3)
+        my_canvas.tag_bind(self.circle4, '<Button-1>', place4)
+        my_canvas.tag_bind(self.circle5, '<Button-1>', place5)
+        my_canvas.tag_bind(self.circle6, '<Button-1>', place6)
+        my_canvas.tag_bind(self.circle7, '<Button-1>', place7)
+        my_canvas.tag_bind(self.circle8, '<Button-1>', place8)
+        my_canvas.tag_bind(self.circle9, '<Button-1>', place9)
+        my_canvas.tag_bind(self.circle10, '<Button-1>', place10)
+        my_canvas.tag_bind(self.circle11, '<Button-1>', place11)
+        my_canvas.tag_bind(self.circle12, '<Button-1>', place12)
+        my_canvas.tag_bind(self.circle13, '<Button-1>', place13)
+        my_canvas.tag_bind(self.circle14, '<Button-1>', place14)
+        my_canvas.tag_bind(self.circle15, '<Button-1>', place15)
+    def player(self, playerlist):
+        random.shuffle(playerlist)
+        messagebox.showinfo('注意',playerlist[0]+' goes first')
+
+
+player1 = 'Max'
+player2 = 'Kelly'
+playerlist = [player1, player2]
+#random.shuffle(playerlist)
+
+
+
+
+root = Tk()  # 視窗
+root.geometry('700x700')
+root.title("畫圈圈")
 my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
-my_canvas.master.title('try this canvas')
-my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
-# make a rectangle and fit in the oval
-# 設定每一個圓'70x70'之後再改
-circle1 = my_canvas.create_oval(280, 2, 350, 72, fill = 'cyan')
-circle2 = my_canvas.create_oval(210, 140, 280, 210, fill = 'cyan')
-circle3 = my_canvas.create_oval(350, 140, 420, 210, fill = 'cyan')
-circle4 = my_canvas.create_oval(140, 280, 210, 350, fill = 'cyan')
-circle5 = my_canvas.create_oval(280, 280, 350, 350, fill = 'cyan')
-circle6 = my_canvas.create_oval(420, 280, 490, 350, fill = 'cyan')
-circle7 = my_canvas.create_oval(70, 420, 140, 490, fill = 'cyan')
-circle8 = my_canvas.create_oval(210, 420, 280, 490, fill = 'cyan')
-circle9 = my_canvas.create_oval(350, 420, 420, 490, fill = 'cyan')
-circle10 = my_canvas.create_oval(490, 420, 560, 490, fill = 'cyan')
-circle11 = my_canvas.create_oval(2, 558, 72, 628, fill = 'cyan')
-circle12 = my_canvas.create_oval(140, 558, 210, 628, fill = 'cyan')
-circle13 = my_canvas.create_oval(280, 558, 350, 628, fill = 'cyan')
-circle14 = my_canvas.create_oval(420, 558, 490, 628, fill = 'cyan')
-circle15 = my_canvas.create_oval(558, 558, 628, 628, fill = 'cyan')
-# bind 結合鍵盤或滑鼠的指令和函數
-my_canvas.tag_bind(circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
-my_canvas.tag_bind(circle2, '<Button-1>', place2)
-my_canvas.tag_bind(circle3, '<Button-1>', place3)
-my_canvas.tag_bind(circle4, '<Button-1>', place4)
-my_canvas.tag_bind(circle5, '<Button-1>', place5)
-my_canvas.tag_bind(circle6, '<Button-1>', place6)
-my_canvas.tag_bind(circle7, '<Button-1>', place7)
-my_canvas.tag_bind(circle8, '<Button-1>', place8)
-my_canvas.tag_bind(circle9, '<Button-1>', place9)
-my_canvas.tag_bind(circle10, '<Button-1>', place10)
-my_canvas.tag_bind(circle11, '<Button-1>', place11)
-my_canvas.tag_bind(circle12, '<Button-1>', place12)
-my_canvas.tag_bind(circle13, '<Button-1>', place13)
-my_canvas.tag_bind(circle14, '<Button-1>', place14)
-my_canvas.tag_bind(circle15, '<Button-1>', place15)
-messagebox.showinfo('注意',playerlist[0]+' goes first')
-linemark = []  # 紀錄畫上去的線
-aline = list()
-flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
-temp_flag = []
-# 可以畫的
-start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
-               4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
-               6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
-               8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
-               10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
-               12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
-               14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
-# 會畫到三個的組合
-triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
-[4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
-[11,12,13],[12,13,14],[13,14,15]]
+my_canvas.pack()
+player1_name = tk.Label(root,font=("Ariel",16),text = "Max").pack(side = 'left',fill = 'y')
+player2_name = tk.Label(root,font=("Ariel",16),text = "Kelly").pack(side = 'right',fill = 'y')
+
+game = Game(my_canvas)
+
 
 
 root.mainloop()
