@@ -535,6 +535,7 @@ class Login(object):
             root1.geometry('1360x1280')
             root1.title("畫圈圈")
             root1.resizable()
+            global win_times
             win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
             player1_name = tk.Label(root1,font=("Ariel",40),text = "{}".format(player1)).place(x=100,y=20)
             player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won 0 times.").place(x=100,y=120)
