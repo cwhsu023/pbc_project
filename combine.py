@@ -164,15 +164,19 @@ class Login(object):
         # 對賬戶資訊進行驗證，普通使用者返回user，賬戶錯誤返回noAccount
         verifyResult = verify(account)
         verifyResult2 = verify(account2)
-        if verifyResult == 'yes' and verifyResult2 == 'yes':
-#            self.root.destroy()           
+        if verifyResult == 'yes' and verifyResult2 == 'yes':        
             tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
+            self.root.destroy()   
             '''開啟小遊戲連結'''
+            global root1
+            root1 = Tk()  # 視窗
+            root1.geometry('700x700')
+            root1.title("畫圈圈")
             global my_canvas
-            my_canvas = tk.Canvas(self.root, width=630, height=630, bg='white')
+            my_canvas = tk.Canvas(root1, width=630, height=630, bg='white')
             my_canvas.pack()
             game = Game(my_canvas)
-            game.tkraise()
+            root1.mainloop()
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + '玩家1不存在請重新輸入!')
