@@ -162,7 +162,7 @@ class Login(object):
         verifyResult = verify(account)
         verifyResult2 = verify(account2)
         if verifyResult == 'yes' and verifyResult2 == 'yes':
-            #self.root.destroy()
+            self.root.destroy()
             messagebox.showinfo(title='小遊戲開始！', message='登入成功')
             '''開啟小遊戲連結'''
 
