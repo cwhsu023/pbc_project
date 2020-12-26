@@ -400,6 +400,8 @@ for i in range(2) :
 for i in range(2) :
     player_win_times_list[i].append(0)
     
+win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
+    
 
 class Login(object):
     def __init__(self):
@@ -549,7 +551,6 @@ class Login(object):
         elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
 
-win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
 
 def main():
     # 初始化物件
