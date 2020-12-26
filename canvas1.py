@@ -18,7 +18,6 @@ def pop_up(aline) : #彈出視窗 問你yes/no
         win(flaglist, playerlist)  # let's see who wins
         #print('now drawing', playerlist[0])
         playerlist.reverse()
-        player_win_times_list.reverse()
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -109,23 +108,32 @@ for i in range(2) :
     player_win_times_list[i].append(0)
 
 
+
 def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
-    global player_win_times_list
     if len(flaglist) == 1:  # 剩一個自己贏
-        messagebox.showinfo('Congratulation', playerlist[0]+' wins!!!')
+        messagebox.showinfo('Congratulation', playerlist[0]+' wins!!!') #max
+        print(playerlist[0])
+        if playerlist[0] == player1 :
+            win_times[player1] += 1
+            player1_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
+        else :
+            win_times[playerlist[0]] += 1
+            player1_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
         reset(linemark)
-        player_win_times_list[0][0] += 1
-        player1_win_times = player_win_times_list[0][0]
-        player1_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(player1_win_times)).place(x=100,y=120)
-        print(player_win_times_list)
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', playerlist[1]+' wins!!!')
+        if playerlist[1] == player2 :
+            win_times[player2] += 1
+            player1_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
+        else :
+            win_times[playerlist1[1]] += 1
+            player1_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
         reset(linemark)
-        player_win_times_list[0][0] += 1
-        player2_win_times = player_win_times_list[1][0]
-        player2_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(player2_win_times)).place(x=100,y=320)
-        print(player_win_times_list)
 def reset(linemark):  # 回復原本的設定
     for i in linemark:
             my_canvas.delete(i)  # 移除線
@@ -339,6 +347,7 @@ triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
 player1 = 'Max'
 player2 = 'Kelly'
 playerlist = [player1, player2]
+playerlist1 = [player1, player2]
 #random.shuffle(playerlist)
 
 root = Tk()  # 視窗
@@ -348,12 +357,13 @@ my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
 my_canvas.pack()
 root.resizable()
 
-
-
-player1_name = tk.Label(root,font=("Ariel",40),text = "{}".format(playerlist[0])).place(x=100,y=20)
+win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
+player1_name = tk.Label(root,font=("Ariel",40),text = "{}".format(player1)).place(x=100,y=20)
 player1_score = tk.Label(root,font=("Ariel",30),text = "You have won 0 times.").place(x=100,y=120)
-player2_name = tk.Label(root,font=("Ariel",40),text = "{}".format(playerlist[1])).place(x=100,y=220)
+player2_name = tk.Label(root,font=("Ariel",40),text = "{}".format(player2)).place(x=100,y=220)
 player2_score = tk.Label(root,font=("Ariel",30),text = "You have won 0 times.").place(x=100,y=320)
+
+
 
 game = Game(my_canvas)
 
