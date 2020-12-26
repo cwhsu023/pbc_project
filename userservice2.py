@@ -163,17 +163,17 @@ class Login(object):
         verifyResult2 = verify(account2)
         if verifyResult == 'yes' and verifyResult2 == 'yes':
             self.root.destroy()
-            messagebox.showinfo(title='小遊戲開始！', message='登入成功')
+            tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
             '''開啟小遊戲連結'''
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
-            messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + '玩家1不存在請重新輸入!')
+            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + '玩家1不存在請重新輸入!')
 
         elif verifyResult == 'yes' and verifyResult2 == 'noAccount':
-            messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account2 + "'" + '玩家2不存在請重新輸入!')
+            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account2 + "'" + '玩家2不存在請重新輸入!')
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
-            messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
+            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
 
 
 def main():
