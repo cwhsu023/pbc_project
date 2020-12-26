@@ -113,14 +113,14 @@ def win(flaglist, playerlist):  # 判斷勝利條件
         i = 1
         player1_win_times_list.append(i)
         i += 1
-        print(player1_win_times_list)
+        print(1, player1_win_times_list)
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', playerlist[1]+' wins!!!')
         reset(linemark)
         k = 1
         player2_win_times_list.append(k)
         k += 1
-        print(player2_win_times_list)
+        print(2, player2_win_times_list)
 
 def reset(linemark):  # 回復原本的設定
     for i in linemark:
