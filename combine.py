@@ -29,7 +29,7 @@ for i in range(2) :
 for i in range(2) :
     player_win_times_list[i].append(0)
     
-win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
+#win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
 
 
 def pop_up(aline) : #彈出視窗 問你yes/no
@@ -407,6 +407,7 @@ def verify_if_repeated(username):
     
 
 class Login(object):
+    win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
     def __init__(self):
         # 建立主視窗,用於容納其它元件
         self.root = tkinter.Tk()
