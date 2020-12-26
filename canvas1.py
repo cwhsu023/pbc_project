@@ -338,7 +338,7 @@ playerlist = [player1, player2]
 #random.shuffle(playerlist)
 
 root = Tk()  # 視窗
-root.geometry('700x700')
+root.geometry('1360x1280')
 root.title("畫圈圈")
 my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
 my_canvas.pack()
