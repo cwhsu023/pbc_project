@@ -400,7 +400,7 @@ for i in range(2) :
 for i in range(2) :
     player_win_times_list[i].append(0)
     
-win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
+#win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
     
 
 class Login(object):
