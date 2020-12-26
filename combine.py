@@ -130,7 +130,30 @@ def show(x, y):
         my_canvas.delete(b)
 '''
 
-
+def win(flaglist, playerlist):  # 判斷勝利條件
+    # playerlist[0] 是這一輪畫線的玩家
+    if len(flaglist) == 1:  # 剩一個自己贏
+        messagebox.showinfo('Congratulation', playerlist[0]+' wins!!!')
+        if playerlist[0] == player1 :
+            win_times[player1] += 1
+            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
+        else :
+            win_times[playerlist[0]] += 1
+            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
+        reset(linemark)
+    if len(flaglist) == 0:  # 不剩對方贏
+        messagebox.showinfo('Congratulation', playerlist[1]+' wins!!!')
+        if playerlist[1] == player2 :
+            win_times[player2] += 1
+            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
+        else :
+            win_times[playerlist1[1]] += 1
+            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
+            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
+        reset(linemark)
     
     
 
@@ -532,30 +555,7 @@ class Login(object):
         elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
 
-def win(flaglist, playerlist):  # 判斷勝利條件
-    # playerlist[0] 是這一輪畫線的玩家
-    if len(flaglist) == 1:  # 剩一個自己贏
-        messagebox.showinfo('Congratulation', playerlist[0]+' wins!!!')
-        if playerlist[0] == player1 :
-            win_times[player1] += 1
-            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
-            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
-        else :
-            win_times[playerlist[0]] += 1
-            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
-            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
-        reset(linemark)
-    if len(flaglist) == 0:  # 不剩對方贏
-        messagebox.showinfo('Congratulation', playerlist[1]+' wins!!!')
-        if playerlist[1] == player2 :
-            win_times[player2] += 1
-            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
-            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
-        else :
-            win_times[playerlist1[1]] += 1
-            player1_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
-            player2_score = tk.Label(root1,font=("Ariel",30),text="You have won {} times.".format(win_times[player2])).place(x=100,y=320)
-        reset(linemark)
+
 
 def main():
     # 初始化物件
