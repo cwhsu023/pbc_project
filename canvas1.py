@@ -113,7 +113,6 @@ def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
     if len(flaglist) == 1:  # 剩一個自己贏
         messagebox.showinfo('Congratulation', playerlist[0]+' wins!!!') #max
-        print(playerlist[0])
         if playerlist[0] == player1 :
             win_times[player1] += 1
             player1_score = tk.Label(root,font=("Ariel",30),text="You have won {} times.".format(win_times[player1])).place(x=100,y=120)
