@@ -521,7 +521,7 @@ class Login(object):
             playerlist = [player1, player2]
             global root1
             root1 = Tk()  # 視窗
-            root1.geometry('700x700')
+            root1.geometry('1360x1280')
             root1.title("畫圈圈")
             root.resizable()
             win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
