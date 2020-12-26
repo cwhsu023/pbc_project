@@ -394,6 +394,11 @@ def verify_if_repeated(username):
         new_user.write(username)
         return 'sign accepted'
 
+player_win_times_list = []
+for i in range(2) :
+    player_win_times_list.append([])
+for i in range(2) :
+    player_win_times_list[i].append(0)
 
 class Login(object):
     def __init__(self):
