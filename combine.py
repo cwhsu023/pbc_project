@@ -165,18 +165,14 @@ class Login(object):
         verifyResult = verify(account)
         verifyResult2 = verify(account2)
         if verifyResult == 'yes' and verifyResult2 == 'yes':
-            self.root.destroy()
+#            self.root.destroy()           
             tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
             '''開啟小遊戲連結'''
-            global root1
-            root1 = Tk()  # 視窗
-            root1.geometry('700x700')
-            root1.title("畫圈圈")
             global my_canvas
-            my_canvas = tk.Canvas(root1, width=630, height=630, bg='white')
+            my_canvas = tk.Canvas(self.root, width=630, height=630, bg='white')
             my_canvas.pack()
             game = Game(my_canvas)
-            root1.mainloop()
+            game.tkraise()
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + '玩家1不存在請重新輸入!')
@@ -467,6 +463,14 @@ def place15(event):
 class Game(tk.Canvas):
     def __init__(self, my_canvas):
         tk.Canvas.__init__(self)
+        
+#        self.root = tkinter.Tk()
+#        # 給主視窗設定標題內容
+#        self.root.title("畫圈圈")
+#        self.root.geometry('700x700')
+#        self.canvas = tkinter.Canvas(self.root, width=630, height=630, bg='white')  # 建立畫布
+#        self.canvas.pack()
+        
         self.circle(my_canvas)
         self.tag(my_canvas)
         self.player(playerlist)
@@ -538,7 +542,7 @@ playerlist = [player1, player2]
 player1_win_times = player1_win_times_list[-1]
 player2_win_times = player2_win_times_list[-1]
 
-player1_name = tk.Label(root1,font=("Ariel",40),text = "Max").place(x=100,y=20)
-player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player1_win_times)).place(x=100,y=120)
-player2_name = tk.Label(root1,font=("Ariel",40),text = "Kelly").place(x=100,y=220)
-player2_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player2_win_times)).place(x=100,y=320)
+#player1_name = tk.Label(root1,font=("Ariel",40),text = "Max").place(x=100,y=20)
+#player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player1_win_times)).place(x=100,y=120)
+#player2_name = tk.Label(root1,font=("Ariel",40),text = "Kelly").place(x=100,y=220)
+#player2_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player2_win_times)).place(x=100,y=320)
