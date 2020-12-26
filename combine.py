@@ -541,21 +541,12 @@ def main():
     tkinter.mainloop()
 if __name__ == '__main__':
     main()
-    
-
-
-
-
-#player1 = 'Max'
-#player2 = 'Kelly'
-#playerlist = [player1, player2]
-#random.shuffle(playerlist)
 
 
 player1_win_times = player1_win_times_list[-1]
 player2_win_times = player2_win_times_list[-1]
 
-#player1_name = tk.Label(root1,font=("Ariel",40),text = "Max").place(x=100,y=20)
-#player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player1_win_times)).place(x=100,y=120)
-#player2_name = tk.Label(root1,font=("Ariel",40),text = "Kelly").place(x=100,y=220)
-#player2_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player2_win_times)).place(x=100,y=320)
+player1_name = tk.Label(root1,font=("Ariel",40),text = "Max").place(x=100,y=20)
+player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player1_win_times)).place(x=100,y=120)
+player2_name = tk.Label(root1,font=("Ariel",40),text = "Kelly").place(x=100,y=220)
+player2_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player2_win_times)).place(x=100,y=320)
