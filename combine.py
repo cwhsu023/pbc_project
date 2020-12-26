@@ -399,6 +399,7 @@ for i in range(2) :
     player_win_times_list.append([])
 for i in range(2) :
     player_win_times_list[i].append(0)
+    
 
 class Login(object):
     def __init__(self):
@@ -529,7 +530,6 @@ class Login(object):
             root1.geometry('1360x1280')
             root1.title("畫圈圈")
             root1.resizable()
-            win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
             player1_name = tk.Label(root1,font=("Ariel",40),text = "{}".format(player1)).place(x=100,y=20)
             player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won 0 times.").place(x=100,y=120)
             player2_name = tk.Label(root1,font=("Ariel",40),text = "{}".format(player2)).place(x=100,y=220)
@@ -549,6 +549,7 @@ class Login(object):
         elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
 
+win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
 
 def main():
     # 初始化物件
