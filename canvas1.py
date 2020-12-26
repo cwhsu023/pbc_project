@@ -100,14 +100,27 @@ def show(x, y):
         my_canvas.delete(a)
         my_canvas.delete(b)
 '''
+
+player1_win_times_list = [0]
+player2_win_times_list = [0]
 def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
+    global player1_win_times_list
+    global player2_win_times_list
     if len(flaglist) == 1:  # 剩一個自己贏
         messagebox.showinfo('Congratulation', playerlist[0]+' wins!!!')
         reset(linemark)
+        i = 1
+        player1_win_times_list.append(i)
+        i += 1
+        print(player1_win_times_list)
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', playerlist[1]+' wins!!!')
         reset(linemark)
+        k = 1
+        player2_win_times_list.append(k)
+        k += 1
+        print(player2_win_times_list)
 
 def reset(linemark):  # 回復原本的設定
     for i in linemark:
@@ -329,9 +342,15 @@ root.geometry('700x700')
 root.title("畫圈圈")
 my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
 my_canvas.pack()
+root.resizable()
 
-player1_name = tk.Label(root,font=("Ariel",16),text = "Max").pack(side = 'left',fill = 'y')
-player2_name = tk.Label(root,font=("Ariel",16),text = "Kelly").pack(side = 'right',fill = 'y')
+player1_win_times = player1_win_times_list[-1]
+player2_win_times = player2_win_times_list[-1]
+
+player1_name = tk.Label(root,font=("Ariel",40),text = "Max").place(x=100,y=20)
+player1_score = tk.Label(root,font=("Ariel",30),text = "You have won {} times.".format(player1_win_times)).place(x=100,y=120)
+player2_name = tk.Label(root,font=("Ariel",40),text = "Kelly").place(x=100,y=220)
+player2_score = tk.Label(root,font=("Ariel",30),text = "You have won {} times.".format(player2_win_times)).place(x=100,y=320)
 
 game = Game(my_canvas)
 
