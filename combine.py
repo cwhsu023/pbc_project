@@ -22,6 +22,14 @@ triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
 [4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
 [11,12,13],[12,13,14],[13,14,15]]
 playerlist = list()  # 玩家
+player_win_times_list = []
+
+for i in range(2) :
+    player_win_times_list.append([])
+for i in range(2) :
+    player_win_times_list[i].append(0)
+    
+win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
 
 
 def pop_up(aline) : #彈出視窗 問你yes/no
@@ -394,11 +402,6 @@ def verify_if_repeated(username):
         new_user.write(username)
         return 'sign accepted'
 
-player_win_times_list = []
-for i in range(2) :
-    player_win_times_list.append([])
-for i in range(2) :
-    player_win_times_list[i].append(0)
     
 
     
@@ -532,7 +535,6 @@ class Login(object):
             root1.geometry('1360x1280')
             root1.title("畫圈圈")
             root1.resizable()
-            win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
             player1_name = tk.Label(root1,font=("Ariel",40),text = "{}".format(player1)).place(x=100,y=20)
             player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won 0 times.").place(x=100,y=120)
             player2_name = tk.Label(root1,font=("Ariel",40),text = "{}".format(player2)).place(x=100,y=220)
