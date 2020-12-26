@@ -163,7 +163,7 @@ class Login(object):
         verifyResult2 = verify(account2)
         if verifyResult == 'yes' and verifyResult2 == 'yes':
             self.root.destroy()
-            tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
+            messagebox.showinfo(title='小遊戲開始！', message='登入成功')
             '''開啟小遊戲連結'''
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':

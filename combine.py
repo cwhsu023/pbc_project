@@ -5,199 +5,23 @@ from tkinter import messagebox
 from tkinter import Tk
 import tkinter as tk
 import random
-
-def verify(account):
-    user_list = []
-    with open(file='lock_name_file.txt', mode='r', encoding='utf-8') as users:
-        user = users.readlines()
-        for line in user:
-            line = line.strip('\n')
-            user_list.append(line)
-    #print(user_list)
-    users.close()
-    #new_user = open('/Users/mba/Desktop/lock_name_file.txt', 'a+')
-    c = 0
-    for i in range(len(user_list)):
-        if account == user_list[i]:
-            return 'yes'
-            c += 1
-            break
-        else:
-            c += 1
-            if c == len(user_list):
-                return 'noAccount'  # 要請使用著確認是否是他的名稱
-            else:
-                continue
-def verify_if_repeated(username):
-    '''驗證帳號是否重複'''
-    username = username.strip()
-    user_list = []
-    with open(file='lock_name_file.txt', mode='r', encoding='utf-8') as users:
-        user = users.readlines()
-        for line in user:
-            line = line.strip('\n')
-            user_list.append(line)
-    users.close()
-    tempt = 0
-    for i in range(len(user_list)):
-        if username == user_list[i]:
-            tempt = 1
-            return 'Username repeated'
-    '''未重複則紀錄'''
-    if tempt == 0:
-        new_user = open('lock_name_file.txt', 'a+')
-        new_user.write(username)
-        return 'sign accepted'
-
-
-class Login(object):
-    def __init__(self):
-        # 建立主視窗,用於容納其它元件
-        self.root = tkinter.Tk()
-        # 給主視窗設定標題內容
-        self.root.title("畫圈圈")
-        self.root.geometry('450x300')
-        self.canvas = tkinter.Canvas(self.root, height=200, width=500)  # 建立畫布
-        self.canvas.pack(side='top')  # 放置畫布（為上端）
-
-        # 建立一個`label`名為`Account: `
-        self.label_account = tkinter.Label(self.root, text='Player1: ')
-        self.label_account2 = tkinter.Label(self.root, text='Player2: ')
-        # 建立一個賬號輸入框,並設定尺寸
-        self.input_account = tkinter.Entry(self.root, width=30)
-        self.input_account2 = tkinter.Entry(self.root, width=30)
-        # 建立一個登入系統的按鈕
-        self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login", width=10)
-        # 建立一個註冊系統的按鈕
-        self.siginUp_button = tkinter.Button(self.root, command= self.siginUp_interface, text="Sign up", width=10)
-
-        # 完成佈局
-    def gui_arrang(self):
-        self.label_account.pack()
-        self.input_account.pack()
-        self.login_button.pack()
-        self.siginUp_button.pack()
-        self.label_account.place(x=60, y=170)
-        self.input_account.place(x=135, y=170)
-        self.label_account2.place(x=60, y=200)
-        self.input_account2.place(x=135, y=200)
-        self.login_button.place(x=140, y=240)
-        self.siginUp_button.place(x=240, y=240)
-
-        # 進入註冊介面
-
-
-    def confirm(self):
-        # Create widget
-        top2 = tkinter.Toplevel()
-        # define title for window
-        top2.title("Confirm")
-        # specify size
-        top2.geometry("450x300")
-        username = self.entry.get()
-        # Create label
-        label = tkinter.Label(top2, text = 'Is' + '"' + username + '"' + 'your username')
-        # Create exit button.
-        #回到signin頁面
-        nobutton = tkinter.Button(top2, text=" Resign ", command=top2.destroy)
-        #回login頁面
-        yesbutton = tkinter.Button(top2,text="yes this is my name" , command = lambda:[top2.destroy(),self.verify_interface(username)])
-        '''
-            80行，siginUp_interface 仍然會打開
-        '''
-        label.pack()
-        yesbutton.pack()
-        nobutton.pack()
-        # Display untill closed manually.
-        top2.mainloop()
-
-    #驗證帳號是否重複
-    def verify_interface(self,username):
-        result = verify_if_repeated(username)
-        print(result)
-        if result == 'Username repeated':
-            tkinter.messagebox.showinfo(title= None , message = '使用者名稱重複')
-            #self.siginUp_interface()
-            '''若上面問題有解決，這行加上去'''
-        '''
-        elif result == 'sign accepted':
-            #應該要回到root但是還是卡在signup interface
-        '''
-
-    # define a function for 1st toplevel
-    # which is associated with root window.
-    def siginUp_interface(self):
-        # Create widget
-        signinWindow = tkinter.Toplevel(self.root)
-         # Define title for window
-        signinWindow.title("signup")
-        # specify size
-        signinWindow.geometry("450x300")
-        # Create label
-        label = tkinter.Label(signinWindow,
-                          text="Player username : ")
-        self.entry = tkinter.Entry(signinWindow,
-                                  width = 30)
-        # Create Exit button
-        button1 = tkinter.Button(signinWindow, text="Exit",
-                                 command=signinWindow.destroy)
-        # create button to open toplevel2
-        confirmbutton = tkinter.Button(signinWindow, text="Confirm",command=lambda:[self.confirm() ])
-        label.pack()
-        self.entry.pack()
-        confirmbutton.pack()
-        button1.pack()
-        # Display untill closed manually
-        signinWindow.mainloop()
-
-
-
-
-        # 進行登入資訊驗證
-
-
-    def backstage_interface(self):
-        account = self.input_account.get()
-        account2 = self.input_account2.get()
-        print(account)
-        print(account2)
-        # 對賬戶資訊進行驗證，普通使用者返回user，賬戶錯誤返回noAccount
-        verifyResult = verify(account)
-        verifyResult2 = verify(account2)
-        if verifyResult == 'yes' and verifyResult2 == 'yes':
-            self.root.destroy()
-            tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
-            '''開啟小遊戲連結'''
-            global root1
-            root1 = Tk()  # 視窗
-            root1.geometry('700x700')
-            root1.title("畫圈圈")
-            global my_canvas
-            my_canvas = tk.Canvas(root1, width=630, height=630, bg='white')
-            my_canvas.pack()
-            game = Game(my_canvas)
-            root1.mainloop()
-
-        elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
-            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + '玩家1不存在請重新輸入!')
-
-        elif verifyResult == 'yes' and verifyResult2 == 'noAccount':
-            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account2 + "'" + '玩家2不存在請重新輸入!')
-
-        elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
-            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
-
-
-def main():
-    # 初始化物件
-    L = Login()
-    # 進行佈局
-    L.gui_arrang()
-    # 主程式執行
-    tkinter.mainloop()
-if __name__ == '__main__':
-    main()
-    
+linemark = []  # 紀錄畫上去的線
+aline = list()
+flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
+temp_flag = []
+# 可以畫的
+start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
+               4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
+               6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
+               8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
+               10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
+               12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
+               14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
+# 會畫到三個的組合
+triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
+[4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
+[11,12,13],[12,13,14],[13,14,15]]
+playerlist = list()  # 玩家
 
 
 def pop_up(aline) : #彈出視窗 問你yes/no
@@ -467,6 +291,14 @@ def place15(event):
 class Game(tk.Canvas):
     def __init__(self, my_canvas):
         tk.Canvas.__init__(self)
+        
+#        self.root = tkinter.Tk()
+#        # 給主視窗設定標題內容
+#        self.root.title("畫圈圈")
+#        self.root.geometry('700x700')
+#        self.canvas = tkinter.Canvas(self.root, width=630, height=630, bg='white')  # 建立畫布
+#        self.canvas.pack()
+        
         self.circle(my_canvas)
         self.tag(my_canvas)
         self.player(playerlist)
@@ -512,33 +344,218 @@ class Game(tk.Canvas):
     def player(self, playerlist):
         random.shuffle(playerlist)
         messagebox.showinfo('注意',playerlist[0]+' goes first')
-linemark = []  # 紀錄畫上去的線
-aline = list()
-flaglist = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]  # 可以選的
-temp_flag = []
-# 可以畫的
-start_t_end = {1:[1,2,3,4,6], 2:[1,2,3,4,5,7,9], 3:[1,2,3,5,6,8,10],\
-               4:[1,2,4,5,6,7,8,11,13], 5:[2,3,4,5,6,8,9,12,14],\
-               6:[1,3,4,5,6,9,13,10,15], 7:[2,4,7,8,9,11,12],\
-               8:[3,4,5,7,8,9,10,12,13], 9:[2,5,6,7,8,9,10,13,14],\
-               10:[3,6,8,9,10,14,15], 11:[4,7,11,12,13],\
-               12:[5,7,8,11,12,13,14], 13:[4,6,8,9,11,12,13,14,15],\
-               14:[5,9,10,12,13,14,15], 15:[6,10,13,14,15]}
-# 會畫到三個的組合
-triple = [[1,2,4],[1,3,6],[2,4,7],[2,5,9],[3,5,8],[3,6,10],[4,5,6],\
-[4,7,11],[4,8,13],[5,8,12],[5,9,14],[6,9,13], [6,10,15],[7,8,9],[8,9,10],\
-[11,12,13],[12,13,14],[13,14,15]]
+def verify(account):
+    user_list = []
+    with open(file='lock_name_file.txt', mode='r', encoding='utf-8') as users:
+        user = users.readlines()
+        for line in user:
+            line = line.strip('\n')
+            user_list.append(line)
+    #print(user_list)
+    users.close()
+    #new_user = open('/Users/mba/Desktop/lock_name_file.txt', 'a+')
+    c = 0
+    for i in range(len(user_list)):
+        if account == user_list[i]:
+            return 'yes'
+            c += 1
+            break
+        else:
+            c += 1
+            if c == len(user_list):
+                return 'noAccount'  # 要請使用著確認是否是他的名稱
+            else:
+                continue
+def verify_if_repeated(username):
+    '''驗證帳號是否重複'''
+    username = username.strip()
+    user_list = []
+    with open(file='lock_name_file.txt', mode='r', encoding='utf-8') as users:
+        user = users.readlines()
+        for line in user:
+            line = line.strip('\n')
+            user_list.append(line)
+    users.close()
+    tempt = 0
+    for i in range(len(user_list)):
+        if username == user_list[i]:
+            tempt = 1
+            return 'Username repeated'
+    '''未重複則紀錄'''
+    if tempt == 0:
+        new_user = open('lock_name_file.txt', 'a+')
+        new_user.write(username)
+        return 'sign accepted'
 
-player1 = 'Max'
-player2 = 'Kelly'
-playerlist = [player1, player2]
+
+class Login(object):
+    def __init__(self):
+        # 建立主視窗,用於容納其它元件
+        self.root = tkinter.Tk()
+        # 給主視窗設定標題內容
+        self.root.title("畫圈圈")
+        self.root.geometry('450x300')
+        self.canvas = tkinter.Canvas(self.root, height=200, width=500)  # 建立畫布
+        self.canvas.pack(side='top')  # 放置畫布（為上端）
+
+        # 建立一個`label`名為`Account: `
+        self.label_account = tkinter.Label(self.root, text='Player1: ')
+        self.label_account2 = tkinter.Label(self.root, text='Player2: ')
+        # 建立一個賬號輸入框,並設定尺寸
+        self.input_account = tkinter.Entry(self.root, width=30)
+        self.input_account2 = tkinter.Entry(self.root, width=30)
+        # 建立一個登入系統的按鈕
+        self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login", width=10)
+        # 建立一個註冊系統的按鈕
+        self.siginUp_button = tkinter.Button(self.root, command= self.siginUp_interface, text="Sign up", width=10)
+
+        # 完成佈局
+    def gui_arrang(self):
+        self.label_account.pack()
+        self.input_account.pack()
+        self.login_button.pack()
+        self.siginUp_button.pack()
+        self.label_account.place(x=60, y=170)
+        self.input_account.place(x=135, y=170)
+        self.label_account2.place(x=60, y=200)
+        self.input_account2.place(x=135, y=200)
+        self.login_button.place(x=140, y=240)
+        self.siginUp_button.place(x=240, y=240)
+
+        # 進入註冊介面
+
+
+    def confirm(self):
+        # Create widget
+        top2 = tkinter.Toplevel()
+        # define title for window
+        top2.title("Confirm")
+        # specify size
+        top2.geometry("450x300")
+        username = self.entry.get()
+        # Create label
+        label = tkinter.Label(top2, text = 'Is' + '"' + username + '"' + 'your username')
+        # Create exit button.
+        #回到signin頁面
+        nobutton = tkinter.Button(top2, text=" Resign ", command=top2.destroy)
+        #回login頁面
+        yesbutton = tkinter.Button(top2,text="yes this is my name" , command = lambda:[top2.destroy(),self.verify_interface(username)])
+        '''
+            80行，siginUp_interface 仍然會打開
+        '''
+        label.pack()
+        yesbutton.pack()
+        nobutton.pack()
+        # Display untill closed manually.
+        top2.mainloop()
+
+    #驗證帳號是否重複
+    def verify_interface(self,username):
+        result = verify_if_repeated(username)
+        print(result)
+        if result == 'Username repeated':
+            tkinter.messagebox.showinfo(title= None , message = '使用者名稱重複')
+            #self.siginUp_interface()
+            '''若上面問題有解決，這行加上去'''
+        '''
+        elif result == 'sign accepted':
+            #應該要回到root但是還是卡在signup interface
+        '''
+
+    # define a function for 1st toplevel
+    # which is associated with root window.
+    def siginUp_interface(self):
+        # Create widget
+        signinWindow = tkinter.Toplevel(self.root)
+         # Define title for window
+        signinWindow.title("signup")
+        # specify size
+        signinWindow.geometry("450x300")
+        # Create label
+        label = tkinter.Label(signinWindow,
+                          text="Player username : ")
+        self.entry = tkinter.Entry(signinWindow,
+                                  width = 30)
+        # Create Exit button
+        button1 = tkinter.Button(signinWindow, text="Exit",
+                                 command=signinWindow.destroy)
+        # create button to open toplevel2
+        confirmbutton = tkinter.Button(signinWindow, text="Confirm",command=lambda:[self.confirm() ])
+        label.pack()
+        self.entry.pack()
+        confirmbutton.pack()
+        button1.pack()
+        # Display untill closed manually
+        signinWindow.mainloop()
+
+
+
+
+        # 進行登入資訊驗證
+
+
+    def backstage_interface(self):
+        account = self.input_account.get()
+        account2 = self.input_account2.get()
+        print(account)
+        print(account2)
+        # 對賬戶資訊進行驗證，普通使用者返回user，賬戶錯誤返回noAccount
+        verifyResult = verify(account)
+        verifyResult2 = verify(account2)
+        if verifyResult == 'yes' and verifyResult2 == 'yes':        
+            tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
+            self.root.destroy()   
+            '''開啟小遊戲連結'''
+            global player1
+            player1 = account
+            global player2
+            player2 = account2
+            global playerlist
+            playerlist = [player1, player2]
+            global root1
+            root1 = Tk()  # 視窗
+            root1.geometry('700x700')
+            root1.title("畫圈圈")
+            global my_canvas
+            my_canvas = tk.Canvas(root1, width=630, height=630, bg='white')
+            my_canvas.pack()
+            game = Game(my_canvas)
+            root1.mainloop()
+
+        elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
+            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + '玩家1不存在請重新輸入!')
+
+        elif verifyResult == 'yes' and verifyResult2 == 'noAccount':
+            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account2 + "'" + '玩家2不存在請重新輸入!')
+
+        elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
+            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message="'" + account + "'" + "'" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
+
+
+def main():
+    # 初始化物件
+    L = Login()
+    # 進行佈局
+    L.gui_arrang()
+    # 主程式執行
+    tkinter.mainloop()
+if __name__ == '__main__':
+    main()
+    
+
+
+
+
+#player1 = 'Max'
+#player2 = 'Kelly'
+#playerlist = [player1, player2]
 #random.shuffle(playerlist)
 
 
 player1_win_times = player1_win_times_list[-1]
 player2_win_times = player2_win_times_list[-1]
 
-player1_name = tk.Label(root1,font=("Ariel",40),text = "Max").place(x=100,y=20)
-player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player1_win_times)).place(x=100,y=120)
-player2_name = tk.Label(root1,font=("Ariel",40),text = "Kelly").place(x=100,y=220)
-player2_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player2_win_times)).place(x=100,y=320)
+#player1_name = tk.Label(root1,font=("Ariel",40),text = "Max").place(x=100,y=20)
+#player1_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player1_win_times)).place(x=100,y=120)
+#player2_name = tk.Label(root1,font=("Ariel",40),text = "Kelly").place(x=100,y=220)
+#player2_score = tk.Label(root1,font=("Ariel",30),text = "You have won {} times.".format(player2_win_times)).place(x=100,y=320)
