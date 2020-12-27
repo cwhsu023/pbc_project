@@ -450,6 +450,7 @@ def verify_if_repeated(username):
     '''未重複則紀錄'''
     if tempt == 0:
         new_user = open('lock_name_file.txt', 'a+')
+        username = username+'\n'
         new_user.write(username)
         new_user.close()
         return 'sign accepted'
