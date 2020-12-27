@@ -123,7 +123,22 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
 
 
 def line(aline):  # 畫線
-    a = my_canvas.create_line(aline, fill='red', width=5)
+    if (aline[0] - aline[2])*(aline[1] - aline[3]) >  0:
+        x1 = min(aline[0], aline[2]) - 25
+        y1 = min(aline[1], aline[3]) - 50
+        x2 = max(aline[0], aline[2]) + 25
+        y2 = max(aline[1], aline[3]) + 50
+    elif (aline[0] - aline[2])*(aline[1] - aline[3]) <  0:
+        x1 = max(aline[0], aline[2]) + 25
+        y1 = min(aline[1], aline[3]) - 50
+        x2 = min(aline[0], aline[2]) - 25
+        y2 = max(aline[1], aline[3]) + 50
+    else:
+        x1 = min(aline[0], aline[2]) - 55
+        x2 = max(aline[0], aline[2]) + 55
+        y1 = aline[1]
+        y2 = aline[3]
+    a = my_canvas.create_line(x1, y1, x2, y2, fill='red', width=5)
     linemark.append(a)  # 紀錄線
     sort_flag = sorted(temp_flag)
     for i in triple:
@@ -154,9 +169,14 @@ def line(aline):  # 畫線
 
 
 def self_line(aline):
-    x = aline[0] + 45
-    y = aline[1] + 45
-    a = my_canvas.create_line(x, y, x - 90, y - 90, fill='red', width=5)
+    if aline[0] >= 315:
+        x = aline[0] + 25
+        y = aline[1] + 50
+        a = my_canvas.create_line(x, y, x - 50, y - 100, fill='red', width=5)
+    else:
+        x = aline[0] + 25
+        y = aline[1] - 50
+        a = my_canvas.create_line(x, y, x - 50, y + 100, fill='red', width=5)
     linemark.append(a)
     flaglist.remove(temp_flag[0])  # 只移除一個圓
     for i in start_t_end.values():
@@ -178,21 +198,20 @@ def show(num):
     x = place_dict[num][0]
     y = place_dict[num][1]
     if len(temp_flag) == 0:
-        print(1)
         first_num = num
         circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
         circle_list.append(circle1)
     if len(temp_flag) == 1:
-        print(2)
         circle2 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
         circle_list.append(circle2)
+        num_list = [first_num, num]
+        num_list.sort()
         for i in triple:
-            if first_num == i[0] and num == i[2]:
+            if num_list[0] == i[0] and num_list[1] == i[2]:
                 x = place_dict[i[1]][0]
                 y = place_dict[i[1]][1]
                 circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
                 circle_list.append(circle3)
-
 
 def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
