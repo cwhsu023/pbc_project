@@ -489,7 +489,7 @@ class Game(tk.Canvas):
     #    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
     def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb):
         self.bg = my_canvas.create_image(0,0 , image=photo)
-        self.dec2 = my_canvas.create_image(900,600, image = snowman)
+        self.dec2 = my_canvas.create_image(900,650, image = snowman)
         self.dec = my_canvas.create_image(550,50, image = ring2_image)
         self.dec3 = my_canvas.create_image(318,325, image = tree)
         self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
@@ -501,8 +501,8 @@ class Game(tk.Canvas):
         self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='#CD5C5C',outline='#CD5C5C')
         self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='#CAFF70',outline='#CAFF70')
         self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='#FFEC8B',outline='#FFEC8B')
-        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#FFEC8B',outline='#FFEC8B')
-        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#B0C4DE',outline='#B0C4DE')
+        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#F4A460',outline='#F4A460')
+        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#FFC1C1',outline='#FFC1C1')
         self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='#E6E6FA',outline='#E6E6FA')
         self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='#008000',outline='#008000')
         self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='#008B8B',outline='#008B8B')
