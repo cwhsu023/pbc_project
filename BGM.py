@@ -795,6 +795,7 @@ class Login(object):
             snowman = tk.PhotoImage(file = 'snowman.gif')
             tree = tk.PhotoImage(file = 'tree.gif')
             scoreb = tk.PhotoImage(file = 'scoreb.gif')
+            arrow = tk.PhotoImage(file = 'arrow.gif')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
             title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
@@ -804,13 +805,10 @@ class Login(object):
             player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
             my_canvas.pack(fill = tk.BOTH)
             game = Game(my_canvas, photo, ring2_image, snowman)
-            image = Image.open("point.jpg")
-            image = image.resize((250,250),Image.ANTIALIAS)
-            pic = ImageTk.PhotoImage(image)
             if playerlist[1] == player1 :
-                point1_label = tk.Label(root1,image=image).place(x=700,y=100)
+                point1_label = tk.Label(root1,image=arrow).place(x=700,y=100)
             elif playerlist[1] == player2 :
-                point2_label = tk.Label(root1,image=image).place(x=700,y=160)
+                point2_label = tk.Label(root1,image=arrow).place(x=700,y=160)
             game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb)
             root1.mainloop()
 
