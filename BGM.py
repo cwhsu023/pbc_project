@@ -26,7 +26,7 @@ triple = [[1, 2, 4], [1, 3, 6], [2, 4, 7], [2, 5, 9], [3, 5, 8], [3, 6, 10], [4,
           [4, 7, 11], [4, 8, 13], [5, 8, 12], [5, 9, 14], [6, 9, 13], [6, 10, 15], [7, 8, 9], [8, 9, 10], \
           [11, 12, 13], [12, 13, 14], [13, 14, 15]]
 playerlist = list()  # 玩家
-player_win_times_list = []
+player_win_times_list = [] #記錄贏的次數
 
 # 畫兩個
 two = {1:[2,3], 2:[1,3,4,5], 3:[1,2,5,6], 4:[2,5,7,8],5:[2,3,4,6,8,9], 6:[3,5,9,10],\
@@ -41,10 +41,9 @@ last_round = 15  # 用在computer()
 for i in range(2):
     player_win_times_list.append([])
 for i in range(2):
-    player_win_times_list[i].append(0)
+    player_win_times_list[i].append(0)   #贏次數的list
 
 
-# win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
 
 
 def pop_up(aline):  # 彈出視窗 問你yes/no
@@ -772,6 +771,13 @@ class Login(object):
             player2_score = tk.Label(root1, font=("Ariel", 25), bg ='white',  width=18, text="You have won 0 times.", foreground = 'black').place(x=800, y=190)
             my_canvas.pack(fill = tk.BOTH)
             game = Game(my_canvas, photo, ring2_image, snowman)
+            image = Image.open("point.jpg")
+            image = image.resize((250,250),Image.ANTIALIAS)
+            pic = ImageTk.PhotoImage(image)
+            if playerlist[1] == player1 :
+                point1_label = tk.Label(root1,image=image).place(x=700,y=100)
+            elif playerlist[1] == player2 :
+                point2_label = tk.Label(root1,image=image).place(x=700,y=160)
             root1.mainloop()
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
