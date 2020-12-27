@@ -4,7 +4,7 @@ import tkinter
 from tkinter import messagebox
 from tkinter import Tk
 import tkinter as tk
-from tkinter import *
+#from tkinter import *
 import random
 import pygame
 from PIL import ImageTk, Image
@@ -148,31 +148,31 @@ def win(flaglist, playerlist):  # 判斷勝利條件
         messagebox.showinfo('Congratulation', playerlist[0] + ' wins!!!')
         if playerlist[0] == player1:
             win_times[player1] += 1
-            player1_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
-            player2_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
+            player1_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=130)
+            player2_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=190)
         else:
             win_times[playerlist[0]] += 1
-            player1_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
-            player2_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
+            player1_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=130)
+            player2_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=190)
         reset(linemark)
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', playerlist[1] + ' wins!!!')
         if playerlist[1] == player2:
             win_times[player2] += 1
-            player1_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
-            player2_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
+            player1_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=130)
+            player2_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=190)
         else:
             win_times[playerlist1[1]] += 1
-            player1_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
-            player2_score = tk.Label(root1, font=("Ariel", 30),
-                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
+            player1_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=130)
+            player2_score = tk.Label(root1, font=("Ariel", 25), bg='white', width=18,
+                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=190)
         reset(linemark)
 
 
@@ -665,9 +665,9 @@ class Login(object):
             imgpath = 'bg.gif'
             img = Image.open(imgpath)
             photo = ImageTk.PhotoImage(img)
-            ring2_image = PhotoImage(file='ring2.gif')
-            snowman = PhotoImage(file = 'snowman.png')
-            tree = PhotoImage(file = 'tree.png')
+            ring2_image = tk.PhotoImage(file='ring2.gif')
+            snowman = tk.PhotoImage(file = 'snowman.png')
+            tree = tk.PhotoImage(file = 'tree.png')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
             title_score = tk.Label(root1, font=("Times", 35, "bold italic"), bg = 'white', width=16, text='SCORE:', foreground = 'black' ).place(x=800, y=50)
