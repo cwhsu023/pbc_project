@@ -28,6 +28,16 @@ triple = [[1, 2, 4], [1, 3, 6], [2, 4, 7], [2, 5, 9], [3, 5, 8], [3, 6, 10], [4,
 playerlist = list()  # 玩家
 player_win_times_list = []
 
+# 畫兩個
+two = {1:[2,3], 2:[1,3,4,5], 3:[1,2,5,6], 4:[2,5,7,8],5:[2,3,4,6,8,9], 6:[3,5,9,10],\
+       7:[4,8,11,12], 8:[4,5,7,9,12,13], 9:[5,6,8,10,13,14], 10:[6,9,14,15],\
+       11:[7,12], 12:[7,8,11,13], 13:[8,9,12,14], 14:[9,10,13,15],15:[10,14]}
+# 畫三個
+three = {1:[4,6],2:[7,9], 3:[8,10], 4:[6,11,13],5:[12,14],6:[4,13,15], 7:[2,9],\
+         8:[3,10], 9:[2,7], 10:[3,8], 11:[4,13], 12:[5,14], 13:[4,6,11,15],\
+         14:[5,12], 15:[6,13]}
+last_round = 15  # 用在computer()
+
 for i in range(2):
     player_win_times_list.append([])
 for i in range(2):
@@ -52,6 +62,10 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
         win(flaglist, playerlist)  # let's see who wins
         # print('now drawing', playerlist[0])
         playerlist.reverse()
+        if playerlist[0] == 'computer':
+            computer(flaglist, start_t_end)
+            win(flaglist, playerlist)
+            playerlist.reverse()
 
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
@@ -146,6 +160,8 @@ def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
     if len(flaglist) == 1:  # 剩一個自己贏
         messagebox.showinfo('Congratulation', playerlist[0] + ' wins!!!')
+        if playerlist[0] != 'computer':
+            record(playerlist[0])
         if playerlist[0] == player1:
             win_times[player1] += 1
             player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),
@@ -161,6 +177,8 @@ def win(flaglist, playerlist):  # 判斷勝利條件
         reset(linemark)
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', playerlist[1] + ' wins!!!')
+        if playerlist[1] != 'computer':
+            record(playerlist[1])
         if playerlist[1] == player2:
             win_times[player2] += 1
             player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),
@@ -175,6 +193,32 @@ def win(flaglist, playerlist):  # 判斷勝利條件
                                      text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
         reset(linemark)
 
+def record(player):
+    all_line = []
+    playername = []
+    print('read')
+    with open('rank.txt', 'r') as ranks:
+        rank = ranks.readlines()
+        for line in rank:
+            line = line.split(',')
+            line[1] = line[1].strip('\n')
+            print(line[0])
+            playername.append(line[0])
+            if line[0] == player:
+                line[1] = str(int(line[1]) + 1)
+            all_line.append(line)
+    if player in playername:
+        with open('rank.txt', 'w') as ranks:
+            for i in all_line:
+                score = str(i[1])
+                name = str(i[0])
+                text = name+','+score+'\n'
+                ranks.write(text)
+    else:
+        with open('rank.txt', 'a') as ranks:
+            score = str(1)
+            text = player+','+score+'\n'
+            ranks.write(text)
 
 def reset(linemark):  # 回復原本的設定
     for i in linemark:
@@ -195,10 +239,85 @@ def reset(linemark):  # 回復原本的設定
         for j in original_start_t_end[i]:
             if j not in start_t_end[i]:
                 start_t_end[i].append(j)
+    global last_round
+    last_round = 15
     random.shuffle(playerlist)
-    messagebox.showinfo('注意', playerlist[1] + ' goes first')
+    messagebox.showinfo('注意',playerlist[1]+' goes first')
     # 因為後面會reverse()所以我這邊寫playerlist[1]
+    if playerlist[1] == 'computer':
+        global second
+        second = False
+        computer(flaglist, start_t_end)
+        playerlist.reverse()
+    else:
+        second = True
 
+def computer(flaglist, start_t_end):
+    global last_round
+    m = len(flaglist)
+    print('m=',m)
+    print('last_round=',last_round)
+    diff = last_round - m  # 玩家上一輪選的數量
+    bline = []
+    place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
+                  6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
+                  , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
+    if second is False:
+        if diff == 1:
+            for i in range(50):
+                start = random.choice(flaglist)  # 電腦隨機選兩點
+                end = random.choice(start_t_end[start])
+                print('start', start)
+                print('end1=', end)
+                if end in three[start]:
+                    break
+        elif diff == 2 or diff == 0:
+            for i in range(50):
+                start = random.choice(flaglist)  # 電腦隨機選兩點
+                end = random.choice(start_t_end[start])
+                print('start', start)
+                print('end1=', end)
+                if end in two[start]:
+                    break
+        elif diff == 3:
+            for i in range(50):
+                start = random.choice(flaglist)  # 電腦隨機選兩點
+                end = random.choice(start_t_end[start])
+                print('start', start)
+                print('end1=', end)
+                if start == end:
+                    break
+    else:
+        if diff ==1 or diff == 3:
+            for i in range(50):
+                start = random.choice(flaglist)  # 電腦隨機選兩點
+                end = random.choice(start_t_end[start])
+                print('start', start)
+                print('end1=', end)
+                if end in two[start]:
+                    break
+        elif diff == 2:
+            for i in range(50):
+                start = random.choice(flaglist)  # 電腦隨機選兩點
+                end = random.choice(start_t_end[start])
+                print('start', start)
+                print('end1=', end)
+                if end in three[start] or end == start:
+                    break
+    if len(flaglist) == 2:
+        end = start
+    print('end2=',end)
+    bline.append(place_dict[start][0])
+    bline.append(place_dict[start][1])
+    bline.append(place_dict[end][0])
+    bline.append(place_dict[end][1])
+    temp_flag.append(start)
+    temp_flag.append(end)
+    if start == end:
+        self_line(bline)
+    else:
+        line(bline)
+    last_round = len(flaglist)
 
 def place(event):
     aline.append(315)  # 圓心座標
@@ -416,6 +535,13 @@ class Game(tk.Canvas):
     def player(self, playerlist):
         random.shuffle(playerlist)
         messagebox.showinfo('注意', playerlist[0] + ' goes first')
+        if playerlist[0] == 'computer':
+            global second
+            second = False
+            computer(flaglist, start_t_end)
+            playerlist.reverse()
+        else:
+            second = True
 
 
 def verify(account):
