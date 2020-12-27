@@ -56,8 +56,10 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
     else:
         if aline[0] == aline[2] and aline[1] == aline[3]:
             self_line(aline)
+            switch_order()
         else:
             line(aline)
+            switch_order()
         win(flaglist, playerlist)  # let's see who wins
         # print('now drawing', playerlist[0])
         playerlist.reverse()
@@ -66,6 +68,12 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
             win(flaglist, playerlist)
             playerlist.reverse()
 
+def switch_order() :
+    global arrow
+    if playerlist[1] == player1 :
+        point1_label = tk.Label(root1,image=arrow).place(x=1000,y=90)
+    elif playerlist[1] == player2 :
+        point2_label = tk.Label(root1,image=arrow).place(x=1000,y=210)
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -804,10 +812,6 @@ class Login(object):
             player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
             player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
             my_canvas.pack(fill = tk.BOTH)
-            if playerlist[1] == player1 :
-                point1_label = tk.Label(root1,image=arrow).place(x=1000,y=90)
-            elif playerlist[1] == player2 :
-                point2_label = tk.Label(root1,image=arrow).place(x=1000,y=210)
             game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb)
             root1.mainloop()
 
