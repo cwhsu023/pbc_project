@@ -491,9 +491,9 @@ class Game(tk.Canvas):
     def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb):
         self.bg = my_canvas.create_image(0,0 , image=photo)
         self.dec2 = my_canvas.create_image(900,600, image = snowman)
-        self.dec = my_canvas.create_image(700,50, image = ring2_image)
+        self.dec = my_canvas.create_image(550,50, image = ring2_image)
         self.dec3 = my_canvas.create_image(318,325, image = tree)
-        self.dec4 = my_canvas.create_image(910, 200, image = scoreb)
+        self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
@@ -793,9 +793,9 @@ class Login(object):
             img = Image.open(imgpath)
             photo = ImageTk.PhotoImage(img)
             ring2_image = tk.PhotoImage(file='ring2.gif')
-            snowman = tk.PhotoImage(file = 'snowman.png')
-            tree = tk.PhotoImage(file = 'tree.png')
-            scoreb = tk.PhotoImage(file = 'scoreb.png')
+            snowman = tk.PhotoImage(file = 'snowman.gif')
+            tree = tk.PhotoImage(file = 'tree.gif')
+            scoreb = tk.PhotoImage(file = 'scoreb.gif')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
             title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
