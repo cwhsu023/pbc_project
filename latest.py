@@ -604,49 +604,49 @@ class Login(object):
                 print(line)
                 line = line.split(',')
                 line[1] = line[1].strip('\n')
-                tempt = [line[1],line[0]]
+                tempt = [int(line[1]),line[0]]
                 rank_list.append(tempt)
         rank_list  = sorted(rank_list ,reverse = True)
         self.rank1 = tkinter.messagebox.showinfo(title = '天下最強玩小遊戲第一名是誰勒？？？' , message = '恭賀'+ rank_list[0][1] + '蟬聯第一名')
         print(rank_list)
         #1
-        rank1 = tkinter.Label(self.ranking_window, text=rank_list[0][1]+'-------' +rank_list[0][0])
+        rank1 = tkinter.Label(self.ranking_window, text=rank_list[0][1]+'-------' +str(rank_list[0][0]))
         rank1.pack()
         rank1.place(x=150, y=30)
         #2
-        rank2 = tkinter.Label(self.ranking_window ,text=rank_list[1][1]+'-------' +rank_list[1][0])
+        rank2 = tkinter.Label(self.ranking_window ,text=rank_list[1][1]+'-------' +str(rank_list[1][0]))
         rank2.pack()
         rank2.place(x=150, y=60)
         #3
-        rank3 = tkinter.Label(self.ranking_window ,text=rank_list[2][1]+'-------' +rank_list[2][0])
+        rank3 = tkinter.Label(self.ranking_window ,text=rank_list[2][1]+'-------' +str(rank_list[2][0]))
         rank3.pack()
         rank3.place(x=150, y=90)
         #4
-        rank4 = tkinter.Label(self.ranking_window ,text=rank_list[3][1]+'-------' +rank_list[3][0])
+        rank4 = tkinter.Label(self.ranking_window ,text=rank_list[3][1]+'-------' +str(rank_list[3][0]))
         rank4.pack()
         rank4.place(x=150, y=120)
         #5
-        rank5 = tkinter.Label(self.ranking_window,text=rank_list[4][1]+'-------' +rank_list[4][0])
+        rank5 = tkinter.Label(self.ranking_window,text=rank_list[4][1]+'-------' +str(rank_list[4][0]))
         rank5.pack()
         rank5.place(x=150, y=150)
         #6
-        rank6 = tkinter.Label(self.ranking_window,text=rank_list[5][1]+'-------' +rank_list[5][0])
+        rank6 = tkinter.Label(self.ranking_window,text=rank_list[5][1]+'-------' +str(rank_list[5][0]))
         rank6.pack()
         rank6.place(x = 150,y = 180)
         #7
-        rank7 = tkinter.Label(self.ranking_window ,text=rank_list[6][1]+'-------' +rank_list[6][0])
+        rank7 = tkinter.Label(self.ranking_window ,text=rank_list[6][1]+'-------' +str(rank_list[6][0]))
         rank7.pack()
         rank7.place(x = 150,y = 210)
         #8
-        rank8 = tkinter.Label(self.ranking_window,text=rank_list[7][1]+'-------' +rank_list[7][0])
+        rank8 = tkinter.Label(self.ranking_window,text=rank_list[7][1]+'-------' +str(rank_list[7][0]))
         rank8.pack()
         rank8.place(x = 150,y = 240)
         #9
-        rank9 = tkinter.Label(self.ranking_window ,text=rank_list[8][1] +'-------' +rank_list[8][0])
+        rank9 = tkinter.Label(self.ranking_window ,text=rank_list[8][1] +'-------' +str(rank_list[8][0]))
         rank9.pack()
         rank9.place(x = 150,y = 270)
         #10
-        rank10 = tkinter.Label(self.ranking_window ,text=rank_list[9][1]+'-------' +rank_list[9][0])
+        rank10 = tkinter.Label(self.ranking_window ,text=rank_list[9][1]+'-------' +str(rank_list[9][0]))
         rank10.pack()
         rank10.place(x = 150, y=300)
 
