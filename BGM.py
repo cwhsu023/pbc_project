@@ -4,8 +4,10 @@ import tkinter
 from tkinter import messagebox
 from tkinter import Tk
 import tkinter as tk
+from tkinter import *
 import random
 import pygame
+from PIL import ImageTk, Image
 
 linemark = []  # 紀錄畫上去的線
 aline = list()
@@ -349,7 +351,7 @@ def place15(event):
 #    print(flaglist)
 
 class Game(tk.Canvas):
-    def __init__(self, my_canvas):
+    def __init__(self, my_canvas, photo, ring2_image, snowman):
         tk.Canvas.__init__(self)
 
         #        self.root = tkinter.Tk()
@@ -358,7 +360,7 @@ class Game(tk.Canvas):
         #        self.root.geometry('700x700')
         #        self.canvas = tkinter.Canvas(self.root, width=630, height=630, bg='white')  # 建立畫布
         #        self.canvas.pack()
-
+        self.background(my_canvas, photo, ring2_image, snowman)
         self.circle(my_canvas)
         self.tag(my_canvas)
         self.player(playerlist)
@@ -367,25 +369,30 @@ class Game(tk.Canvas):
     #    my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
     #    my_canvas.master.title('try this canvas')
     #    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
+    def background(self, my_canvas, photo, ring2_image, snowman):
+        self.bg = my_canvas.create_image(0,0 , image=photo)
+        self.dec2 = my_canvas.create_image(900,600, image = snowman)
+        self.dec = my_canvas.create_image(700,50, image = ring2_image)
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
-        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='cyan')
-        self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill='cyan')
-        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='cyan')
-        self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='cyan')
-        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='cyan')
-        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='cyan')
-        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='cyan')
-        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='cyan')
-        self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='cyan')
-        self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='cyan')
-        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='cyan')
-        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='cyan')
-        self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='cyan')
-        self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='cyan')
-        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='cyan')
-
+        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='#008000')
+        self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill='#008000')
+        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='#008000')
+        self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='#008000')
+        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='#008000')
+        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#008000')
+        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#008000')
+        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='#008000')
+        self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='#008000')
+        self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='#008000')
+        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='#008000')
+        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='#008000')
+        self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#008000')
+        self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#008000')
+        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#008000')
+    # def rectangle(self, my_canvas):
+    #     self.rectangle = my_canvas.create_rectangle(750, 90 ,850, 240, fill = 'pink')
     def tag(self, my_canvas):
         # bind 結合鍵盤或滑鼠的指令和函數
         my_canvas.tag_bind(self.circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
@@ -644,23 +651,30 @@ class Login(object):
             playerlist = [player1, player2]
             global root1
             root1 = Tk()  # 視窗
-            root1.geometry('1360x1280')
+            root1.geometry('1200x700')
             root1.title("畫圈圈")
             root1.resizable()
             pygame.init()
             pygame.mixer.init()
             pygame.mixer.music.load('Holly Dazed - RKVC.mp3')
             pygame.mixer.music.play(-1) # If the loops is -1 then the music will repeat indefinitely.
+            
+            global my_canvas
+            my_canvas = tk.Canvas(root1, width=1500, height=1300, bg='#8B0000')
+            imgpath = 'bg.gif'
+            img = Image.open(imgpath)
+            photo = ImageTk.PhotoImage(img)
+            ring2_image = PhotoImage(file='ring2.gif')
+            snowman = PhotoImage(file = 'snowman.png')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
-            player1_name = tk.Label(root1, font=("Ariel", 40), text="{}".format(player1)).place(x=100, y=20)
-            player1_score = tk.Label(root1, font=("Ariel", 30), text="You have won 0 times.").place(x=100, y=120)
-            player2_name = tk.Label(root1, font=("Ariel", 40), text="{}".format(player2)).place(x=100, y=220)
-            player2_score = tk.Label(root1, font=("Ariel", 30), text="You have won 0 times.").place(x=100, y=320)
-            global my_canvas
-            my_canvas = tk.Canvas(root1, width=630, height=630, bg='white')
-            my_canvas.pack()
-            game = Game(my_canvas)
+            title_score = tk.Label(root1, font=("Times", 35, "bold italic"), bg = 'white', width=16, text='SCORE:', foreground = 'black' ).place(x=800, y=50)
+            player1_name = tk.Label(root1, font=("Ariel", 25), bg = 'white', width=18, text="{}".format('player 1:  '+player1), foreground = 'black' ).place(x=800, y=100)
+            player1_score = tk.Label(root1, font=("Ariel", 25), bg ='white', width=18, text="You have won 0 times.", foreground = 'black').place(x=800, y=130)
+            player2_name = tk.Label(root1, font=("Ariel", 25), bg = 'white', width=18, text="{}".format('player 2:  '+player2), foreground = 'black').place(x=800, y=160)
+            player2_score = tk.Label(root1, font=("Ariel", 25), bg ='white',  width=18, text="You have won 0 times.", foreground = 'black').place(x=800, y=190)
+            my_canvas.pack(fill = tk.BOTH)
+            game = Game(my_canvas, photo, ring2_image, snowman)
             root1.mainloop()
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
