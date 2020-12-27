@@ -163,15 +163,15 @@ def win(flaglist, playerlist):  # 判斷勝利條件
             record(playerlist[0])
         if playerlist[0] == player1:
             win_times[player1] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),
+            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
                                      text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), 
+            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white',
                                      text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
         else:
             win_times[playerlist[0]] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),
+            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
                                      text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), 
+            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white',
                                      text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
         reset(linemark)
     if len(flaglist) == 0:  # 不剩對方贏
@@ -180,15 +180,15 @@ def win(flaglist, playerlist):  # 判斷勝利條件
             record(playerlist[1])
         if playerlist[1] == player2:
             win_times[player2] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),
+            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
                                      text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), 
+            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white',
                                      text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
         else:
-            win_times[playerlist1[1]] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),
+            win_times[playerlist[1]] += 1
+            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
                                      text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),
+            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
                                      text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
         reset(linemark)
 
@@ -490,9 +490,9 @@ class Game(tk.Canvas):
     def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb):
         self.bg = my_canvas.create_image(0,0 , image=photo)
         self.dec2 = my_canvas.create_image(900,600, image = snowman)
-        self.dec = my_canvas.create_image(700,50, image = ring2_image)
+        self.dec = my_canvas.create_image(550,50, image = ring2_image)
         self.dec3 = my_canvas.create_image(318,325, image = tree)
-        self.dec4 = my_canvas.create_image(910, 200, image = scoreb)
+        self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
@@ -792,16 +792,16 @@ class Login(object):
             img = Image.open(imgpath)
             photo = ImageTk.PhotoImage(img)
             ring2_image = tk.PhotoImage(file='ring2.gif')
-            snowman = tk.PhotoImage(file = 'snowman.png')
-            tree = tk.PhotoImage(file = 'tree.png')
-            scoreb = tk.PhotoImage(file = 'scoreb.png')
+            snowman = tk.PhotoImage(file = 'snowman.gif')
+            tree = tk.PhotoImage(file = 'tree.gif')
+            scoreb = tk.PhotoImage(file = 'scoreb.gif')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
-            title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"), text='SCORE:', foreground = 'black' ).place(x=800, y=50)
-            player1_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  text="{}".format("NAME:  "+player1), foreground = 'black' ).place(x=800, y=110)
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),   text="You have won 0 times.", foreground = 'black').place(x=800, y=170)
-            player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
+            title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
+            player1_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),   bg = 'white',text="{}".format("NAME:  "+player1), foreground = 'black' ).place(x=800, y=110)
+            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',   text="You have won 0 times.", foreground = 'black').place(x=800, y=170)
+            player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
+            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
             my_canvas.pack(fill = tk.BOTH)
             game = Game(my_canvas, photo, ring2_image, snowman)
             image = Image.open("point.jpg")
