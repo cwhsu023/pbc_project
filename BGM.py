@@ -186,7 +186,7 @@ def win(flaglist, playerlist):  # 判斷勝利條件
             player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white',
                                      text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
         else:
-            win_times[playerlist1[1]] += 1
+            win_times[playerlist[1]] += 1
             player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
                                      text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
             player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
