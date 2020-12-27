@@ -351,7 +351,7 @@ def place15(event):
 #    print(flaglist)
 
 class Game(tk.Canvas):
-    def __init__(self, my_canvas, photo, ring2_image, snowman):
+    def __init__(self, my_canvas, photo, ring2_image, snowman, tree):
         tk.Canvas.__init__(self)
 
         #        self.root = tkinter.Tk()
@@ -360,7 +360,7 @@ class Game(tk.Canvas):
         #        self.root.geometry('700x700')
         #        self.canvas = tkinter.Canvas(self.root, width=630, height=630, bg='white')  # 建立畫布
         #        self.canvas.pack()
-        self.background(my_canvas, photo, ring2_image, snowman)
+        self.background(my_canvas, photo, ring2_image, snowman, tree)
         self.circle(my_canvas)
         self.tag(my_canvas)
         self.player(playerlist)
@@ -369,28 +369,29 @@ class Game(tk.Canvas):
     #    my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
     #    my_canvas.master.title('try this canvas')
     #    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
-    def background(self, my_canvas, photo, ring2_image, snowman):
+    def background(self, my_canvas, photo, ring2_image, snowman,tree):
         self.bg = my_canvas.create_image(0,0 , image=photo)
         self.dec2 = my_canvas.create_image(900,600, image = snowman)
         self.dec = my_canvas.create_image(700,50, image = ring2_image)
+        self.dec3 = my_canvas.create_image(318,325, image = tree)
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
-        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='#008000')
-        self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill='#008000')
-        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='#008000')
-        self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='#008000')
-        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='#008000')
-        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#008000')
-        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#008000')
-        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='#008000')
-        self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='#008000')
-        self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='#008000')
-        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='#008000')
-        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='#008000')
-        self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#008000')
-        self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#008000')
-        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#008000')
+        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='yellow', outline='yellow')
+        self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill='pink',outline='pink')
+        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='#CD5C5C',outline='#CD5C5C')
+        self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='#CAFF70',outline='#CAFF70')
+        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='#FFEC8B',outline='#FFEC8B')
+        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#FFEC8B',outline='#FFEC8B')
+        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#B0C4DE',outline='#B0C4DE')
+        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='#E6E6FA',outline='#E6E6FA')
+        self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='#008000',outline='#008000')
+        self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='#008B8B',outline='#008B8B')
+        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='#7FFFD4',outline='#7FFFD4')
+        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='#C1FFC1',outline='#C1FFC1')
+        self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#1E90FF',outline='#1E90FF')
+        self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#8FBC8F',outline='#8FBC8F')
+        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')
     # def rectangle(self, my_canvas):
     #     self.rectangle = my_canvas.create_rectangle(750, 90 ,850, 240, fill = 'pink')
     def tag(self, my_canvas):
@@ -666,6 +667,7 @@ class Login(object):
             photo = ImageTk.PhotoImage(img)
             ring2_image = PhotoImage(file='ring2.gif')
             snowman = PhotoImage(file = 'snowman.png')
+            tree = PhotoImage(file = 'tree.png')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
             title_score = tk.Label(root1, font=("Times", 35, "bold italic"), bg = 'white', width=16, text='SCORE:', foreground = 'black' ).place(x=800, y=50)
@@ -674,7 +676,7 @@ class Login(object):
             player2_name = tk.Label(root1, font=("Ariel", 25), bg = 'white', width=18, text="{}".format('player 2:  '+player2), foreground = 'black').place(x=800, y=160)
             player2_score = tk.Label(root1, font=("Ariel", 25), bg ='white',  width=18, text="You have won 0 times.", foreground = 'black').place(x=800, y=190)
             my_canvas.pack(fill = tk.BOTH)
-            game = Game(my_canvas, photo, ring2_image, snowman)
+            game = Game(my_canvas, photo, ring2_image, snowman, tree)
             root1.mainloop()
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
