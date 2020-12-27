@@ -10,6 +10,7 @@ import pygame
 from PIL import ImageTk, Image
 
 linemark = []  # 紀錄畫上去的線
+circle_list = []  # 用在show()
 aline = list()
 flaglist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  # 可以選的
 temp_flag = []
@@ -37,6 +38,11 @@ three = {1:[4,6],2:[7,9], 3:[8,10], 4:[6,11,13],5:[12,14],6:[4,13,15], 7:[2,9],\
          8:[3,10], 9:[2,7], 10:[3,8], 11:[4,13], 12:[5,14], 13:[4,6,11,15],\
          14:[5,12], 15:[6,13]}
 last_round = 15  # 用在computer()
+# 數字對應座標
+place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
+                  6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
+                  , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
+
 
 for i in range(2):
     player_win_times_list.append([])
@@ -53,6 +59,10 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
             aline.pop(0)
         for i in range(2):
             temp_flag.pop(0)
+        for i in circle_list:
+            my_canvas.delete(i)
+        for i in range(len(circle_list)):
+            circle_list.pop(0)
     else:
         if aline[0] == aline[2] and aline[1] == aline[3]:
             self_line(aline)
@@ -94,6 +104,10 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
                 aline.pop(0)
             for i in range(2):
                 temp_flag.pop(0)
+            for i in circle_list:
+                my_canvas.delete(i)
+            for i in range(len(circle_list)):
+                circle_list.pop(0)
             messagebox.showinfo('注意', '不能畫啦')
     elif len(temp_flag) == 1:
         if temp_flag[0] not in flaglist:
@@ -101,6 +115,10 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
                 aline.pop(0)
             for i in range(1):
                 temp_flag.pop(0)
+            for i in circle_list:
+                my_canvas.delete(i)
+            for i in range(len(circle_list)):
+                circle_list.pop(0)
             messagebox.showinfo('注意', '不能畫啦')
 
 
@@ -129,6 +147,10 @@ def line(aline):  # 畫線
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
+    for i in circle_list:
+        my_canvas.delete(i)
+    for i in range(len(circle_list)):
+        circle_list.pop(0)
 
 
 def self_line(aline):
@@ -145,22 +167,31 @@ def self_line(aline):
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
+    for i in circle_list:
+        my_canvas.delete(i)
+    for i in range(len(circle_list)):
+        circle_list.pop(0)
 
-
-'''
-想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
-def show(x, y):
-    if len(temp_flag) == 1:
-        print(1)
-        a = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-    if len(temp_flag) == 2:
-        print(2)
-        b = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+# 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
+def show(num):
+    global circle1, circle2, first_num
+    x = place_dict[num][0]
+    y = place_dict[num][1]
     if len(temp_flag) == 0:
-        print(0)
-        my_canvas.delete(a)
-        my_canvas.delete(b)
-'''
+        print(1)
+        first_num = num
+        circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+        circle_list.append(circle1)
+    if len(temp_flag) == 1:
+        print(2)
+        circle2 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+        circle_list.append(circle2)
+        for i in triple:
+            if first_num == i[0] and num == i[2]:
+                x = place_dict[i[1]][0]
+                y = place_dict[i[1]][1]
+                circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+                circle_list.append(circle3)
 
 
 def win(flaglist, playerlist):  # 判斷勝利條件
@@ -266,9 +297,6 @@ def computer(flaglist, start_t_end):
     print('last_round=',last_round)
     diff = last_round - m  # 玩家上一輪選的數量
     bline = []
-    place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
-                  6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
-                  , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
     if second is False:
         if diff == 1:
             for i in range(50):
@@ -327,154 +355,123 @@ def computer(flaglist, start_t_end):
     last_round = len(flaglist)
 
 def place(event):
+    show(1)
     aline.append(315)  # 圓心座標
     aline.append(37)
     temp_flag.append(1)
     check_start_t_end(1, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place2(event):
+    show(2)
     aline.append(245)
     aline.append(175)
     temp_flag.append(2)
     check_start_t_end(2, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place3(event):
+    show(3)
     aline.append(385)
     aline.append(175)
     temp_flag.append(3)
     check_start_t_end(3, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place4(event):
+    show(4)
     aline.append(175)
     aline.append(315)
     temp_flag.append(4)
     check_start_t_end(4, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place5(event):
+    show(5)
     aline.append(315)
     aline.append(315)
     temp_flag.append(5)
     check_start_t_end(5, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place6(event):
+    show(6)
     aline.append(455)
     aline.append(315)
     temp_flag.append(6)
     check_start_t_end(6, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place7(event):
+    show(7)
     aline.append(105)
     aline.append(455)
     temp_flag.append(7)
     check_start_t_end(7, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place8(event):
+    show(8)
     aline.append(245)
     aline.append(455)
     temp_flag.append(8)
     check_start_t_end(8, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place9(event):
+    show(9)
     aline.append(385)
     aline.append(455)
     temp_flag.append(9)
     check_start_t_end(9, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place10(event):
+    show(10)
     aline.append(525)
     aline.append(455)
     temp_flag.append(10)
     check_start_t_end(10, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place11(event):
+    show(11)
     aline.append(37)
     aline.append(593)
     temp_flag.append(11)
     check_start_t_end(11, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place12(event):
+    show(12)
     aline.append(175)
     aline.append(593)
     temp_flag.append(12)
     check_start_t_end(12, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place13(event):
+    show(13)
     aline.append(315)
     aline.append(593)
     temp_flag.append(13)
     check_start_t_end(13, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place14(event):
+    show(14)
     aline.append(455)
     aline.append(593)
     temp_flag.append(14)
     check_start_t_end(14, temp_flag, aline, start_t_end)
 
 
-#    print(aline)
-#    print(flaglist)
-
 def place15(event):
+    show(15)
     aline.append(593)
     aline.append(593)
     temp_flag.append(15)
     check_start_t_end(15, temp_flag, aline, start_t_end)
-
-
-#    print(aline)
-#    print(flaglist)
 
 class Game(tk.Canvas):
     def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb):
