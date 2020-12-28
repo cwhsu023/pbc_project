@@ -118,7 +118,7 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
 def switch_order() :
     if playerlist[1] == player1 :
         point2_label.place(x=735,y=95)
-        point1_label.place_forget()
+        point1_label.place_forget() ＃這個函數不知道為啥沒作用
     elif playerlist[1] == player2 :
         point1_label.place(x=735,y=215)
         point2_label.place_forget()
