@@ -557,6 +557,20 @@ def rule(event):
 def leave_game(event):
     MsgBox = tk.messagebox.askquestion('注意', "結束遊戲", icon='error')
     if MsgBox == 'yes':
+        for i in range(1, 16):
+            if i not in flaglist:
+                flaglist.append(i)
+        original_start_t_end = {1: [1, 2, 3, 4, 6], 2: [1, 2, 3, 4, 5, 7, 9], 3: [1, 2, 3, 5, 6, 8, 10], \
+                            4: [1, 2, 4, 5, 6, 7, 8, 11, 13], 5: [2, 3, 4, 5, 6, 8, 9, 12, 14], \
+                            6: [1, 3, 4, 5, 6, 9, 13, 10, 15], 7: [2, 4, 7, 8, 9, 11, 12], \
+                            8: [3, 4, 5, 7, 8, 9, 10, 12, 13], 9: [2, 5, 6, 7, 8, 9, 10, 13, 14], \
+                            10: [3, 6, 8, 9, 10, 14, 15], 11: [4, 7, 11, 12, 13], \
+                            12: [5, 7, 8, 11, 12, 13, 14], 13: [4, 6, 8, 9, 11, 12, 13, 14, 15], \
+                            14: [5, 9, 10, 12, 13, 14, 15], 15: [6, 10, 13, 14, 15]}
+        for i in range(1, 16):
+            for j in original_start_t_end[i]:
+                if j not in start_t_end[i]:
+                    start_t_end[i].append(j)
         root1.destroy()
         main()
 
