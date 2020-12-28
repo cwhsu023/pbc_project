@@ -500,8 +500,10 @@ def rule(event):
     text = 'text'
     messagebox.showinfo('遊戲規則',text)
 
+
+
 class Game(tk.Canvas):
-    def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb):
+    def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb, rule):
         tk.Canvas.__init__(self)
 
         #        self.root = tkinter.Tk()
@@ -510,7 +512,7 @@ class Game(tk.Canvas):
         #        self.root.geometry('700x700')
         #        self.canvas = tkinter.Canvas(self.root, width=630, height=630, bg='white')  # 建立畫布
         #        self.canvas.pack()
-        self.background(my_canvas, photo, ring2_image, snowman, tree, scoreb)
+        self.background(my_canvas, photo, ring2_image, snowman, tree, scoreb, rule)
         self.circle(my_canvas)
         self.tag(my_canvas)
         self.player(playerlist)
@@ -519,12 +521,14 @@ class Game(tk.Canvas):
     #    my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
     #    my_canvas.master.title('try this canvas')
     #    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
-    def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb):
+    def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb, rule):
         self.bg = my_canvas.create_image(0,0 , image=photo)
-        self.dec2 = my_canvas.create_image(900,650, image = snowman)
+        self.dec2 = my_canvas.create_image(800,650, image = snowman)
         self.dec = my_canvas.create_image(550,50, image = ring2_image)
         self.dec3 = my_canvas.create_image(318,325, image = tree)
         self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
+        self.dec5 = my_canvas.create_image(1050, 430, image = rule)
+
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
@@ -543,7 +547,7 @@ class Game(tk.Canvas):
         self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#1E90FF',outline='#1E90FF')
         self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#8FBC8F',outline='#8FBC8F')
         self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')
-        self.rule = my_canvas.create_rectangle(1050, 500, 1080, 520, fill='blue')
+ 
     # def rectangle(self, my_canvas):
     #     self.rectangle = my_canvas.create_rectangle(750, 90 ,850, 240, fill = 'pink')
     def tag(self, my_canvas):
@@ -563,7 +567,8 @@ class Game(tk.Canvas):
         my_canvas.tag_bind(self.circle13, '<Button-1>', place13)
         my_canvas.tag_bind(self.circle14, '<Button-1>', place14)
         my_canvas.tag_bind(self.circle15, '<Button-1>', place15)
-        my_canvas.tag_bind(self.rule, '<Button-1>', rule)
+        my_canvas.tag_bind(self.dec5, '<Button-1>', rule)
+
 
     def player(self, playerlist):
         random.shuffle(playerlist)
@@ -830,6 +835,7 @@ class Login(object):
             tree = tk.PhotoImage(file = 'tree.gif')
             scoreb = tk.PhotoImage(file = 'scoreb.gif')
             arrow = tk.PhotoImage(file = 'arrow.gif')
+            rule = tk.PhotoImage(file = 'rule.gif') 
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
             title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
@@ -838,7 +844,7 @@ class Login(object):
             player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
             player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
             my_canvas.pack(fill = tk.BOTH)
-            game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb)
+            game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb, rule)
             root1.mainloop()
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':

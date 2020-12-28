@@ -4,13 +4,10 @@ import tkinter
 from tkinter import messagebox
 from tkinter import Tk
 import tkinter as tk
-#from tkinter import *
 import random
 import pygame
-from PIL import ImageTk, Image
 
 linemark = []  # 紀錄畫上去的線
-circle_list = []  # 用在show()
 aline = list()
 flaglist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  # 可以選的
 temp_flag = []
@@ -27,7 +24,7 @@ triple = [[1, 2, 4], [1, 3, 6], [2, 4, 7], [2, 5, 9], [3, 5, 8], [3, 6, 10], [4,
           [4, 7, 11], [4, 8, 13], [5, 8, 12], [5, 9, 14], [6, 9, 13], [6, 10, 15], [7, 8, 9], [8, 9, 10], \
           [11, 12, 13], [12, 13, 14], [13, 14, 15]]
 playerlist = list()  # 玩家
-player_win_times_list = [] #記錄贏的次數
+player_win_times_list = []
 
 # 畫兩個
 two = {1:[2,3], 2:[1,3,4,5], 3:[1,2,5,6], 4:[2,5,7,8],5:[2,3,4,6,8,9], 6:[3,5,9,10],\
@@ -38,17 +35,14 @@ three = {1:[4,6],2:[7,9], 3:[8,10], 4:[6,11,13],5:[12,14],6:[4,13,15], 7:[2,9],\
          8:[3,10], 9:[2,7], 10:[3,8], 11:[4,13], 12:[5,14], 13:[4,6,11,15],\
          14:[5,12], 15:[6,13]}
 last_round = 15  # 用在computer()
-# 數字對應座標
-place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
-                  6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
-                  , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
 
 for i in range(2):
     player_win_times_list.append([])
 for i in range(2):
-    player_win_times_list[i].append(0)   #贏次數的list
+    player_win_times_list[i].append(0)
 
 
+# win_times = {player1:player_win_times_list[0][0],player2:player_win_times_list[1][0]}
 
 
 def pop_up(aline):  # 彈出視窗 問你yes/no
@@ -58,10 +52,6 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
             aline.pop(0)
         for i in range(2):
             temp_flag.pop(0)
-        for i in circle_list:
-            my_canvas.delete(i)
-        for i in range(len(circle_list)):
-            circle_list.pop(0)
     else:
         if aline[0] == aline[2] and aline[1] == aline[3]:
             self_line(aline)
@@ -95,10 +85,6 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
                 aline.pop(0)
             for i in range(2):
                 temp_flag.pop(0)
-            for i in circle_list:
-                my_canvas.delete(i)
-            for i in range(len(circle_list)):
-                circle_list.pop(0)
             messagebox.showinfo('注意', '不能畫啦')
     elif len(temp_flag) == 1:
         if temp_flag[0] not in flaglist:
@@ -106,30 +92,11 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
                 aline.pop(0)
             for i in range(1):
                 temp_flag.pop(0)
-            for i in circle_list:
-                my_canvas.delete(i)
-            for i in range(len(circle_list)):
-                circle_list.pop(0)
             messagebox.showinfo('注意', '不能畫啦')
 
 
 def line(aline):  # 畫線
-    if (aline[0] - aline[2])*(aline[1] - aline[3]) >  0:
-        x1 = min(aline[0], aline[2]) - 25
-        y1 = min(aline[1], aline[3]) - 50
-        x2 = max(aline[0], aline[2]) + 25
-        y2 = max(aline[1], aline[3]) + 50
-    elif (aline[0] - aline[2])*(aline[1] - aline[3]) <  0:
-        x1 = max(aline[0], aline[2]) + 25
-        y1 = min(aline[1], aline[3]) - 50
-        x2 = min(aline[0], aline[2]) - 25
-        y2 = max(aline[1], aline[3]) + 50
-    else:
-        x1 = min(aline[0], aline[2]) - 55
-        x2 = max(aline[0], aline[2]) + 55
-        y1 = aline[1]
-        y2 = aline[3]
-    a = my_canvas.create_line(x1, y1, x2, y2, fill='red', width=5)
+    a = my_canvas.create_line(aline, fill='red', width=5)
     linemark.append(a)  # 紀錄線
     sort_flag = sorted(temp_flag)
     for i in triple:
@@ -153,21 +120,12 @@ def line(aline):  # 畫線
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
-    for i in circle_list:
-        my_canvas.delete(i)
-    for i in range(len(circle_list)):
-        circle_list.pop(0)
 
 
 def self_line(aline):
-    if aline[0] >= 315:
-        x = aline[0] + 25
-        y = aline[1] + 50
-        a = my_canvas.create_line(x, y, x - 50, y - 100, fill='red', width=5)
-    else:
-        x = aline[0] + 25
-        y = aline[1] - 50
-        a = my_canvas.create_line(x, y, x - 50, y + 100, fill='red', width=5)
+    x = aline[0] + 45
+    y = aline[1] + 45
+    a = my_canvas.create_line(x, y, x - 90, y - 90, fill='red', width=5)
     linemark.append(a)
     flaglist.remove(temp_flag[0])  # 只移除一個圓
     for i in start_t_end.values():
@@ -178,98 +136,57 @@ def self_line(aline):
         aline.pop(0)
     for i in range(2):
         temp_flag.pop(0)
-    for i in circle_list:
-        my_canvas.delete(i)
-    for i in range(len(circle_list)):
-        circle_list.pop(0)
 
 
-
-# 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
-def show(num):
-    global circle1, circle2, first_num
-    x = place_dict[num][0]
-    y = place_dict[num][1]
-    if len(temp_flag) == 0:
-        first_num = num
-        circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-        circle_list.append(circle1)
+'''
+想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
+def show(x, y):
     if len(temp_flag) == 1:
-        circle2 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-        circle_list.append(circle2)
-        num_list = [first_num, num]
-        num_list.sort()
-        for i in triple:
-            if num_list[0] == i[0] and num_list[1] == i[2]:
-                x = place_dict[i[1]][0]
-                y = place_dict[i[1]][1]
-                circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-                circle_list.append(circle3)
+        print(1)
+        a = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+    if len(temp_flag) == 2:
+        print(2)
+        b = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+    if len(temp_flag) == 0:
+        print(0)
+        my_canvas.delete(a)
+        my_canvas.delete(b)
+'''
 
 
 def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
     if len(flaglist) == 1:  # 剩一個自己贏
         messagebox.showinfo('Congratulation', playerlist[0] + ' wins!!!')
-        if playerlist[0] != 'computer':
-            record(playerlist[0])
         if playerlist[0] == player1:
             win_times[player1] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
-                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white',
-                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
+            player1_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
+            player2_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
         else:
             win_times[playerlist[0]] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
-                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white',
-                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
+            player1_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
+            player2_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
         reset(linemark)
     if len(flaglist) == 0:  # 不剩對方贏
         messagebox.showinfo('Congratulation', playerlist[1] + ' wins!!!')
-        if playerlist[1] != 'computer':
-            record(playerlist[1])
         if playerlist[1] == player2:
             win_times[player2] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
-                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white',
-                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
+            player1_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
+            player2_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
         else:
             win_times[playerlist[1]] += 1
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
-                                     text="You have won {} times.".format(win_times[player1])).place(x=800, y=170)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',
-                                     text="You have won {} times.".format(win_times[player2])).place(x=800, y=290)
+            player1_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player1])).place(x=100, y=120)
+            player2_score = tk.Label(root1, font=("Ariel", 30),
+                                     text="You have won {} times.".format(win_times[player2])).place(x=100, y=320)
         reset(linemark)
 
-def record(player):
-    all_line = []
-    playername = []
-    print('read')
-    with open('rank.txt', 'r') as ranks:
-        rank = ranks.readlines()
-        for line in rank:
-            line = line.split(',')
-            line[1] = line[1].strip('\n')
-            print(line[0])
-            playername.append(line[0])
-            if line[0] == player:
-                line[1] = str(int(line[1]) + 1)
-            all_line.append(line)
-    if player in playername:
-        with open('rank.txt', 'w') as ranks:
-            for i in all_line:
-                score = str(i[1])
-                name = str(i[0])
-                text = name+','+score+'\n'
-                ranks.write(text)
-    else:
-        with open('rank.txt', 'a') as ranks:
-            score = str(1)
-            text = player+','+score+'\n'
-            ranks.write(text)
 
 def reset(linemark):  # 回復原本的設定
     for i in linemark:
@@ -310,6 +227,9 @@ def computer(flaglist, start_t_end):
     print('last_round=',last_round)
     diff = last_round - m  # 玩家上一輪選的數量
     bline = []
+    place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
+                  6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
+                  , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
     if second is False:
         if diff == 1:
             for i in range(50):
@@ -367,8 +287,8 @@ def computer(flaglist, start_t_end):
         line(bline)
     last_round = len(flaglist)
 
+
 def place(event):
-    show(1)
     aline.append(315)  # 圓心座標
     aline.append(37)
     temp_flag.append(1)
@@ -379,7 +299,6 @@ def place(event):
 #    print(flaglist)
 
 def place2(event):
-    show(2)
     aline.append(245)
     aline.append(175)
     temp_flag.append(2)
@@ -390,7 +309,6 @@ def place2(event):
 #    print(flaglist)
 
 def place3(event):
-    show(3)
     aline.append(385)
     aline.append(175)
     temp_flag.append(3)
@@ -401,7 +319,6 @@ def place3(event):
 #    print(flaglist)
 
 def place4(event):
-    show(4)
     aline.append(175)
     aline.append(315)
     temp_flag.append(4)
@@ -412,7 +329,6 @@ def place4(event):
 #    print(flaglist)
 
 def place5(event):
-    show(5)
     aline.append(315)
     aline.append(315)
     temp_flag.append(5)
@@ -423,7 +339,6 @@ def place5(event):
 #    print(flaglist)
 
 def place6(event):
-    show(6)
     aline.append(455)
     aline.append(315)
     temp_flag.append(6)
@@ -434,7 +349,6 @@ def place6(event):
 #    print(flaglist)
 
 def place7(event):
-    show(7)
     aline.append(105)
     aline.append(455)
     temp_flag.append(7)
@@ -445,7 +359,6 @@ def place7(event):
 #    print(flaglist)
 
 def place8(event):
-    show(8)
     aline.append(245)
     aline.append(455)
     temp_flag.append(8)
@@ -456,7 +369,6 @@ def place8(event):
 #    print(flaglist)
 
 def place9(event):
-    show(9)
     aline.append(385)
     aline.append(455)
     temp_flag.append(9)
@@ -467,7 +379,6 @@ def place9(event):
 #    print(flaglist)
 
 def place10(event):
-    show(10)
     aline.append(525)
     aline.append(455)
     temp_flag.append(10)
@@ -478,7 +389,6 @@ def place10(event):
 #    print(flaglist)
 
 def place11(event):
-    show(11)
     aline.append(37)
     aline.append(593)
     temp_flag.append(11)
@@ -489,7 +399,6 @@ def place11(event):
 #    print(flaglist)
 
 def place12(event):
-    show(12)
     aline.append(175)
     aline.append(593)
     temp_flag.append(12)
@@ -500,7 +409,6 @@ def place12(event):
 #    print(flaglist)
 
 def place13(event):
-    show(13)
     aline.append(315)
     aline.append(593)
     temp_flag.append(13)
@@ -511,7 +419,6 @@ def place13(event):
 #    print(flaglist)
 
 def place14(event):
-    show(14)
     aline.append(455)
     aline.append(593)
     temp_flag.append(14)
@@ -522,7 +429,6 @@ def place14(event):
 #    print(flaglist)
 
 def place15(event):
-    show(15)
     aline.append(593)
     aline.append(593)
     temp_flag.append(15)
@@ -531,12 +437,9 @@ def place15(event):
 
 #    print(aline)
 #    print(flaglist)
-def rule(event):
-    text = 'text'
-    messagebox.showinfo('遊戲規則',text)
 
 class Game(tk.Canvas):
-    def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb):
+    def __init__(self, my_canvas):
         tk.Canvas.__init__(self)
 
         #        self.root = tkinter.Tk()
@@ -545,7 +448,7 @@ class Game(tk.Canvas):
         #        self.root.geometry('700x700')
         #        self.canvas = tkinter.Canvas(self.root, width=630, height=630, bg='white')  # 建立畫布
         #        self.canvas.pack()
-        self.background(my_canvas, photo, ring2_image, snowman, tree, scoreb)
+
         self.circle(my_canvas)
         self.tag(my_canvas)
         self.player(playerlist)
@@ -554,33 +457,25 @@ class Game(tk.Canvas):
     #    my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
     #    my_canvas.master.title('try this canvas')
     #    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
-    def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb):
-        self.bg = my_canvas.create_image(0,0 , image=photo)
-        self.dec2 = my_canvas.create_image(900,650, image = snowman)
-        self.dec = my_canvas.create_image(550,50, image = ring2_image)
-        self.dec3 = my_canvas.create_image(318,325, image = tree)
-        self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
-        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='yellow', outline='yellow')
-        self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill='pink',outline='pink')
-        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='#CD5C5C',outline='#CD5C5C')
-        self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='#CAFF70',outline='#CAFF70')
-        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='#FFEC8B',outline='#FFEC8B')
-        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#F4A460',outline='#F4A460')
-        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#FFC1C1',outline='#FFC1C1')
-        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='#E6E6FA',outline='#E6E6FA')
-        self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='#008000',outline='#008000')
-        self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='#008B8B',outline='#008B8B')
-        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='#7FFFD4',outline='#7FFFD4')
-        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='#C1FFC1',outline='#C1FFC1')
-        self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#1E90FF',outline='#1E90FF')
-        self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#8FBC8F',outline='#8FBC8F')
-        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')
-        self.rule = my_canvas.create_rectangle(1050, 500, 1080, 520, fill='blue')                              
-    # def rectangle(self, my_canvas):
-    #     self.rectangle = my_canvas.create_rectangle(750, 90 ,850, 240, fill = 'pink')
+        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='cyan')
+        self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill='cyan')
+        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='cyan')
+        self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='cyan')
+        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='cyan')
+        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='cyan')
+        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='cyan')
+        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='cyan')
+        self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='cyan')
+        self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='cyan')
+        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='cyan')
+        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='cyan')
+        self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='cyan')
+        self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='cyan')
+        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='cyan')
+
     def tag(self, my_canvas):
         # bind 結合鍵盤或滑鼠的指令和函數
         my_canvas.tag_bind(self.circle1, '<Button-1>', place)  # 用tag_bind可以只連結特定位置
@@ -598,7 +493,6 @@ class Game(tk.Canvas):
         my_canvas.tag_bind(self.circle13, '<Button-1>', place13)
         my_canvas.tag_bind(self.circle14, '<Button-1>', place14)
         my_canvas.tag_bind(self.circle15, '<Button-1>', place15)
-        my_canvas.tag_bind(self.rule, '<Button-1>', rule)
 
     def player(self, playerlist):
         random.shuffle(playerlist)
@@ -847,37 +741,23 @@ class Login(object):
             playerlist = [player1, player2]
             global root1
             root1 = Tk()  # 視窗
-            root1.geometry('1200x700')
+            root1.geometry('1360x1280')
             root1.title("畫圈圈")
             root1.resizable()
             pygame.init()
             pygame.mixer.init()
             pygame.mixer.music.load('Holly Dazed - RKVC.mp3')
             pygame.mixer.music.play(-1) # If the loops is -1 then the music will repeat indefinitely.
-            
-            global my_canvas
-            my_canvas = tk.Canvas(root1, width=1500, height=1300, bg='#8B0000')
-            imgpath = 'bg.gif'
-            img = Image.open(imgpath)
-            photo = ImageTk.PhotoImage(img)
-            ring2_image = tk.PhotoImage(file='ring2.gif')
-            snowman = tk.PhotoImage(file = 'snowman.gif')
-            tree = tk.PhotoImage(file = 'tree.gif')
-            scoreb = tk.PhotoImage(file = 'scoreb.gif')
-            arrow = tk.PhotoImage(file = 'arrow.gif')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
-            title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
-            player1_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),   bg = 'white',text="{}".format("NAME:  "+player1), foreground = 'black' ).place(x=800, y=110)
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',   text="You have won 0 times.", foreground = 'black').place(x=800, y=170)
-            player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
-            my_canvas.pack(fill = tk.BOTH)
-            if playerlist[1] == player1 :
-                point1_label = tk.Label(root1,image=arrow).place(x=1000,y=90)
-            elif playerlist[1] == player2 :
-                point2_label = tk.Label(root1,image=arrow).place(x=1000,y=210)
-            game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb)
+            player1_name = tk.Label(root1, font=("Ariel", 40), text="{}".format(player1)).place(x=100, y=20)
+            player1_score = tk.Label(root1, font=("Ariel", 30), text="You have won 0 times.").place(x=100, y=120)
+            player2_name = tk.Label(root1, font=("Ariel", 40), text="{}".format(player2)).place(x=100, y=220)
+            player2_score = tk.Label(root1, font=("Ariel", 30), text="You have won 0 times.").place(x=100, y=320)
+            global my_canvas
+            my_canvas = tk.Canvas(root1, width=630, height=630, bg='white')
+            my_canvas.pack()
+            game = Game(my_canvas)
             root1.mainloop()
 
         elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
@@ -902,5 +782,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# 備份
