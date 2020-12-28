@@ -115,13 +115,13 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
             messagebox.showinfo('注意', '不能畫啦')
 
 def switch_order() :
-    global point1_label, point2_label
+    global point1_label
     if playerlist[1] == player1 :
-        point2_label.place(x=735,y=95)
-        point1_label.place_forget() # 這個函數不知道為啥沒作用
+        point1_label.place(x=735,y=95)
+        #point1_label.place_forget() # 這個函數不知道為啥沒作用
     elif playerlist[1] == player2 :
         point1_label.place(x=735,y=215)
-        point2_label.place_forget()
+        #point2_label.place_forget()
 
 def line(aline):  # 畫線
     if (aline[0] - aline[2])*(aline[1] - aline[3]) >  0:
