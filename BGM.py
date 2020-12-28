@@ -43,7 +43,11 @@ place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
                   6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
                   , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
 
-
+class switch_page(tk.Tk):
+    def __init__(self):
+        self.start = tk.Tk.__init__(self)
+        self._frame = None
+        self.switchFrame(start_page)
 for i in range(2):
     player_win_times_list.append([])
 for i in range(2):
@@ -491,6 +495,10 @@ def place15(event):
     aline.append(593)
     temp_flag.append(15)
     check_start_t_end(15, temp_flag, aline, start_t_end)
+    
+def rule(event):
+    text = 'text'
+    messagebox.showinfo('遊戲規則',text)
 
 class Game(tk.Canvas):
     def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb):
@@ -535,6 +543,7 @@ class Game(tk.Canvas):
         self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#1E90FF',outline='#1E90FF')
         self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#8FBC8F',outline='#8FBC8F')
         self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')
+        self.rule = my_canvas.create_rectangle(1050, 500, 1080, 520, fill='blue')
     # def rectangle(self, my_canvas):
     #     self.rectangle = my_canvas.create_rectangle(750, 90 ,850, 240, fill = 'pink')
     def tag(self, my_canvas):
@@ -554,6 +563,7 @@ class Game(tk.Canvas):
         my_canvas.tag_bind(self.circle13, '<Button-1>', place13)
         my_canvas.tag_bind(self.circle14, '<Button-1>', place14)
         my_canvas.tag_bind(self.circle15, '<Button-1>', place15)
+        my_canvas.tag_bind(self.rule, '<Button-1>', rule)
 
     def player(self, playerlist):
         random.shuffle(playerlist)
