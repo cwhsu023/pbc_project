@@ -656,6 +656,11 @@ def verify(account):
             else:
                 continue
 
+def verify_cpu(username):
+    if username == 'computer':
+        return 'yes'
+    return 'no'
+    
 
 def verify_if_repeated(username):
     '''驗證帳號是否重複'''
@@ -693,10 +698,12 @@ class Login(object):
 
         # 建立一個`label`名為`Account: `
         self.label_account = tkinter.Label(self.root, text='Player1: ')
-        self.label_account2 = tkinter.Label(self.root, text='Player2: ')
+        if playwcpu is False:
+            self.label_account2 = tkinter.Label(self.root, text='Player2: ')
         # 建立一個賬號輸入框,並設定尺寸
         self.input_account = tkinter.Entry(self.root, width=30)
-        self.input_account2 = tkinter.Entry(self.root, width=30)
+        if playwcpu is False:
+            self.input_account2 = tkinter.Entry(self.root, width=30)
         # 建立一個登入系統的按鈕
         self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login", width=10)
         # 建立一個註冊系統的按鈕
@@ -704,8 +711,6 @@ class Login(object):
         # 建立一個ranking按鈕
         self.ranking_button = tkinter.Button(self.root, command=self.ranking, text = 'Ranking',width=10 )
         # 完成佈局
-
-    def gui_arrang(self):
         self.label_account.pack()
         self.input_account.pack()
         self.login_button.pack()
@@ -713,8 +718,9 @@ class Login(object):
         self.ranking_button.pack()
         self.label_account.place(x=60, y=170)
         self.input_account.place(x=135, y=170)
-        self.label_account2.place(x=60, y=200)
-        self.input_account2.place(x=135, y=200)
+        if playwcpu is False:
+            self.label_account2.place(x=60, y=200)
+            self.input_account2.place(x=135, y=200)
         self.login_button.place(x=120, y=240)
         self.siginUp_button.place(x=220, y=240)
         self.ranking_button.place(x=320,y=240)
@@ -853,9 +859,14 @@ class Login(object):
 
     def backstage_interface(self):
         account = self.input_account.get()
-        account2 = self.input_account2.get()
+        if playwcpu:
+            account2 = 'computer'
+        else:
+            account2 = self.input_account2.get()
         print(account)
         print(account2)
+        verify_cpu(account)
+        verify_cpu(account2)
         # 對賬戶資訊進行驗證，普通使用者返回user，賬戶錯誤返回noAccount
         verifyResult = verify(account)
         verifyResult2 = verify(account2)
@@ -912,15 +923,40 @@ class Login(object):
         elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊',
                                         message="'" + account + "' " + " '" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
-
+class start_page(tk.Canvas):
+    def __init__(self, start_canvas):
+        tk.Canvas.__init__(self)
+        self.button(start_canvas)
+        self.tag(start_canvas)
+    def button(self, start_canvas):
+        self.pvp = start_canvas.create_rectangle(100, 100, 200, 200, fill='blue')
+        self.cpu = start_canvas.create_rectangle(300, 100, 450, 150, fill='blue')
+    def tag(self, start_canvas):
+        start_canvas.tag_bind(self.pvp, '<Button-1>', start_page.twoplayer)
+        start_canvas.tag_bind(self.cpu, '<Button-1>', start_page.oneplayer)
+    def twoplayer(event):
+        root2.destroy()
+        global playwcpu
+        playwcpu = False
+        L = Login()
+        tkinter.mainloop
+    def oneplayer(event):
+        root2.destroy()
+        global playwcpu
+        playwcpu = True
+        L = Login()
+        tkinter.mainloop
 
 def main():
-    # 初始化物件
-    L = Login()
-    # 進行佈局
-    L.gui_arrang()
-    # 主程式執行
-    tkinter.mainloop()
+    global root2
+    root2 = Tk()
+    root2.geometry('450x300')
+    root2.title('畫圈圈')
+    global start_canvas
+    start_canvas = tk.Canvas(root2, width=450, height=300)
+    start_canvas.pack()
+    s = start_page(start_canvas)
+    root2.mainloop()
 
 
 if __name__ == '__main__':
