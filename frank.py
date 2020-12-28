@@ -582,7 +582,7 @@ class Game(tk.Canvas):
         self.dec3 = my_canvas.create_image(318,325, image = tree)
         self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
         self.dec5 = my_canvas.create_image(1050, 430, image = rule)
-        self.leave = my_canvas.create_image(, image = leave)
+        self.leave = my_canvas.create_image(1130,650, image = leave)
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
@@ -913,7 +913,7 @@ class Login(object):
                 scoreb = tk.PhotoImage(file = 'scoreb.gif')
                 arrow = tk.PhotoImage(file = 'arrow.gif')
                 rule = tk.PhotoImage(file = 'rule.gif')
-                leave = tk.PhotoImage(file = )
+                leave = tk.PhotoImage(file = 'exit.gif')
                 global win_times
                 win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
                 title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
