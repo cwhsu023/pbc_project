@@ -95,6 +95,7 @@ def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
 
 
 def check_start_t_end(num, temp_flag, aline, start_t_end):
+    show(temp_flag[-1])
     if len(temp_flag) == 2:
         num = temp_flag[0]
         if temp_flag[1] in start_t_end[num]:
@@ -198,9 +199,9 @@ def show(num):
     global circle1, circle2, first_num
     x = place_dict[num][0]
     y = place_dict[num][1]
-    if len(temp_flag) == 0:
-        first_num = num
     if len(temp_flag) == 1:
+        first_num = num
+    if len(temp_flag) == 2:
         circle2 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
         circle_list.append(circle2)
         x = place_dict[first_num][0]
@@ -377,7 +378,7 @@ def computer(flaglist, start_t_end):
     last_round = len(flaglist)
 
 def place(event):
-    show(1)
+    #show(1)
     aline.append(315)  # 圓心座標
     aline.append(37)
     temp_flag.append(1)
@@ -385,7 +386,7 @@ def place(event):
 
 
 def place2(event):
-    show(2)
+    #show(2)
     aline.append(245)
     aline.append(175)
     temp_flag.append(2)
@@ -393,7 +394,7 @@ def place2(event):
 
 
 def place3(event):
-    show(3)
+    #show(3)
     aline.append(385)
     aline.append(175)
     temp_flag.append(3)
@@ -401,7 +402,7 @@ def place3(event):
 
 
 def place4(event):
-    show(4)
+    #show(4)
     aline.append(175)
     aline.append(315)
     temp_flag.append(4)
@@ -409,7 +410,7 @@ def place4(event):
 
 
 def place5(event):
-    show(5)
+    #show(5)
     aline.append(315)
     aline.append(315)
     temp_flag.append(5)
@@ -417,7 +418,7 @@ def place5(event):
 
 
 def place6(event):
-    show(6)
+    #show(6)
     aline.append(455)
     aline.append(315)
     temp_flag.append(6)
@@ -425,7 +426,7 @@ def place6(event):
 
 
 def place7(event):
-    show(7)
+    #show(7)
     aline.append(105)
     aline.append(455)
     temp_flag.append(7)
@@ -433,7 +434,7 @@ def place7(event):
 
 
 def place8(event):
-    show(8)
+    #show(8)
     aline.append(245)
     aline.append(455)
     temp_flag.append(8)
@@ -441,7 +442,7 @@ def place8(event):
 
 
 def place9(event):
-    show(9)
+    #show(9)
     aline.append(385)
     aline.append(455)
     temp_flag.append(9)
@@ -449,7 +450,7 @@ def place9(event):
 
 
 def place10(event):
-    show(10)
+    #show(10)
     aline.append(525)
     aline.append(455)
     temp_flag.append(10)
@@ -457,7 +458,7 @@ def place10(event):
 
 
 def place11(event):
-    show(11)
+    #show(11)
     aline.append(37)
     aline.append(593)
     temp_flag.append(11)
@@ -465,7 +466,7 @@ def place11(event):
 
 
 def place12(event):
-    show(12)
+    #show(12)
     aline.append(175)
     aline.append(593)
     temp_flag.append(12)
@@ -473,7 +474,7 @@ def place12(event):
 
 
 def place13(event):
-    show(13)
+    #show(13)
     aline.append(315)
     aline.append(593)
     temp_flag.append(13)
@@ -481,7 +482,7 @@ def place13(event):
 
 
 def place14(event):
-    show(14)
+    #show(14)
     aline.append(455)
     aline.append(593)
     temp_flag.append(14)
@@ -489,7 +490,7 @@ def place14(event):
 
 
 def place15(event):
-    show(15)
+    #show(15)
     aline.append(593)
     aline.append(593)
     temp_flag.append(15)
