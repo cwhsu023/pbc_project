@@ -721,7 +721,7 @@ class Login(object):
 
     def ranking(self):
         self.ranking_window = tkinter.Toplevel()
-        self.ranking_window.geometry('450x300')
+        self.ranking_window.geometry('450x350')
         self.ranking_window.title("遊戲排名")
         self.ranking_window.configure(bg='#006030')
 
@@ -742,43 +742,43 @@ class Login(object):
         #1
         rank1 = tkinter.Label(self.ranking_window, text='❄︎  '+rank_list[0][1]+'-------' +str(rank_list[0][0]), fg = '#AE0000', font=("Arial Rounded MT Bold", 16))
         rank1.pack()
-        rank1.place(x=150, y=30)
+        rank1.place(x=20, y=30, width=400)
         #2
         rank2 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[1][1]+'-------' +str(rank_list[1][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank2.pack()
-        rank2.place(x=150, y=60)
+        rank2.place(x=20, y=60, width=400)
         #3
         rank3 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[2][1]+'-------' +str(rank_list[2][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank3.pack()
-        rank3.place(x=150, y=90)
+        rank3.place(x=20, y=90, width=400)
         #4
         rank4 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[3][1]+'-------' +str(rank_list[3][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank4.pack()
-        rank4.place(x=150, y=120)
+        rank4.place(x=20, y=120, width=400)
         #5
         rank5 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[4][1]+'-------' +str(rank_list[4][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank5.pack()
-        rank5.place(x=150, y=150)
+        rank5.place(x=20, y=150, width=400)
         #6
         rank6 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[5][1]+'-------' +str(rank_list[5][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank6.pack()
-        rank6.place(x = 150,y = 180)
+        rank6.place(x =20,y = 180, width=400)
         #7
         rank7 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[6][1]+'-------' +str(rank_list[6][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank7.pack()
-        rank7.place(x = 150,y = 210)
+        rank7.place(x = 20,y = 210, width=400)
         #8
         rank8 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[7][1]+'-------' +str(rank_list[7][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank8.pack()
-        rank8.place(x = 150,y = 240)
+        rank8.place(x = 20,y = 240, width=400)
         #9
         rank9 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[8][1] +'-------' +str(rank_list[8][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank9.pack()
-        rank9.place(x = 150,y = 270)
+        rank9.place(x = 20,y = 270, width=400)
         #10
         rank10 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[9][1]+'-------' +str(rank_list[9][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank10.pack()
-        rank10.place(x = 150, y=300)
+        rank10.place(x = 20, y=300, width=400)
 
 
 
