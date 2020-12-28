@@ -725,7 +725,7 @@ class Login(object):
         # 建立一個註冊系統的按鈕
         self.siginUp_button = tkinter.Button(self.root, command=self.siginUp_interface, text="Sign up", width=10)
         # 建立一個ranking按鈕
-        self.ranking_button = tkinter.Button(self.root, command=self.ranking,width=10)
+        self.ranking_button = tkinter.Button(self.root, command=self.ranking,text='ranking', width=10)
         # 完成佈局
         self.label_account.pack()
         self.input_account.pack()
