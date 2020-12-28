@@ -43,11 +43,6 @@ place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
                   6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
                   , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
 
-class switch_page(tk.Tk):
-    def __init__(self):
-        self.start = tk.Tk.__init__(self)
-        self._frame = None
-        self.switchFrame(start_page)
 for i in range(2):
     player_win_times_list.append([])
 for i in range(2):
@@ -70,10 +65,8 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
     else:
         if aline[0] == aline[2] and aline[1] == aline[3]:
             self_line(aline)
-            switch_order()
         else:
             line(aline)
-            switch_order()
         win(flaglist, playerlist)  # let's see who wins
         # print('now drawing', playerlist[0])
         playerlist.reverse()
@@ -82,12 +75,6 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
             win(flaglist, playerlist)
             playerlist.reverse()
 
-def switch_order() :
-    global arrow
-    if playerlist[1] == player1 :
-        point1_label = tk.Label(root1,image=arrow).place(x=1000,y=90)
-    elif playerlist[1] == player2 :
-        point2_label = tk.Label(root1,image=arrow).place(x=1000,y=210)
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -196,6 +183,8 @@ def self_line(aline):
     for i in range(len(circle_list)):
         circle_list.pop(0)
 
+
+
 # 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
 def show(num):
     global circle1, circle2, first_num
@@ -216,6 +205,7 @@ def show(num):
                 y = place_dict[i[1]][1]
                 circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
                 circle_list.append(circle3)
+
 
 def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
@@ -385,6 +375,9 @@ def place(event):
     check_start_t_end(1, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place2(event):
     show(2)
     aline.append(245)
@@ -392,6 +385,9 @@ def place2(event):
     temp_flag.append(2)
     check_start_t_end(2, temp_flag, aline, start_t_end)
 
+
+#    print(aline)
+#    print(flaglist)
 
 def place3(event):
     show(3)
@@ -401,6 +397,9 @@ def place3(event):
     check_start_t_end(3, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place4(event):
     show(4)
     aline.append(175)
@@ -408,6 +407,9 @@ def place4(event):
     temp_flag.append(4)
     check_start_t_end(4, temp_flag, aline, start_t_end)
 
+
+#    print(aline)
+#    print(flaglist)
 
 def place5(event):
     show(5)
@@ -417,6 +419,9 @@ def place5(event):
     check_start_t_end(5, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place6(event):
     show(6)
     aline.append(455)
@@ -424,6 +429,9 @@ def place6(event):
     temp_flag.append(6)
     check_start_t_end(6, temp_flag, aline, start_t_end)
 
+
+#    print(aline)
+#    print(flaglist)
 
 def place7(event):
     show(7)
@@ -433,6 +441,9 @@ def place7(event):
     check_start_t_end(7, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place8(event):
     show(8)
     aline.append(245)
@@ -440,6 +451,9 @@ def place8(event):
     temp_flag.append(8)
     check_start_t_end(8, temp_flag, aline, start_t_end)
 
+
+#    print(aline)
+#    print(flaglist)
 
 def place9(event):
     show(9)
@@ -449,6 +463,9 @@ def place9(event):
     check_start_t_end(9, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place10(event):
     show(10)
     aline.append(525)
@@ -456,6 +473,9 @@ def place10(event):
     temp_flag.append(10)
     check_start_t_end(10, temp_flag, aline, start_t_end)
 
+
+#    print(aline)
+#    print(flaglist)
 
 def place11(event):
     show(11)
@@ -465,6 +485,9 @@ def place11(event):
     check_start_t_end(11, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place12(event):
     show(12)
     aline.append(175)
@@ -472,6 +495,9 @@ def place12(event):
     temp_flag.append(12)
     check_start_t_end(12, temp_flag, aline, start_t_end)
 
+
+#    print(aline)
+#    print(flaglist)
 
 def place13(event):
     show(13)
@@ -481,6 +507,9 @@ def place13(event):
     check_start_t_end(13, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place14(event):
     show(14)
     aline.append(455)
@@ -489,18 +518,22 @@ def place14(event):
     check_start_t_end(14, temp_flag, aline, start_t_end)
 
 
+#    print(aline)
+#    print(flaglist)
+
 def place15(event):
     show(15)
     aline.append(593)
     aline.append(593)
     temp_flag.append(15)
     check_start_t_end(15, temp_flag, aline, start_t_end)
-    
+
+
+#    print(aline)
+#    print(flaglist)
 def rule(event):
     text = 'text'
     messagebox.showinfo('遊戲規則',text)
-
-
 
 class Game(tk.Canvas):
     def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb, rule):
@@ -528,7 +561,6 @@ class Game(tk.Canvas):
         self.dec3 = my_canvas.create_image(318,325, image = tree)
         self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
         self.dec5 = my_canvas.create_image(1050, 430, image = rule)
-
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
@@ -546,8 +578,7 @@ class Game(tk.Canvas):
         self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='#C1FFC1',outline='#C1FFC1')
         self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#1E90FF',outline='#1E90FF')
         self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#8FBC8F',outline='#8FBC8F')
-        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')
- 
+        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')                             
     # def rectangle(self, my_canvas):
     #     self.rectangle = my_canvas.create_rectangle(750, 90 ,850, 240, fill = 'pink')
     def tag(self, my_canvas):
@@ -568,7 +599,6 @@ class Game(tk.Canvas):
         my_canvas.tag_bind(self.circle14, '<Button-1>', place14)
         my_canvas.tag_bind(self.circle15, '<Button-1>', place15)
         my_canvas.tag_bind(self.dec5, '<Button-1>', rule)
-
 
     def player(self, playerlist):
         random.shuffle(playerlist)
@@ -835,7 +865,7 @@ class Login(object):
             tree = tk.PhotoImage(file = 'tree.gif')
             scoreb = tk.PhotoImage(file = 'scoreb.gif')
             arrow = tk.PhotoImage(file = 'arrow.gif')
-            rule = tk.PhotoImage(file = 'rule.gif') 
+            rule = tk.PhotoImage(file = 'rule.gif')
             global win_times
             win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
             title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
@@ -844,6 +874,10 @@ class Login(object):
             player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
             player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
             my_canvas.pack(fill = tk.BOTH)
+            if playerlist[1] == player1 :
+                point1_label = tk.Label(root1,image=arrow).place(x=1000,y=90)
+            elif playerlist[1] == player2 :
+                point2_label = tk.Label(root1,image=arrow).place(x=1000,y=210)
             game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb, rule)
             root1.mainloop()
 
@@ -869,3 +903,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# 備份
