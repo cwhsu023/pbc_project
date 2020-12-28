@@ -75,6 +75,7 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
         if playerlist[0] == 'computer':
             computer(flaglist, start_t_end)
             win(flaglist, playerlist)
+            switch_order()
             playerlist.reverse()
 
 
@@ -118,10 +119,8 @@ def switch_order() :
     global point1_label
     if playerlist[1] == player1 :
         point1_label.place(x=735,y=95)
-        #point1_label.place_forget() # 這個函數不知道為啥沒作用
     elif playerlist[1] == player2 :
         point1_label.place(x=735,y=215)
-        #point2_label.place_forget()
 
 def line(aline):  # 畫線
     if (aline[0] - aline[2])*(aline[1] - aline[3]) >  0:
@@ -305,11 +304,17 @@ def reset(linemark):  # 回復原本的設定
     random.shuffle(playerlist)
     messagebox.showinfo('注意',playerlist[1]+' goes first')
     # 因為後面會reverse()所以我這邊寫playerlist[1]
+    global point1_label
+    if playerlist[1] == player1 :
+        point1_label.place(x=735,y=95)
+    elif playerlist[1] == player2 :
+        point1_label.place(x=735,y=215)
     if playerlist[1] == 'computer':
         global second
         second = False
         computer(flaglist, start_t_end)
         playerlist.reverse()
+        switch_order()
     else:
         second = True
 
@@ -613,10 +618,16 @@ class Game(tk.Canvas):
     def player(self, playerlist):
         random.shuffle(playerlist)
         messagebox.showinfo('注意', playerlist[0] + ' goes first')
+        global point1_label
+        if playerlist[0] == player1 :
+            point1_label.place(x=735,y=95)
+        elif playerlist[0] == player2 :
+            point1_label.place(x=735,y=215)
         if playerlist[0] == 'computer':
             global second
             second = False
             computer(flaglist, start_t_end)
+            switch_order()
             playerlist.reverse()
         else:
             second = True
@@ -885,9 +896,7 @@ class Login(object):
             player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
             my_canvas.pack(fill = tk.BOTH)
             global point1_label
-            global point2_label
-            point1_label = tk.Label(root1,image=arrow)
-            point2_label = tk.Label(root1,image=arrow)
+            point1_label = tk.Label(root1,image=arrow, bg='white')
             game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb, rule)
             root1.mainloop()
 
