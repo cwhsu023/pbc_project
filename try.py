@@ -709,23 +709,23 @@ class Login(object):
         # 給主視窗設定標題內容
         self.root.title("畫圈圈")
         self.root.geometry('450x300')
-        self.canvas = tkinter.Canvas(self.root, height=200, width=500)  # 建立畫布
+        self.canvas = tkinter.Canvas(self.root, height=800, width=500, bg ='#003E3E')  # 建立畫布
         self.canvas.pack(side='top')  # 放置畫布（為上端）
 
         # 建立一個`label`名為`Account: `
-        self.label_account = tkinter.Label(self.root, text='Player1: ')
+        self.label_account = tkinter.Label(self.root, text='Player1: ',font=("Arial Rounded MT Bold", 16, "bold"),fg= 'white', bg ='#003E3E')
         if playwcpu is False:
-            self.label_account2 = tkinter.Label(self.root, text='Player2: ')
+            self.label_account2 = tkinter.Label(self.root, text='Player2: ',font=("Arial Rounded MT Bold", 16, "bold"),fg= 'white' ,bg ='#003E3E')
         # 建立一個賬號輸入框,並設定尺寸
         self.input_account = tkinter.Entry(self.root, width=30)
         if playwcpu is False:
             self.input_account2 = tkinter.Entry(self.root, width=30)
         # 建立一個登入系統的按鈕
-        self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login", width=10)
+        self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login",font=("Arial Rounded MT Bold", 16, "bold"), width=10, fg ='#CE0000')
         # 建立一個註冊系統的按鈕
-        self.siginUp_button = tkinter.Button(self.root, command=self.siginUp_interface, text="Sign up", width=10)
+        self.siginUp_button = tkinter.Button(self.root, command=self.siginUp_interface, text="Sign up",font=("Arial Rounded MT Bold", 16, "bold"), width=10, fg ='#CE0000')
         # 建立一個ranking按鈕
-        self.ranking_button = tkinter.Button(self.root, command=self.ranking, text='Ranking', width=10)
+        self.ranking_button = tkinter.Button(self.root, command=self.ranking, text='Ranking',font=("Arial Rounded MT Bold", 16, "bold"), width=10, fg ='#CE0000')
         # 完成佈局
         self.label_account.pack()
         self.input_account.pack()
@@ -823,12 +823,12 @@ class Login(object):
         top2.geometry("450x300")
         username = self.entry.get()
         # Create label
-        label = tkinter.Label(top2, text='Is' + '"' + username + '"' + 'your username')
+        label = tkinter.Label(top2, text='Is' + '"' + username + '"' + 'your username',font=("Arial Rounded MT Bold", 18),fg='#006030')
         # Create exit button.
         # 回到signin頁面
-        nobutton = tkinter.Button(top2, text=" Resign ", command=top2.destroy)
+        nobutton = tkinter.Button(top2, text=" Resign ",font=("Arial Rounded MT Bold", 18),fg='#006030', command=top2.destroy)
         # 回login頁面
-        yesbutton = tkinter.Button(top2, text="yes this is my name",
+        yesbutton = tkinter.Button(top2, text="yes this is my name",font=("Arial Rounded MT Bold", 18),fg='#006030',
                                    command=lambda: [top2.destroy(), self.verify_interface(username)])
         '''
             80行，siginUp_interface 仍然會打開
@@ -862,15 +862,16 @@ class Login(object):
         # specify size
         signinWindow.geometry("450x300")
         # Create label
+
         label = tkinter.Label(signinWindow,
-                              text="Player username : ")
+                              text="Player username : ",font=("Arial Rounded MT Bold", 18),fg='#006030' )
         self.entry = tkinter.Entry(signinWindow,
                                    width=30)
         # Create Exit button
-        button1 = tkinter.Button(signinWindow, text="Exit",
+        button1 = tkinter.Button(signinWindow, text="Exit",font=("Arial Rounded MT Bold", 18),fg='#AE0000',
                                  command=signinWindow.destroy)
         # create button to open toplevel2
-        confirmbutton = tkinter.Button(signinWindow, text="Confirm", command=lambda: [self.confirm()])
+        confirmbutton = tkinter.Button(signinWindow, text="Confirm",font=("Arial Rounded MT Bold", 18),fg='#AE0000', command=lambda: [self.confirm()])
         label.pack()
         self.entry.pack()
         confirmbutton.pack()
@@ -976,8 +977,8 @@ class start_page(tk.Canvas):
         start_canvas.tag_bind(self.cpu, '<Button-1>', start_page.twoplayer)
         label1.pack()
         label2.pack()
-        label1.place(x=270,y=210)
-        label2.place(x=60,y=210)
+        label1.place(x=250,y=210)
+        label2.place(x=40,y=210)
 
     def twoplayer(event):
         root2.destroy()
@@ -998,13 +999,13 @@ def main():
     global root2
     root2 = Tk()
     root2.geometry('450x300')
-    root2.title('畫圈圈')
+    root2.title('畫圈圈--單人/雙人遊玩模式選擇')
     global start_canvas
     start_canvas = tk.Canvas(root2, width=450, height=300, bg='#003E3E')
     start_canvas.pack()
     individ = tk.PhotoImage(file='individ.gif')
-    label1 = tk.Label(text='two players')
-    label2 = tk.Label(text='play with computer')
+    label1 = tk.Label(text='two players' ,font=("Arial Rounded MT Bold", 16, "bold"), fg ='white', bg='#003E3E')
+    label2 = tk.Label(text='play with computer', font=("Arial Rounded MT Bold", 16, "bold") ,fg ='white', bg='#003E3E')
     couple = tk.PhotoImage(file='couple.gif')
     s = start_page(start_canvas, individ, couple,label1,label2)
     root2.mainloop()
