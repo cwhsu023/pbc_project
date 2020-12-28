@@ -43,11 +43,35 @@ place_dict = {1:[315,37], 2:[245,175], 3:[385,175], 4:[175,315], 5:[315,315],\
                   6:[455,315], 7:[105,455], 8:[245,455], 9:[385,455], 10:[525,455]\
                   , 11:[37,593], 12:[175,593], 13:[315,593], 14:[455,593], 15:[593,593]}
 
-class switch_page(tk.Tk):
+class switch_PAGE(tk.Tk):
     def __init__(self):
         self.start = tk.Tk.__init__(self)
         self._frame = None
         self.switchFrame(start_page)
+    def switchFrame(self,frame_class):
+        new_frame = frame_class(self)
+        if self._frame is not None:
+            self._frame.destroy()
+        self._frame = new_frame
+        self._frame.pack()
+
+
+class start_page(tk.Frame):
+    def __init__(self,master):
+        tk.Frame.__init__(self, master)
+        # 建立主視窗,用於容納其它元件
+        self.root = tkinter.Tk()
+        # 給主視窗設定標題內容
+        self.root.title("選擇模式")
+        self.root.geometry('450x300')
+        self.canvas = tkinter.Canvas(self.root, height=200, width=500)  # 建立畫布
+        self.canvas.pack(side='top')  # 放置畫布（為上端）
+        self.label = tk.Label(self.root, text="Start game ", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
+        self.button1 = tk.Button(self.root, text = 'Person to Person !!! Real fight between us !' , command=lambda:{ master.switchFrame(Login)}).pack(side="top", fill="x", pady=5)
+        self.button2 = tk.Button(self.root, text='Person to Computer !!! lets have some practice first!',
+                  command=lambda: {master.switchFrame(Login_with_computer)}).pack()
+
+
 for i in range(2):
     player_win_times_list.append([])
 for i in range(2):
@@ -625,8 +649,9 @@ def verify_if_repeated(username):
         return 'sign accepted'
 
 
-class Login(object):
-    def __init__(self):
+class Login(tk.Frame):
+    def __init__(self,master):
+        tk.Frame.__init__(self,master)
         # 建立主視窗,用於容納其它元件
         self.root = tkinter.Tk()
         # 給主視窗設定標題內容
@@ -648,8 +673,6 @@ class Login(object):
         # 建立一個ranking按鈕
         self.ranking_button = tkinter.Button(self.root, command=self.ranking, text = 'Ranking',width=10 )
         # 完成佈局
-
-    def gui_arrang(self):
         self.label_account.pack()
         self.input_account.pack()
         self.login_button.pack()
@@ -850,13 +873,214 @@ class Login(object):
         elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊',
                                         message="'" + account + "' " + " '" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
+class Login_with_computer(tk.Frame):
+    def __init__(self,master):
+        tk.Frame.__init__(self,master)
+        # 建立主視窗,用於容納其它元件
+        self.root = tkinter.Tk()
+        # 給主視窗設定標題內容
+        self.root.title("畫圈圈")
+        self.root.geometry('450x300')
+        self.canvas = tkinter.Canvas(self.root, height=200, width=500)  # 建立畫布
+        self.canvas.pack(side='top')  # 放置畫布（為上端）
+
+        # 建立一個`label`名為`Account: `
+        self.label_account = tkinter.Label(self.root, text='Player1: ')
+        # 建立一個賬號輸入框,並設定尺寸
+        self.input_account = tkinter.Entry(self.root, width=30)
+        # 建立一個登入系統的按鈕
+        self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login", width=10)
+        # 建立一個註冊系統的按鈕
+        self.siginUp_button = tkinter.Button(self.root, command=self.siginUp_interface, text="Sign up", width=10)
+        # 建立一個ranking按鈕
+        self.ranking_button = tkinter.Button(self.root, command=self.ranking, text = 'Ranking',width=10 )
+        # 完成佈局
+        self.label_account.pack()
+        self.input_account.pack()
+        self.login_button.pack()
+        self.siginUp_button.pack()
+        self.ranking_button.pack()
+        self.label_account.place(x=60, y=170)
+        self.input_account.place(x=135, y=170)
+        self.login_button.place(x=120, y=240)
+        self.siginUp_button.place(x=220, y=240)
+        self.ranking_button.place(x=320,y=240)
+
+    def ranking(self):
+        self.ranking_window = tkinter.Toplevel()
+        self.ranking_window.geometry('450x300')
+        self.ranking_window.title("遊戲排名")
+        rank_list = []
+        with open('rank.txt','r') as ranks:
+            rank = ranks.readlines()
+            for line in rank:
+                tempt = []
+                print(line)
+                line = line.split(',')
+                line[1] = line[1].strip('\n')
+                tempt = [int(line[1]),line[0]]
+                rank_list.append(tempt)
+        rank_list  = sorted(rank_list ,reverse = True)
+        self.rank1 = tkinter.messagebox.showinfo(title = '天下最強玩小遊戲第一名是誰勒？？？' , message = '恭賀'+ rank_list[0][1] + '蟬聯第一名')
+        print(rank_list)
+        #1
+        rank1 = tkinter.Label(self.ranking_window, text=rank_list[0][1]+'-------' +str(rank_list[0][0]))
+        rank1.pack()
+        rank1.place(x=150, y=30)
+        #2
+        rank2 = tkinter.Label(self.ranking_window ,text=rank_list[1][1]+'-------' +str(rank_list[1][0]))
+        rank2.pack()
+        rank2.place(x=150, y=60)
+        #3
+        rank3 = tkinter.Label(self.ranking_window ,text=rank_list[2][1]+'-------' +str(rank_list[2][0]))
+        rank3.pack()
+        rank3.place(x=150, y=90)
+        #4
+        rank4 = tkinter.Label(self.ranking_window ,text=rank_list[3][1]+'-------' +str(rank_list[3][0]))
+        rank4.pack()
+        rank4.place(x=150, y=120)
+        #5
+        rank5 = tkinter.Label(self.ranking_window,text=rank_list[4][1]+'-------' +str(rank_list[4][0]))
+        rank5.pack()
+        rank5.place(x=150, y=150)
+        #6
+        rank6 = tkinter.Label(self.ranking_window,text=rank_list[5][1]+'-------' +str(rank_list[5][0]))
+        rank6.pack()
+        rank6.place(x = 150,y = 180)
+        #7
+        rank7 = tkinter.Label(self.ranking_window ,text=rank_list[6][1]+'-------' +str(rank_list[6][0]))
+        rank7.pack()
+        rank7.place(x = 150,y = 210)
+        #8
+        rank8 = tkinter.Label(self.ranking_window,text=rank_list[7][1]+'-------' +str(rank_list[7][0]))
+        rank8.pack()
+        rank8.place(x = 150,y = 240)
+        #9
+        rank9 = tkinter.Label(self.ranking_window ,text=rank_list[8][1] +'-------' +str(rank_list[8][0]))
+        rank9.pack()
+        rank9.place(x = 150,y = 270)
+        #10
+        rank10 = tkinter.Label(self.ranking_window ,text=rank_list[9][1]+'-------' +str(rank_list[9][0]))
+        rank10.pack()
+        rank10.place(x = 150, y=300)
+
+
+
+
+        # 進入註冊介面
+
+    def confirm(self):
+        # Create widget
+        top2 = tkinter.Toplevel()
+        # define title for window
+        top2.title("Confirm")
+        # specify size
+        top2.geometry("450x300")
+        username = self.entry.get()
+        # Create label
+        label = tkinter.Label(top2, text='Is' + '"' + username + '"' + 'your username')
+        # Create exit button.
+        # 回到signin頁面
+        nobutton = tkinter.Button(top2, text=" Resign ", command=top2.destroy)
+        # 回login頁面
+        yesbutton = tkinter.Button(top2, text="yes this is my name",
+                                   command=lambda: [top2.destroy(), self.verify_interface(username)])
+        '''
+            80行，siginUp_interface 仍然會打開
+        '''
+        label.pack()
+        yesbutton.pack()
+        nobutton.pack()
+        # Display untill closed manually.
+        top2.mainloop()
+
+    # 驗證帳號是否重複
+    def verify_interface(self, username):
+        result = verify_if_repeated(username)
+        print(result)
+        if result == 'Username repeated':
+            tkinter.messagebox.showinfo(title=None, message='使用者名稱重複')
+            # self.siginUp_interface()
+            '''若上面問題有解決，這行加上去'''
+        '''
+        elif result == 'sign accepted':
+            #應該要回到root但是還是卡在signup interface
+        '''
+
+    # define a function for 1st toplevel
+    # which is associated with root window.
+    def siginUp_interface(self):
+        # Create widget
+        signinWindow = tkinter.Toplevel(self.root)
+        # Define title for window
+        signinWindow.title("signup")
+        # specify size
+        signinWindow.geometry("450x300")
+        # Create label
+        label = tkinter.Label(signinWindow,
+                              text="Player username : ")
+        self.entry = tkinter.Entry(signinWindow,
+                                   width=30)
+        # Create Exit button
+        button1 = tkinter.Button(signinWindow, text="Exit",
+                                 command=signinWindow.destroy)
+        # create button to open toplevel2
+        confirmbutton = tkinter.Button(signinWindow, text="Confirm", command=lambda: [self.confirm()])
+        label.pack()
+        self.entry.pack()
+        confirmbutton.pack()
+        button1.pack()
+        # Display untill closed manually
+        signinWindow.mainloop()
+
+        # 進行登入資訊驗證
+
+    def backstage_interface(self):
+        account = self.input_account.get()
+        account2 = 'computer'
+        print(account)
+        print(account2)
+        # 對賬戶資訊進行驗證，普通使用者返回user，賬戶錯誤返回noAccount
+        verifyResult = verify(account)
+        if verifyResult == 'yes' :
+            tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
+            self.root.destroy()
+            '''開啟小遊戲連結'''
+            global player1
+            player1 = account
+            global player2
+            player2 = account2
+            global playerlist
+            playerlist = [player1, player2]
+            global root1
+            root1 = Tk()  # 視窗
+            root1.geometry('1360x1280')
+            root1.title("畫圈圈")
+            root1.resizable()
+            pygame.init()
+            pygame.mixer.init()
+            pygame.mixer.music.load('Holly Dazed - RKVC.mp3')
+            pygame.mixer.music.play(-1) # If the loops is -1 then the music will repeat indefinitely.
+            global win_times
+            win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
+            player1_name = tk.Label(root1, font=("Ariel", 40), text="{}".format(player1)).place(x=100, y=20)
+            player1_score = tk.Label(root1, font=("Ariel", 30), text="You have won 0 times.").place(x=100, y=120)
+            player2_name = tk.Label(root1, font=("Ariel", 40), text="{}".format(player2)).place(x=100, y=220)
+            player2_score = tk.Label(root1, font=("Ariel", 30), text="You have won 0 times.").place(x=100, y=320)
+            global my_canvas
+            my_canvas = tk.Canvas(root1, width=630, height=630, bg='white')
+            my_canvas.pack()
+            game = Game(my_canvas)
+            root1.mainloop()
+
+        elif verifyResult == 'noAccount' :
+            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message=" '" + account + "' " + '玩家不存在請重新輸入!')
 
 
 def main():
     # 初始化物件
-    L = Login()
-    # 進行佈局
-    L.gui_arrang()
+    s = switch_PAGE()
+    L = Login
     # 主程式執行
     tkinter.mainloop()
 
