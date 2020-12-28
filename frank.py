@@ -924,16 +924,16 @@ class Login(object):
             tkinter.messagebox.showinfo(title='小遊戲需要你的註冊',
                                         message="'" + account + "' " + " '" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
 class start_page(tk.Canvas):
-    def __init__(self, start_canvas):
+    def __init__(self, start_canvas, individ, couple):
         tk.Canvas.__init__(self)
-        self.button(start_canvas)
+        self.image(start_canvas, individ, couple)
         self.tag(start_canvas)
-    def button(self, start_canvas):
-        self.pvp = start_canvas.create_rectangle(100, 100, 200, 200, fill='blue')
-        self.cpu = start_canvas.create_rectangle(300, 100, 450, 150, fill='blue')
+    def image(self, start_canvas, individ, couple):
+        self.pvp = start_canvas.create_image(110, 150, image = individ)
+        self.cpu = start_canvas.create_image(300, 150, image = couple)
     def tag(self, start_canvas):
-        start_canvas.tag_bind(self.pvp, '<Button-1>', start_page.twoplayer)
-        start_canvas.tag_bind(self.cpu, '<Button-1>', start_page.oneplayer)
+        start_canvas.tag_bind(self.pvp, '<Button-1>', start_page.oneplayer)
+        start_canvas.tag_bind(self.cpu, '<Button-1>', start_page.twoplayer)
     def twoplayer(event):
         root2.destroy()
         global playwcpu
@@ -953,9 +953,11 @@ def main():
     root2.geometry('450x300')
     root2.title('畫圈圈')
     global start_canvas
-    start_canvas = tk.Canvas(root2, width=450, height=300)
+    start_canvas = tk.Canvas(root2, width=450, height=300, bg = '#003E3E')
     start_canvas.pack()
-    s = start_page(start_canvas)
+    individ = tk.PhotoImage(file = 'individ.gif')
+    couple = tk.PhotoImage(file = 'couple.gif')
+    s = start_page(start_canvas, individ, couple)
     root2.mainloop()
 
 
