@@ -193,17 +193,20 @@ def self_line(aline):
         circle_list.pop(0)
 
 # 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
+# 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
 def show(num):
     global circle1, circle2, first_num
     x = place_dict[num][0]
     y = place_dict[num][1]
     if len(temp_flag) == 0:
         first_num = num
-        circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-        circle_list.append(circle1)
     if len(temp_flag) == 1:
         circle2 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
         circle_list.append(circle2)
+        x = place_dict[first_num][0]
+        y = place_dict[first_num][1]
+        circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+        circle_list.append(circle1)
         num_list = [first_num, num]
         num_list.sort()
         for i in triple:
