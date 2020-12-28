@@ -593,7 +593,7 @@ class Game(tk.Canvas):
 
     #    my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
     #    my_canvas.master.title('try this canvas')
-    #    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
+    #    my_canvas.pack()
     def background(self, my_canvas, photo, ring2_image, snowman, tree, scoreb, rule, leave):
         self.bg = my_canvas.create_image(0, 0, image=photo)
         self.dec2 = my_canvas.create_image(800, 650, image=snowman)
@@ -853,7 +853,7 @@ class Login(object):
         # Display untill closed manually.
         top2.mainloop()
 
-    # 驗證帳號是否重複
+    # 驗證帳號是否重複.
     def verify_interface(self, username):
         result = verify_if_repeated(username)
         print(result)
@@ -885,7 +885,7 @@ class Login(object):
         button1 = tkinter.Button(signinWindow, text="Exit",
                                  command=signinWindow.destroy)
         # create button to open toplevel2
-        confirmbutton = tkinter.Button(signinWindow, text="Confirm",font=("Arial Rounded MT Bold"),fg='#AE0000', command=lambda: [self.confirm()])
+        confirmbutton = tkinter.Button(signinWindow, text="Confirm",command=lambda: [self.confirm()])
         label.pack()
         self.entry.pack()
         confirmbutton.pack()
@@ -931,7 +931,7 @@ class Login(object):
                 pygame.mixer.init()
                 pygame.mixer.music.load('Holly Dazed - RKVC.mp3')
                 pygame.mixer.music.play(-1)  # If the loops is -1 then the music will repeat indefinitely.
-
+                pygame.mixer.music.set_volume(0.4)
                 global my_canvas
                 my_canvas = tk.Canvas(root1, width=1500, height=1300, bg='#8B0000')
                 imgpath = 'bg.gif'

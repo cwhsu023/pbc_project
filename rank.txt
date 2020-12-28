@@ -1,5 +1,5 @@
 lucy,101
-franco,24
+franco,25
 grace,200
 frank,199
 jimmy,122
@@ -9,3 +9,5 @@ may,20
 marshmellow,29
 willam,1
 ssuyu,2
+amy,2
+1,1
