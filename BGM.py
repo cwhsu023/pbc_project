@@ -53,6 +53,7 @@ for i in range(2):
 
 
 def pop_up(aline):  # 彈出視窗 問你yes/no
+    show(temp_flag)
     MsgBox = tk.messagebox.askquestion('注意', "Are you sure?", icon='error')
     if MsgBox == 'no':
         for i in range(4):
@@ -95,7 +96,6 @@ def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
 
 
 def check_start_t_end(num, temp_flag, aline, start_t_end):
-    show(temp_flag[-1])
     if len(temp_flag) == 2:
         num = temp_flag[0]
         if temp_flag[1] in start_t_end[num]:
@@ -194,28 +194,24 @@ def self_line(aline):
         circle_list.pop(0)
 
 # 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
-# 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
 def show(num):
     global circle1, circle2, first_num
-    x = place_dict[num][0]
-    y = place_dict[num][1]
-    if len(temp_flag) == 1:
-        first_num = num
-    if len(temp_flag) == 2:
-        circle2 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-        circle_list.append(circle2)
-        x = place_dict[first_num][0]
-        y = place_dict[first_num][1]
-        circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-        circle_list.append(circle1)
-        num_list = [first_num, num]
-        num_list.sort()
-        for i in triple:
-            if num_list[0] == i[0] and num_list[1] == i[2]:
-                x = place_dict[i[1]][0]
-                y = place_dict[i[1]][1]
-                circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-                circle_list.append(circle3)
+    x = place_dict[num[0]][0]
+    y = place_dict[num[0]][1]
+    x2 = place_dict[num[1]][0]
+    y2 = place_dict[num[1]][1]
+    circle2 = my_canvas.create_oval(x2-35, y2-35, x2+35, y2+35, outline='red', width=5)
+    circle_list.append(circle2)
+    circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+    circle_list.append(circle1)
+    num_list = [num[0], num[1]]
+    num_list.sort()
+    for i in triple:
+        if num_list[0] == i[0] and num_list[1] == i[2]:
+            x = place_dict[i[1]][0]
+            y = place_dict[i[1]][1]
+            circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+            circle_list.append(circle3)
 
 def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
