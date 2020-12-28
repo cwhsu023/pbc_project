@@ -8,7 +8,6 @@ import tkinter as tk
 import random
 import pygame
 from PIL import ImageTk, Image
-import time
 
 linemark = []  # 紀錄畫上去的線
 circle_list = []  # 用在show()
@@ -54,8 +53,6 @@ for i in range(2):
 
 
 def pop_up(aline):  # 彈出視窗 問你yes/no
-    show(temp_flag)
-    time.sleep(2)
     MsgBox = tk.messagebox.askquestion('注意', "Are you sure?", icon='error')
     if MsgBox == 'no':
         for i in range(4):
@@ -198,22 +195,23 @@ def self_line(aline):
 # 想讓圓圈在被選到但是還沒畫線的時候能出現記號，目前做編筐
 def show(num):
     global circle1, circle2, first_num
-    x = place_dict[num[0]][0]
-    y = place_dict[num[0]][1]
-    x2 = place_dict[num[1]][0]
-    y2 = place_dict[num[1]][1]
-    circle2 = my_canvas.create_oval(x2-35, y2-35, x2+35, y2+35, outline='red', width=5)
-    circle_list.append(circle2)
-    circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-    circle_list.append(circle1)
-    num_list = [num[0], num[1]]
-    num_list.sort()
-    for i in triple:
-        if num_list[0] == i[0] and num_list[1] == i[2]:
-            x = place_dict[i[1]][0]
-            y = place_dict[i[1]][1]
-            circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
-            circle_list.append(circle3)
+    x = place_dict[num][0]
+    y = place_dict[num][1]
+    if len(temp_flag) == 0:
+        first_num = num
+        circle1 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+        circle_list.append(circle1)
+    if len(temp_flag) == 1:
+        circle2 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+        circle_list.append(circle2)
+        num_list = [first_num, num]
+        num_list.sort()
+        for i in triple:
+            if num_list[0] == i[0] and num_list[1] == i[2]:
+                x = place_dict[i[1]][0]
+                y = place_dict[i[1]][1]
+                circle3 = my_canvas.create_oval(x-35, y-35, x+35, y+35, outline='red', width=5)
+                circle_list.append(circle3)
 
 def win(flaglist, playerlist):  # 判斷勝利條件
     # playerlist[0] 是這一輪畫線的玩家
@@ -376,7 +374,7 @@ def computer(flaglist, start_t_end):
     last_round = len(flaglist)
 
 def place(event):
-    #show(1)
+    show(1)
     aline.append(315)  # 圓心座標
     aline.append(37)
     temp_flag.append(1)
@@ -384,7 +382,7 @@ def place(event):
 
 
 def place2(event):
-    #show(2)
+    show(2)
     aline.append(245)
     aline.append(175)
     temp_flag.append(2)
@@ -392,7 +390,7 @@ def place2(event):
 
 
 def place3(event):
-    #show(3)
+    show(3)
     aline.append(385)
     aline.append(175)
     temp_flag.append(3)
@@ -400,7 +398,7 @@ def place3(event):
 
 
 def place4(event):
-    #show(4)
+    show(4)
     aline.append(175)
     aline.append(315)
     temp_flag.append(4)
@@ -408,7 +406,7 @@ def place4(event):
 
 
 def place5(event):
-    #show(5)
+    show(5)
     aline.append(315)
     aline.append(315)
     temp_flag.append(5)
@@ -416,7 +414,7 @@ def place5(event):
 
 
 def place6(event):
-    #show(6)
+    show(6)
     aline.append(455)
     aline.append(315)
     temp_flag.append(6)
@@ -424,7 +422,7 @@ def place6(event):
 
 
 def place7(event):
-    #show(7)
+    show(7)
     aline.append(105)
     aline.append(455)
     temp_flag.append(7)
@@ -432,7 +430,7 @@ def place7(event):
 
 
 def place8(event):
-    #show(8)
+    show(8)
     aline.append(245)
     aline.append(455)
     temp_flag.append(8)
@@ -440,7 +438,7 @@ def place8(event):
 
 
 def place9(event):
-    #show(9)
+    show(9)
     aline.append(385)
     aline.append(455)
     temp_flag.append(9)
@@ -448,7 +446,7 @@ def place9(event):
 
 
 def place10(event):
-    #show(10)
+    show(10)
     aline.append(525)
     aline.append(455)
     temp_flag.append(10)
@@ -456,7 +454,7 @@ def place10(event):
 
 
 def place11(event):
-    #show(11)
+    show(11)
     aline.append(37)
     aline.append(593)
     temp_flag.append(11)
@@ -464,7 +462,7 @@ def place11(event):
 
 
 def place12(event):
-    #show(12)
+    show(12)
     aline.append(175)
     aline.append(593)
     temp_flag.append(12)
@@ -472,7 +470,7 @@ def place12(event):
 
 
 def place13(event):
-    #show(13)
+    show(13)
     aline.append(315)
     aline.append(593)
     temp_flag.append(13)
@@ -480,7 +478,7 @@ def place13(event):
 
 
 def place14(event):
-    #show(14)
+    show(14)
     aline.append(455)
     aline.append(593)
     temp_flag.append(14)
@@ -488,7 +486,7 @@ def place14(event):
 
 
 def place15(event):
-    #show(15)
+    show(15)
     aline.append(593)
     aline.append(593)
     temp_flag.append(15)
