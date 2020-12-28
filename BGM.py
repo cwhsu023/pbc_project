@@ -69,11 +69,13 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
             playerlist.reverse()
 
 def switch_order() :
-    global arrow
     if playerlist[1] == player1 :
-        point1_label = tk.Label(root1,image=arrow).place(x=1000,y=90)
+        point2_label.place(x=735,y=95)
+        point1_label.place_forget()
     elif playerlist[1] == player2 :
-        point2_label = tk.Label(root1,image=arrow).place(x=1000,y=210)
+        point1_label.place(x=735,y=215)
+        point2_label.place_forget()
+
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
     for i in triple:
@@ -810,7 +812,13 @@ class Login(object):
             player1_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),   bg = 'white',text="{}".format("NAME:  "+player1), foreground = 'black' ).place(x=800, y=110)
             player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',   text="You have won 0 times.", foreground = 'black').place(x=800, y=170)
             player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
+            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)                       
+            global point1_label
+            global point2_label
+            point1_label = tk.Label(root1,image=arrow)
+            #point1_label.place(x=735,y=95)
+            point2_label = tk.Label(root1,image=arrow)         
+            #point2_label.place(x=735,y=215)
             my_canvas.pack(fill = tk.BOTH)
             game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb)
             root1.mainloop()
