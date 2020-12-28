@@ -713,19 +713,19 @@ class Login(object):
         self.canvas.pack(side='top')  # 放置畫布（為上端）
 
         # 建立一個`label`名為`Account: `
-        self.label_account = tkinter.Label(self.root, text='Player1: ',font=("Arial Rounded MT Bold", "bold"),fg= 'white', bg ='#003E3E')
+        self.label_account = tkinter.Label(self.root, text='Player1: ')
         if playwcpu is False:
-            self.label_account2 = tkinter.Label(self.root, text='Player2: ',font=("Arial Rounded MT Bold", "bold"),fg= 'white' ,bg ='#003E3E')
+            self.label_account2 = tkinter.Label(self.root, text='Player2: ')
         # 建立一個賬號輸入框,並設定尺寸
         self.input_account = tkinter.Entry(self.root, width=30)
         if playwcpu is False:
             self.input_account2 = tkinter.Entry(self.root, width=30)
         # 建立一個登入系統的按鈕
-        self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login",font=("Arial Rounded MT Bold", "bold"), width=10, fg ='#CE0000')
+        self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login", width=10)
         # 建立一個註冊系統的按鈕
-        self.siginUp_button = tkinter.Button(self.root, command=self.siginUp_interface, text="Sign up",font=("Arial Rounded MT Bold", "bold"), width=10, fg ='#CE0000')
+        self.siginUp_button = tkinter.Button(self.root, command=self.siginUp_interface, text="Sign up", width=10)
         # 建立一個ranking按鈕
-        self.ranking_button = tkinter.Button(self.root, command=self.ranking, text='Ranking',font=("Arial Rounded MT Bold","bold"), width=10, fg ='#CE0000')
+        self.ranking_button = tkinter.Button(self.root, command=self.ranking,width=10)
         # 完成佈局
         self.label_account.pack()
         self.input_account.pack()
@@ -823,12 +823,12 @@ class Login(object):
         top2.geometry("450x300")
         username = self.entry.get()
         # Create label
-        label = tkinter.Label(top2, text='Is' + '"' + username + '"' + 'your username',font=("Arial Rounded MT Bold"),fg='#006030')
+        label = tkinter.Label(top2, text='Is' + '"' + username + '"' + 'your username')
         # Create exit button.
         # 回到signin頁面
-        nobutton = tkinter.Button(top2, text=" Resign ",font=("Arial Rounded MT Bold"),fg='#006030', command=top2.destroy)
+        nobutton = tkinter.Button(top2, text=" Resign ", command=top2.destroy)
         # 回login頁面
-        yesbutton = tkinter.Button(top2, text="yes this is my name",font=("Arial Rounded MT Bold"),fg='#006030',
+        yesbutton = tkinter.Button(top2, text="yes this is my name",
                                    command=lambda: [top2.destroy(), self.verify_interface(username)])
         '''
             80行，siginUp_interface 仍然會打開
@@ -864,11 +864,11 @@ class Login(object):
         # Create label
 
         label = tkinter.Label(signinWindow,
-                              text="Player username : ",font=("Arial Rounded MT Bold"),fg='#006030' )
+                              text="Player username : ")
         self.entry = tkinter.Entry(signinWindow,
                                    width=30)
         # Create Exit button
-        button1 = tkinter.Button(signinWindow, text="Exit",font=("Arial Rounded MT Bold"),fg='#AE0000',
+        button1 = tkinter.Button(signinWindow, text="Exit",
                                  command=signinWindow.destroy)
         # create button to open toplevel2
         confirmbutton = tkinter.Button(signinWindow, text="Confirm",font=("Arial Rounded MT Bold"),fg='#AE0000', command=lambda: [self.confirm()])
