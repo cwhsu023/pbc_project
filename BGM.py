@@ -8,6 +8,7 @@ import tkinter as tk
 import random
 import pygame
 from PIL import ImageTk, Image
+import time
 
 linemark = []  # 紀錄畫上去的線
 circle_list = []  # 用在show()
@@ -54,6 +55,7 @@ for i in range(2):
 
 def pop_up(aline):  # 彈出視窗 問你yes/no
     show(temp_flag)
+    time.sleep(2)
     MsgBox = tk.messagebox.askquestion('注意', "Are you sure?", icon='error')
     if MsgBox == 'no':
         for i in range(4):
