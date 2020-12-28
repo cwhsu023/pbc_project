@@ -944,6 +944,10 @@ class start_page(tk.Canvas):
         tk.Canvas.__init__(self)
         self.image(start_canvas, individ, couple)
         self.tag(start_canvas)
+        self.text(start_canvas)
+    def text(self, start_canvas):
+        self.one = start_canvas.create_text(110, 200,fill='white', text="Play with computer")
+        self.two = start_canvas.create_text(300, 200,fill='white', text="Play with friend")
     def image(self, start_canvas, individ, couple):
         self.pvp = start_canvas.create_image(110, 150, image = individ)
         self.cpu = start_canvas.create_image(300, 150, image = couple)
