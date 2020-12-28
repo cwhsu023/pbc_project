@@ -547,7 +547,7 @@ def place15(event):
 #    print(aline)
 #    print(flaglist)
 def rule(event):
-    text = 'text'
+    text = '遊戲規則：\n一次畫線只能畫1-3顆\n線不能轉彎且不能跨行也不能跨顆\n勝負判定：畫到最後一顆的人輸'
     messagebox.showinfo('遊戲規則',text)
 
 class Game(tk.Canvas):
@@ -723,7 +723,10 @@ class Login(object):
         self.ranking_window = tkinter.Toplevel()
         self.ranking_window.geometry('450x300')
         self.ranking_window.title("遊戲排名")
+        self.ranking_window.configure(bg='#006030')
+
         rank_list = []
+
         with open('rank.txt','r') as ranks:
             rank = ranks.readlines()
             for line in rank:
@@ -737,43 +740,43 @@ class Login(object):
         self.rank1 = tkinter.messagebox.showinfo(title = '天下最強玩小遊戲第一名是誰勒？？？' , message = '恭賀'+ rank_list[0][1] + '蟬聯第一名')
         print(rank_list)
         #1
-        rank1 = tkinter.Label(self.ranking_window, text=rank_list[0][1]+'-------' +str(rank_list[0][0]))
+        rank1 = tkinter.Label(self.ranking_window, text='❄︎  '+rank_list[0][1]+'-------' +str(rank_list[0][0]), fg = '#AE0000', font=("Arial Rounded MT Bold", 16))
         rank1.pack()
         rank1.place(x=150, y=30)
         #2
-        rank2 = tkinter.Label(self.ranking_window ,text=rank_list[1][1]+'-------' +str(rank_list[1][0]))
+        rank2 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[1][1]+'-------' +str(rank_list[1][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank2.pack()
         rank2.place(x=150, y=60)
         #3
-        rank3 = tkinter.Label(self.ranking_window ,text=rank_list[2][1]+'-------' +str(rank_list[2][0]))
+        rank3 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[2][1]+'-------' +str(rank_list[2][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank3.pack()
         rank3.place(x=150, y=90)
         #4
-        rank4 = tkinter.Label(self.ranking_window ,text=rank_list[3][1]+'-------' +str(rank_list[3][0]))
+        rank4 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[3][1]+'-------' +str(rank_list[3][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank4.pack()
         rank4.place(x=150, y=120)
         #5
-        rank5 = tkinter.Label(self.ranking_window,text=rank_list[4][1]+'-------' +str(rank_list[4][0]))
+        rank5 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[4][1]+'-------' +str(rank_list[4][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank5.pack()
         rank5.place(x=150, y=150)
         #6
-        rank6 = tkinter.Label(self.ranking_window,text=rank_list[5][1]+'-------' +str(rank_list[5][0]))
+        rank6 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[5][1]+'-------' +str(rank_list[5][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank6.pack()
         rank6.place(x = 150,y = 180)
         #7
-        rank7 = tkinter.Label(self.ranking_window ,text=rank_list[6][1]+'-------' +str(rank_list[6][0]))
+        rank7 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[6][1]+'-------' +str(rank_list[6][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank7.pack()
         rank7.place(x = 150,y = 210)
         #8
-        rank8 = tkinter.Label(self.ranking_window,text=rank_list[7][1]+'-------' +str(rank_list[7][0]))
+        rank8 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[7][1]+'-------' +str(rank_list[7][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank8.pack()
         rank8.place(x = 150,y = 240)
         #9
-        rank9 = tkinter.Label(self.ranking_window ,text=rank_list[8][1] +'-------' +str(rank_list[8][0]))
+        rank9 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[8][1] +'-------' +str(rank_list[8][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank9.pack()
         rank9.place(x = 150,y = 270)
         #10
-        rank10 = tkinter.Label(self.ranking_window ,text=rank_list[9][1]+'-------' +str(rank_list[9][0]))
+        rank10 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[9][1]+'-------' +str(rank_list[9][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank10.pack()
         rank10.place(x = 150, y=300)
 
