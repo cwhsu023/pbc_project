@@ -75,8 +75,8 @@ def pop_up(aline):  # 彈出視窗 問你yes/no
         if playerlist[0] == 'computer':
             computer(flaglist, start_t_end)
             win(flaglist, playerlist)
+            switch_order()
             playerlist.reverse()
-
 
 
 def cross(triple, start_t_end, remove):  # 解決可能交叉的情況
@@ -116,12 +116,11 @@ def check_start_t_end(num, temp_flag, aline, start_t_end):
             messagebox.showinfo('注意', '不能畫啦')
 
 def switch_order() :
+    global point1_label
     if playerlist[1] == player1 :
-        point2_label.place(x=735,y=95)
-        point1_label.place_forget() ＃這個函數不知道為啥沒作用
+        point1_label.place(x=735,y=95)
     elif playerlist[1] == player2 :
         point1_label.place(x=735,y=215)
-        point2_label.place_forget()
 
 def line(aline):  # 畫線
     if (aline[0] - aline[2])*(aline[1] - aline[3]) >  0:
@@ -305,11 +304,17 @@ def reset(linemark):  # 回復原本的設定
     random.shuffle(playerlist)
     messagebox.showinfo('注意',playerlist[1]+' goes first')
     # 因為後面會reverse()所以我這邊寫playerlist[1]
+    global point1_label
+    if playerlist[1] == player1 :
+        point1_label.place(x=735,y=95)
+    elif playerlist[1] == player2 :
+        point1_label.place(x=735,y=215)
     if playerlist[1] == 'computer':
         global second
         second = False
         computer(flaglist, start_t_end)
         playerlist.reverse()
+        switch_order()
     else:
         second = True
 
@@ -542,11 +547,17 @@ def place15(event):
 #    print(aline)
 #    print(flaglist)
 def rule(event):
-    text = 'text'
+    text = '遊戲規則：\n一次畫線只能畫1-3顆\n線不能轉彎且不能跨行也不能跨顆\n勝負判定：畫到最後一顆的人輸'
     messagebox.showinfo('遊戲規則',text)
 
+def leave_game(event):
+    MsgBox = tk.messagebox.askquestion('注意', "結束遊戲", icon='error')
+    if MsgBox == 'yes':
+        root1.destroy()
+        main()
+
 class Game(tk.Canvas):
-    def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb):
+    def __init__(self, my_canvas, photo, ring2_image, snowman, tree, scoreb, rule, leave):
         tk.Canvas.__init__(self)
 
         #        self.root = tkinter.Tk()
@@ -555,7 +566,7 @@ class Game(tk.Canvas):
         #        self.root.geometry('700x700')
         #        self.canvas = tkinter.Canvas(self.root, width=630, height=630, bg='white')  # 建立畫布
         #        self.canvas.pack()
-        self.background(my_canvas, photo, ring2_image, snowman, tree, scoreb)
+        self.background(my_canvas, photo, ring2_image, snowman, tree, scoreb, rule, leave)
         self.circle(my_canvas)
         self.tag(my_canvas)
         self.player(playerlist)
@@ -564,31 +575,32 @@ class Game(tk.Canvas):
     #    my_canvas = tk.Canvas(root, width=630, height=630, bg='white')
     #    my_canvas.master.title('try this canvas')
     #    my_canvas.pack()  # 忘記這行在幹嘛 好像是確保可以使用功能 很重要 記得打
-    def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb):
+    def background(self, my_canvas, photo, ring2_image, snowman,tree,scoreb, rule, leave):
         self.bg = my_canvas.create_image(0,0 , image=photo)
-        self.dec2 = my_canvas.create_image(900,650, image = snowman)
+        self.dec2 = my_canvas.create_image(800,650, image = snowman)
         self.dec = my_canvas.create_image(550,50, image = ring2_image)
         self.dec3 = my_canvas.create_image(318,325, image = tree)
         self.dec4 = my_canvas.create_image(910, 160, image = scoreb)
+        self.dec5 = my_canvas.create_image(1050, 430, image = rule)
+        self.leave = my_canvas.create_image(1130,650, image = leave)
     def circle(self, my_canvas):
         # make a rectangle and fit in the oval
         # 設定每一個圓'70x70'之後再改
-        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='yellow', outline='yellow')
+        self.circle1 = my_canvas.create_oval(280, 2, 350, 72, fill='#FFD700', outline='#FFD700')
         self.circle2 = my_canvas.create_oval(210, 140, 280, 210, fill='pink',outline='pink')
-        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='#CD5C5C',outline='#CD5C5C')
+        self.circle3 = my_canvas.create_oval(350, 140, 420, 210, fill='#9F79EE',outline='#9F79EE')
         self.circle4 = my_canvas.create_oval(140, 280, 210, 350, fill='#CAFF70',outline='#CAFF70')
-        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='#FFEC8B',outline='#FFEC8B')
-        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#F4A460',outline='#F4A460')
-        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#FFC1C1',outline='#FFC1C1')
-        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='#E6E6FA',outline='#E6E6FA')
+        self.circle5 = my_canvas.create_oval(280, 280, 350, 350, fill='#3CB371',outline='#3CB371')
+        self.circle6 = my_canvas.create_oval(420, 280, 490, 350, fill='#1E90FF',outline='#1E90FF')
+        self.circle7 = my_canvas.create_oval(70, 420, 140, 490, fill='#FF7256',outline='#FF7256')
+        self.circle8 = my_canvas.create_oval(210, 420, 280, 490, fill='#F4A460',outline='#F4A460')
         self.circle9 = my_canvas.create_oval(350, 420, 420, 490, fill='#008000',outline='#008000')
         self.circle10 = my_canvas.create_oval(490, 420, 560, 490, fill='#008B8B',outline='#008B8B')
-        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='#7FFFD4',outline='#7FFFD4')
-        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='#C1FFC1',outline='#C1FFC1')
+        self.circle11 = my_canvas.create_oval(2, 558, 72, 628, fill='#9F79EE',outline='#9F79EE')
+        self.circle12 = my_canvas.create_oval(140, 558, 210, 628, fill='#FFC1C1',outline='#FFC1C1')
         self.circle13 = my_canvas.create_oval(280, 558, 350, 628, fill='#1E90FF',outline='#1E90FF')
         self.circle14 = my_canvas.create_oval(420, 558, 490, 628, fill='#8FBC8F',outline='#8FBC8F')
-        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')
-        self.rule = my_canvas.create_rectangle(1050, 500, 1080, 520, fill='blue')                              
+        self.circle15 = my_canvas.create_oval(558, 558, 628, 628, fill='#DDA0DD',outline='#DDA0DD')                             
     # def rectangle(self, my_canvas):
     #     self.rectangle = my_canvas.create_rectangle(750, 90 ,850, 240, fill = 'pink')
     def tag(self, my_canvas):
@@ -608,15 +620,22 @@ class Game(tk.Canvas):
         my_canvas.tag_bind(self.circle13, '<Button-1>', place13)
         my_canvas.tag_bind(self.circle14, '<Button-1>', place14)
         my_canvas.tag_bind(self.circle15, '<Button-1>', place15)
-        my_canvas.tag_bind(self.rule, '<Button-1>', rule)
+        my_canvas.tag_bind(self.dec5, '<Button-1>', rule)
+        my_canvas.tag_bind(self.leave, '<Button-1>', leave_game)
 
     def player(self, playerlist):
         random.shuffle(playerlist)
         messagebox.showinfo('注意', playerlist[0] + ' goes first')
+        global point1_label
+        if playerlist[0] == player1 :
+            point1_label.place(x=735,y=95)
+        elif playerlist[0] == player2 :
+            point1_label.place(x=735,y=215)
         if playerlist[0] == 'computer':
             global second
             second = False
             computer(flaglist, start_t_end)
+            switch_order()
             playerlist.reverse()
         else:
             second = True
@@ -645,6 +664,11 @@ def verify(account):
             else:
                 continue
 
+def verify_cpu(username):
+    if username == 'computer':
+        return 'yes'
+    return 'no'
+    
 
 def verify_if_repeated(username):
     '''驗證帳號是否重複'''
@@ -682,10 +706,12 @@ class Login(object):
 
         # 建立一個`label`名為`Account: `
         self.label_account = tkinter.Label(self.root, text='Player1: ')
-        self.label_account2 = tkinter.Label(self.root, text='Player2: ')
+        if playwcpu is False:
+            self.label_account2 = tkinter.Label(self.root, text='Player2: ')
         # 建立一個賬號輸入框,並設定尺寸
         self.input_account = tkinter.Entry(self.root, width=30)
-        self.input_account2 = tkinter.Entry(self.root, width=30)
+        if playwcpu is False:
+            self.input_account2 = tkinter.Entry(self.root, width=30)
         # 建立一個登入系統的按鈕
         self.login_button = tkinter.Button(self.root, command=self.backstage_interface, text="Login", width=10)
         # 建立一個註冊系統的按鈕
@@ -693,8 +719,6 @@ class Login(object):
         # 建立一個ranking按鈕
         self.ranking_button = tkinter.Button(self.root, command=self.ranking, text = 'Ranking',width=10 )
         # 完成佈局
-
-    def gui_arrang(self):
         self.label_account.pack()
         self.input_account.pack()
         self.login_button.pack()
@@ -702,17 +726,21 @@ class Login(object):
         self.ranking_button.pack()
         self.label_account.place(x=60, y=170)
         self.input_account.place(x=135, y=170)
-        self.label_account2.place(x=60, y=200)
-        self.input_account2.place(x=135, y=200)
+        if playwcpu is False:
+            self.label_account2.place(x=60, y=200)
+            self.input_account2.place(x=135, y=200)
         self.login_button.place(x=120, y=240)
         self.siginUp_button.place(x=220, y=240)
         self.ranking_button.place(x=320,y=240)
 
     def ranking(self):
         self.ranking_window = tkinter.Toplevel()
-        self.ranking_window.geometry('450x300')
+        self.ranking_window.geometry('450x350')
         self.ranking_window.title("遊戲排名")
+        self.ranking_window.configure(bg='#006030')
+
         rank_list = []
+
         with open('rank.txt','r') as ranks:
             rank = ranks.readlines()
             for line in rank:
@@ -726,45 +754,45 @@ class Login(object):
         self.rank1 = tkinter.messagebox.showinfo(title = '天下最強玩小遊戲第一名是誰勒？？？' , message = '恭賀'+ rank_list[0][1] + '蟬聯第一名')
         print(rank_list)
         #1
-        rank1 = tkinter.Label(self.ranking_window, text=rank_list[0][1]+'-------' +str(rank_list[0][0]))
+        rank1 = tkinter.Label(self.ranking_window, text='❄︎  '+rank_list[0][1]+'-------' +str(rank_list[0][0]), fg = '#AE0000', font=("Arial Rounded MT Bold", 16))
         rank1.pack()
-        rank1.place(x=150, y=30)
+        rank1.place(x=20, y=30, width=400)
         #2
-        rank2 = tkinter.Label(self.ranking_window ,text=rank_list[1][1]+'-------' +str(rank_list[1][0]))
+        rank2 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[1][1]+'-------' +str(rank_list[1][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank2.pack()
-        rank2.place(x=150, y=60)
+        rank2.place(x=20, y=60, width=400)
         #3
-        rank3 = tkinter.Label(self.ranking_window ,text=rank_list[2][1]+'-------' +str(rank_list[2][0]))
+        rank3 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[2][1]+'-------' +str(rank_list[2][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank3.pack()
-        rank3.place(x=150, y=90)
+        rank3.place(x=20, y=90, width=400)
         #4
-        rank4 = tkinter.Label(self.ranking_window ,text=rank_list[3][1]+'-------' +str(rank_list[3][0]))
+        rank4 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[3][1]+'-------' +str(rank_list[3][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank4.pack()
-        rank4.place(x=150, y=120)
+        rank4.place(x=20, y=120, width=400)
         #5
-        rank5 = tkinter.Label(self.ranking_window,text=rank_list[4][1]+'-------' +str(rank_list[4][0]))
+        rank5 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[4][1]+'-------' +str(rank_list[4][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank5.pack()
-        rank5.place(x=150, y=150)
+        rank5.place(x=20, y=150, width=400)
         #6
-        rank6 = tkinter.Label(self.ranking_window,text=rank_list[5][1]+'-------' +str(rank_list[5][0]))
+        rank6 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[5][1]+'-------' +str(rank_list[5][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank6.pack()
-        rank6.place(x = 150,y = 180)
+        rank6.place(x =20,y = 180, width=400)
         #7
-        rank7 = tkinter.Label(self.ranking_window ,text=rank_list[6][1]+'-------' +str(rank_list[6][0]))
+        rank7 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[6][1]+'-------' +str(rank_list[6][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank7.pack()
-        rank7.place(x = 150,y = 210)
+        rank7.place(x = 20,y = 210, width=400)
         #8
-        rank8 = tkinter.Label(self.ranking_window,text=rank_list[7][1]+'-------' +str(rank_list[7][0]))
+        rank8 = tkinter.Label(self.ranking_window,text='❄︎  '+rank_list[7][1]+'-------' +str(rank_list[7][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank8.pack()
-        rank8.place(x = 150,y = 240)
+        rank8.place(x = 20,y = 240, width=400)
         #9
-        rank9 = tkinter.Label(self.ranking_window ,text=rank_list[8][1] +'-------' +str(rank_list[8][0]))
+        rank9 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[8][1] +'-------' +str(rank_list[8][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank9.pack()
-        rank9.place(x = 150,y = 270)
+        rank9.place(x = 20,y = 270, width=400)
         #10
-        rank10 = tkinter.Label(self.ranking_window ,text=rank_list[9][1]+'-------' +str(rank_list[9][0]))
+        rank10 = tkinter.Label(self.ranking_window ,text='❄︎  '+rank_list[9][1]+'-------' +str(rank_list[9][0]),fg = '#AE0000',font=("Arial Rounded MT Bold", 16))
         rank10.pack()
-        rank10.place(x = 150, y=300)
+        rank10.place(x = 20, y=300, width=400)
 
 
 
@@ -839,78 +867,119 @@ class Login(object):
 
     def backstage_interface(self):
         account = self.input_account.get()
-        account2 = self.input_account2.get()
+        if playwcpu:
+            account2 = 'computer'
+        else:
+            account2 = self.input_account2.get()
         print(account)
         print(account2)
+        verifyCpu = verify_cpu(account)
+        if playwcpu is False:
+            verifyCpu2 = verify_cpu(account2)
+        else:
+            verifyCpu2 = 'no'
         # 對賬戶資訊進行驗證，普通使用者返回user，賬戶錯誤返回noAccount
         verifyResult = verify(account)
         verifyResult2 = verify(account2)
-        if verifyResult == 'yes' and verifyResult2 == 'yes':
-            tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
-            self.root.destroy()
-            '''開啟小遊戲連結'''
-            global player1
-            player1 = account
-            global player2
-            player2 = account2
-            global playerlist
-            playerlist = [player1, player2]
-            global root1
-            root1 = Tk()  # 視窗
-            root1.geometry('1200x700')
-            root1.title("畫圈圈")
-            root1.resizable()
-            pygame.init()
-            pygame.mixer.init()
-            pygame.mixer.music.load('Holly Dazed - RKVC.mp3')
-            pygame.mixer.music.play(-1) # If the loops is -1 then the music will repeat indefinitely.
-            
-            global my_canvas
-            my_canvas = tk.Canvas(root1, width=1500, height=1300, bg='#8B0000')
-            imgpath = 'bg.gif'
-            img = Image.open(imgpath)
-            photo = ImageTk.PhotoImage(img)
-            ring2_image = tk.PhotoImage(file='ring2.gif')
-            snowman = tk.PhotoImage(file = 'snowman.gif')
-            tree = tk.PhotoImage(file = 'tree.gif')
-            scoreb = tk.PhotoImage(file = 'scoreb.gif')
-            arrow = tk.PhotoImage(file = 'arrow.gif')
-            global win_times
-            win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
-            title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
-            player1_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),   bg = 'white',text="{}".format("NAME:  "+player1), foreground = 'black' ).place(x=800, y=110)
-            player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',   text="You have won 0 times.", foreground = 'black').place(x=800, y=170)
-            player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
-            player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
-            my_canvas.pack(fill = tk.BOTH)
-            global point1_label
-            global point2_label
-            point1_label = tk.Label(root1,image=arrow)
-            point2_label = tk.Label(root1,image=arrow)
-            game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb)
-            root1.mainloop()
+        if verifyCpu == 'no' and verifyCpu2 == 'no':
+            if verifyResult == 'yes' and verifyResult2 == 'yes':
+                tkinter.messagebox.showinfo(title='小遊戲開始！', message='登入成功')
+                self.root.destroy()
+                '''開啟小遊戲連結'''
+                global player1
+                player1 = account
+                global player2
+                player2 = account2
+                global playerlist
+                playerlist = [player1, player2]
+                global root1
+                root1 = Tk()  # 視窗
+                root1.geometry('1200x700')
+                root1.title("畫圈圈")
+                root1.resizable()
+                pygame.init()
+                pygame.mixer.init()
+                pygame.mixer.music.load('Holly Dazed - RKVC.mp3')
+                pygame.mixer.music.play(-1) # If the loops is -1 then the music will repeat indefinitely.
+                
+                global my_canvas
+                my_canvas = tk.Canvas(root1, width=1500, height=1300, bg='#8B0000')
+                imgpath = 'bg.gif'
+                img = Image.open(imgpath)
+                photo = ImageTk.PhotoImage(img)
+                ring2_image = tk.PhotoImage(file='ring2.gif')
+                snowman = tk.PhotoImage(file = 'snowman.gif')
+                tree = tk.PhotoImage(file = 'tree.gif')
+                scoreb = tk.PhotoImage(file = 'scoreb.gif')
+                arrow = tk.PhotoImage(file = 'arrow.gif')
+                rule = tk.PhotoImage(file = 'rule.gif')
+                leave = tk.PhotoImage(file = 'exit.gif')
+                global win_times
+                win_times = {player1: player_win_times_list[0][0], player2: player_win_times_list[1][0]}
+                title_score = tk.Label(root1, font=("Arial Rounded MT Bold", 35, "bold"),  bg = 'white',text='SCORE:', foreground = 'black' ).place(x=800, y=50)
+                player1_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),   bg = 'white',text="{}".format("NAME:  "+player1), foreground = 'black' ).place(x=800, y=110)
+                player1_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white',   text="You have won 0 times.", foreground = 'black').place(x=800, y=170)
+                player2_name = tk.Label(root1, font=("Arial Rounded MT Bold", 18),  bg = 'white', text="{}".format("NAME:  "+player2), foreground = 'black').place(x=800, y=230)
+                player2_score = tk.Label(root1, font=("Arial Rounded MT Bold", 18), bg = 'white', text="You have won 0 times.", foreground = 'black').place(x=800, y=290)
+                my_canvas.pack(fill = tk.BOTH)
+                global point1_label
+                point1_label = tk.Label(root1,image=arrow, bg='white')
+                game = Game(my_canvas, photo, ring2_image, snowman, tree, scoreb, rule, leave)
+                root1.mainloop()
+    
+            elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
+                tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message=" '" + account + "' " + '玩家1不存在請重新輸入!')
+    
+            elif verifyResult == 'yes' and verifyResult2 == 'noAccount':
+                tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message=" '" + account2 + "' " + '玩家2不存在請重新輸入!')
+    
+            elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
+                tkinter.messagebox.showinfo(title='小遊戲需要你的註冊',
+                                            message="'" + account + "' " + " '" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
+        else:
+            tkinter.messagebox.showinfo(title='Error', message='username "computer" unavilable')
 
-        elif verifyResult == 'noAccount' and verifyResult2 == 'yes':
-            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message=" '" + account + "' " + '玩家1不存在請重新輸入!')
-
-        elif verifyResult == 'yes' and verifyResult2 == 'noAccount':
-            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊', message=" '" + account2 + "' " + '玩家2不存在請重新輸入!')
-
-        elif verifyResult == 'noAccount' and verifyResult2 == 'noAccount':
-            tkinter.messagebox.showinfo(title='小遊戲需要你的註冊',
-                                        message="'" + account + "' " + " '" + account2 + "'" + '玩家1&2都不存在請重新輸入!')
-
+class start_page(tk.Canvas):
+    def __init__(self, start_canvas, individ, couple):
+        tk.Canvas.__init__(self)
+        self.image(start_canvas, individ, couple)
+        self.tag(start_canvas)
+        self.text(start_canvas)
+    def text(self, start_canvas):
+        self.one = start_canvas.create_text(110, 200,fill='white', text="Play with computer")
+        self.two = start_canvas.create_text(300, 200,fill='white', text="Play with friend")
+    def image(self, start_canvas, individ, couple):
+        self.pvp = start_canvas.create_image(110, 150, image = individ)
+        self.cpu = start_canvas.create_image(300, 150, image = couple)
+    def tag(self, start_canvas):
+        start_canvas.tag_bind(self.pvp, '<Button-1>', start_page.oneplayer)
+        start_canvas.tag_bind(self.cpu, '<Button-1>', start_page.twoplayer)
+    def twoplayer(event):
+        root2.destroy()
+        global playwcpu
+        playwcpu = False
+        L = Login()
+        tkinter.mainloop
+    def oneplayer(event):
+        root2.destroy()
+        global playwcpu
+        playwcpu = True
+        L = Login()
+        tkinter.mainloop
 
 def main():
-    # 初始化物件
-    L = Login()
-    # 進行佈局
-    L.gui_arrang()
-    # 主程式執行
-    tkinter.mainloop()
+    global root2
+    root2 = Tk()
+    root2.geometry('450x300')
+    root2.title('畫圈圈')
+    global start_canvas
+    start_canvas = tk.Canvas(root2, width=450, height=300, bg = '#003E3E')
+    start_canvas.pack()
+    individ = tk.PhotoImage(file = 'individ.gif')
+    couple = tk.PhotoImage(file = 'couple.gif')
+    s = start_page(start_canvas, individ, couple)
+    root2.mainloop()
 
 
 if __name__ == '__main__':
     main()
-
-# 備份
