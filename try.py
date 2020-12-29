@@ -571,6 +571,8 @@ def leave_game(event):
             for j in original_start_t_end[i]:
                 if j not in start_t_end[i]:
                     start_t_end[i].append(j)
+        global last_round
+        last_round = 15
         root1.destroy()
         main()
 
